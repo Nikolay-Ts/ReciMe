@@ -1,12 +1,28 @@
+import java.util.Properties
+import java.io.FileInputStream // Import FileInputStream for loading the properties file
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
 
+
+
 android {
     namespace = "com.sonnenstahl.recime"
     compileSdk = 35
+
+    val apikeyPropertiesFile = rootProject.file("local.properties")
+    val apikeyProperties = Properties()
+
+    if (apikeyPropertiesFile.exists()) {
+        apikeyProperties.load(FileInputStream(apikeyPropertiesFile))
+    } else {
+        println("WARNING: local.properties file not found. API_KEY might be missing or default.")
+    }
+
+    val apiKey = apikeyProperties.getProperty("SPOON_API", "SPOON_API")
 
     defaultConfig {
         applicationId = "com.sonnenstahl.recime"
@@ -16,6 +32,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "SPOON", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -37,9 +55,19 @@ android {
     buildFeatures {
         compose = true
     }
+
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
 }
 
+val ktorVersion: String by project
+
 dependencies {
+
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
