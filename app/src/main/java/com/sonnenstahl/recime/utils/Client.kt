@@ -1,5 +1,7 @@
 package com.sonnenstahl.recime.utils
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import com.sonnenstahl.recime.BuildConfig
 import com.sonnenstahl.recime.utils.data.MealResponse
@@ -16,11 +18,13 @@ import io.ktor.http.takeFrom
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.statement.bodyAsText
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.Json
+import io.ktor.client.engine.okhttp.*
 
 object Client {
     val spoon = BuildConfig.SPOON
-    val client = HttpClient(CIO) {
+    private val client = HttpClient(CIO) {
         install(ContentNegotiation) {
             json(Json {
                 ignoreUnknownKeys = true
@@ -28,6 +32,25 @@ object Client {
                 isLenient = true
             })
         }
+    }
+
+    private val imageClient = HttpClient(OkHttp)
+
+    suspend fun getImage(url: String): Bitmap? {
+
+       return try {
+           val response = imageClient.get(url)
+
+           if (response.status.value == 200) {
+               val imageBytes = response.body<ByteArray>()
+               BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+           } else {
+               null
+           }
+       } catch (e: Exception) {
+           Log.d("GET Image Error", e.toString())
+           null
+       }
     }
 
     suspend fun getRandomRecipe(): RandomMeal? {

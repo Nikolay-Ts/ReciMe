@@ -5,6 +5,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.sonnenstahl.RandomRecipe
 import com.sonnenstahl.recime.utils.AppRoutes
 
 @Composable
@@ -14,7 +15,13 @@ fun Navigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AppRoutes.Home.route) {
         composable(AppRoutes.Home.route) {
-            Home()
+            Home(navController)
+        }
+
+        composable(AppRoutes.RandomRecipe.route) {
+            RandomRecipe()
         }
     }
+
+
 }

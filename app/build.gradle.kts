@@ -65,6 +65,7 @@ android {
 
 val ktorVersion: String by project
 val navVersion: String by project
+val coilVersion: String by project
 
 dependencies {
     implementation("androidx.navigation:navigation-compose:$navVersion")
@@ -72,10 +73,14 @@ dependencies {
 //    implementation("androidx.navigation:navigation-fragment:$navVersion")
 //    implementation("androidx.navigation:navigation-ui:$navVersion")
 
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("io.coil-kt.coil3:coil-compose:$coilVersion")
+//    implementation("io.coil-kt.coil3:coil-network-$coilVersion")
 
 
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
 
