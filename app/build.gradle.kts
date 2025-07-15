@@ -64,8 +64,15 @@ android {
 }
 
 val ktorVersion: String by project
+val navVersion: String by project
 
 dependencies {
+    implementation("androidx.navigation:navigation-compose:$navVersion")
+//    // Views/Fragments integration
+//    implementation("androidx.navigation:navigation-fragment:$navVersion")
+//    implementation("androidx.navigation:navigation-ui:$navVersion")
+
+
 
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
