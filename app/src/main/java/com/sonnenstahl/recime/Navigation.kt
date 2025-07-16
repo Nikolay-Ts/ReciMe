@@ -14,11 +14,15 @@ fun Navigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AppRoutes.Home.route) {
         composable(AppRoutes.Home.route) {
-            Home(navController)
+            Home(navigation=navController)
         }
 
-        composable(AppRoutes.RandomRecipe.route) {
-            RandomRecipe()
+        composable(AppRoutes.Recipe.route) {
+            Recipe()
+        }
+
+        composable(AppRoutes.Recipes.route) {
+            Recipes(navController=navController)
         }
     }
 

@@ -34,26 +34,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    val routine = rememberCoroutineScope()
-    val randomMeal = remember { mutableStateOf<RandomMeal?>(null) }
-    LaunchedEffect(Unit) {
-        randomMeal.value = Client.getRandomRecipe()
-    }
-
-    Text(
-        text = "Hello ${randomMeal.value?.strMeal}!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ReciMeTheme {
-        Greeting("Android")
-    }
-}

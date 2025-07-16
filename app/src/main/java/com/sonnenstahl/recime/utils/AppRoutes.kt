@@ -7,5 +7,7 @@ sealed class AppRoutes(
 
     object RecipeFinder : AppRoutes("recipeFinder")
 
-    object RandomRecipe : AppRoutes("randomRecipe")
+    object Recipes : AppRoutes("recipes")
+
+    object Recipe : AppRoutes("recipe")
 }

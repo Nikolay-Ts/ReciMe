@@ -19,11 +19,9 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun RandomRecipe() {
+fun Recipe() {
     val randomMeal = remember { mutableStateOf<RandomMeal?>(null) }
     val imageBitmap = remember { mutableStateOf<Bitmap?>(null) }
-
-
 
     LaunchedEffect(Unit) {
         randomMeal.value = Client.getRandomRecipe()
