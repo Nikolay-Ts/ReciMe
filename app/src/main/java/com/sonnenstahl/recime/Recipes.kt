@@ -43,9 +43,12 @@ import com.sonnenstahl.recime.utils.AppRoutes
 import com.sonnenstahl.recime.utils.Client
 import com.sonnenstahl.recime.utils.ImageSize
 import com.sonnenstahl.recime.utils.data.RandomMeal
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 @Composable
 fun Recipes(navController: NavController) {
+    val mealLock = Mutex()
     val randomMeals = remember { mutableStateListOf<RandomMeal?>() }
     val images = remember { mutableStateListOf<Bitmap?>() }
     var refreshing by remember { mutableStateOf(false) }
@@ -56,25 +59,42 @@ fun Recipes(navController: NavController) {
     }
 
     LaunchedEffect(randomMeals.size) {
-        for (meal in randomMeals) {
-            images.add(Client.getImage(
-                mealName = meal?.strMealThumb ?: "",
-                imageSize = ImageSize.SMALL
-            ))
+        if (! refreshing) {
+            for (meal in randomMeals) {
+                images.add(Client.getImage(
+                    mealName = meal?.strMealThumb ?: "",
+                    imageSize = ImageSize.SMALL
+                ))
+            }
         }
-        refreshing = false
     }
 
-    LaunchedEffect(refreshing) {
+    LaunchedEffect(refreshing) { // TODO: do the refreshing
         if (refreshing) {
-            randomMeals.clear()
-            images.clear()
+            mealLock.withLock {
+                randomMeals.clear()
+                images.clear()
+            }
 
-            Client.getRandomMeals(randomMeals)
+            mealLock.withLock {
+                Client.getRandomMeals(randomMeals)
+
+            }
+
+            mealLock.withLock {
+                for (meal in randomMeals) {
+                    images.add(Client.getImage(
+                        mealName = meal?.strMealThumb ?: "",
+                        imageSize = ImageSize.SMALL
+                    ))
+                }
+            }
+
+            refreshing = false
         }
     }
 
-    if (randomMeals.size != images.size && randomMeals.isNotEmpty()) {
+    if (randomMeals.size != images.size && randomMeals.isNotEmpty() && ! refreshing) {
         Loading()
         return
     }
