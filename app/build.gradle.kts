@@ -75,7 +75,8 @@ dependencies {
 
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("io.coil-kt.coil3:coil-compose:$coilVersion")
-//    implementation("io.coil-kt.coil3:coil-network-$coilVersion")
+
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.24.13-rc")
 
 
     implementation("io.ktor:ktor-client-core:$ktorVersion")
