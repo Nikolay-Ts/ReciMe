@@ -17,8 +17,9 @@ fun Navigation() {
             Home(navigation=navController)
         }
 
-        composable(AppRoutes.Recipe.route) {
-            Recipe()
+        composable("${AppRoutes.Recipe.route}/{mealId}") { backStackEntry ->
+            val mealId = backStackEntry.arguments?.getString("mealId")
+            Recipe(mealId)
         }
 
         composable(AppRoutes.Recipes.route) {

@@ -3,6 +3,10 @@ package com.sonnenstahl.recime.utils
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
+import androidx.compose.foundation.Image
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.snapshots.SnapshotStateMap
+import androidx.compose.ui.graphics.ImageBitmap
 import com.sonnenstahl.recime.BuildConfig
 import com.sonnenstahl.recime.utils.data.MealResponse
 import com.sonnenstahl.recime.utils.data.RandomMeal
@@ -10,15 +14,12 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.request.get
-import io.ktor.client.statement.HttpResponse
 import io.ktor.http.URLBuilder
-import io.ktor.http.Url
 import io.ktor.http.appendPathSegments
 import io.ktor.http.takeFrom
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.statement.bodyAsText
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.Json
 import io.ktor.client.engine.okhttp.*
 
@@ -36,9 +37,19 @@ object Client {
 
     private val imageClient = HttpClient(OkHttp)
 
-    suspend fun getImage(url: String): Bitmap? {
+    suspend fun getImage(mealName: String, imageSize: ImageSize = ImageSize.SMALL): Bitmap? {
+        val imageSize = when (imageSize) {
+            ImageSize.SMALL -> "small"
+            ImageSize.MEDIUM -> "medium"
+            ImageSize.LARGE -> "Large"
+         }
 
        return try {
+           val url = URLBuilder().apply {
+               takeFrom(mealName)
+               appendPathSegments(imageSize)
+           }.toString()
+
            val response = imageClient.get(url)
 
            if (response.status.value == 200) {
@@ -53,7 +64,35 @@ object Client {
        }
     }
 
-    suspend fun getRandomRecipe(): RandomMeal? {
+    suspend fun getMealByName(mealName: String): RandomMeal? {
+        return try {
+            val url = URLBuilder().apply {
+                takeFrom(spoon)
+                appendPathSegments("search.php")
+                parameters.append("s", mealName)
+            }.toString()
+
+            Log.d("GET MEAL BY NAME", url)
+
+            Log.d("CRASHING_MEOW", url)
+            val response  = client.get(url)
+
+            if (response.status.value == 200) {
+                val rawJson = response.bodyAsText()
+                Log.d("Client", "Raw JSON Response: $rawJson")
+
+                Json.decodeFromString<MealResponse>(rawJson).meals?.firstOrNull()
+            } else {
+                null
+            }
+
+        } catch(e: Exception) {
+            Log.d("Could not GET:", e.toString())
+            null
+        }
+    }
+
+    suspend fun getRandomMeal(): RandomMeal? {
         return try {
             val url = URLBuilder().apply {
                 takeFrom(spoon)
@@ -77,7 +116,35 @@ object Client {
             Log.d("MEOW MEOW", e.toString())
             null
         }
+    }
 
+    suspend fun getRandomMeals(mutableMeals: SnapshotStateList<RandomMeal?>) {
+        try {
+            val url = URLBuilder().apply {
+                takeFrom(spoon)
+                appendPathSegments("randomselection.php")
+            }.toString()
+
+            Log.d("CRASHING_MEOW", url)
+            val response  = client.get(url)
+            if (response.status.value == 200) {
+
+                val rawJson = response.bodyAsText()
+                Log.d("Client", "Raw JSON Response: $rawJson")
+
+                val meals = Json.decodeFromString<MealResponse>(rawJson).meals
+                if (meals == null) {
+                    return
+                }
+
+                for (meal in meals) {
+                    mutableMeals.add(meal)
+                }
+            }
+
+        } catch(e: Exception) {
+            Log.d("MEOW MEOW", e.toString())
+        }
     }
 
 }

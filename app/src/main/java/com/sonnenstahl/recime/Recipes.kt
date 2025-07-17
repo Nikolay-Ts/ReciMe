@@ -1,5 +1,6 @@
 package com.sonnenstahl.recime
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -10,38 +11,53 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil3.Bitmap
+import com.sonnenstahl.recime.ui.theme.RecipesBackground
 import com.sonnenstahl.recime.utils.AppRoutes
 import com.sonnenstahl.recime.utils.Client
+import com.sonnenstahl.recime.utils.ImageSize
 import com.sonnenstahl.recime.utils.data.RandomMeal
 
 @Composable
 fun Recipes(navController: NavController) {
-    val randomMeal = remember { mutableStateOf<RandomMeal?>(null) }
-    val imageBitmap = remember { mutableStateOf<android.graphics.Bitmap?>(null) }
+    val randomMeals = remember { mutableStateListOf<RandomMeal?>() }
+    val images = remember { mutableStateListOf<Bitmap?>() }
 
     LaunchedEffect(Unit) {
-        randomMeal.value = Client.getRandomRecipe()
+        Client.getRandomMeals(randomMeals)
     }
 
-    LaunchedEffect(randomMeal.value) {
-        imageBitmap.value = Client.getImage("${randomMeal.value?.strMealThumb}")
+    LaunchedEffect(randomMeals.size) {
+        for (meal in randomMeals) {
+            images.add(Client.getImage(
+                mealName = meal?.strMealThumb ?: "",
+                imageSize = ImageSize.SMALL
+            ))
+        }
     }
 
-    if (randomMeal.value == null || imageBitmap.value == null) {
+    if (randomMeals.size != images.size) {
         Loading()
         return
     }
@@ -50,41 +66,59 @@ fun Recipes(navController: NavController) {
         modifier =
             Modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp),
+                .padding(vertical = 50.dp)
+                .padding(horizontal = 30.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        item {
+        items(randomMeals.size) { index ->
+            val meal = randomMeals[index]
+            val imageBitmap = images[index]
+
+            if (meal == null) {
+                return@items
+            }
+
             Box(
                 modifier =
                     Modifier
                         .fillMaxWidth()
-                        .height(100.dp)
+                        .height(90.dp)
+                        .padding(vertical = 10.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(Color.Blue)
-                        .clickable { navController.navigate(AppRoutes.Recipe.route) }
-                ,
+                        .background(RecipesBackground)
+                        .clickable {
+                            navController.navigate("${AppRoutes.Recipe.route}/${meal.strMeal}")
+                        },
                 contentAlignment = Alignment.Center
             ) {
-                Row {
-                    Image(
-                        bitmap = imageBitmap.value!!.asImageBitmap(),
-                        contentDescription = "meow Meow"
-                    )
-
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Text(
-                        "Hello World",
-                        color = Color.White
+                        meal.strMeal,
+                        color = Color.White,
+                        maxLines = 2,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(start = 16.dp)
                     )
-                }
 
+                    if (imageBitmap != null) {
+                        Image(
+                            bitmap = imageBitmap.asImageBitmap(),
+                            contentDescription = meal.strMeal,
+                            modifier =
+                                Modifier
+                                    .size(70.dp)
+                                    .clip(RoundedCornerShape(12.dp))
+                        )
+                    }
+                }
             }
 
         }
     }
-
-
-
-
-
-    Text("Hello World")
 }

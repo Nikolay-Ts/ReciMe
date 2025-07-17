@@ -1,6 +1,7 @@
 package com.sonnenstahl.recime
 
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,18 +18,27 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.unit.dp
+import com.sonnenstahl.recime.utils.ImageSize
 
 @Composable
-fun Recipe() {
+fun Recipe(id: String?) {
     val randomMeal = remember { mutableStateOf<RandomMeal?>(null) }
     val imageBitmap = remember { mutableStateOf<Bitmap?>(null) }
 
     LaunchedEffect(Unit) {
-        randomMeal.value = Client.getRandomRecipe()
+        if (id == null) {
+            randomMeal.value = Client.getRandomMeal()
+        } else {
+            randomMeal.value = Client.getMealByName(id)
+        }
+        Log.d("MEOW MEOW", "${randomMeal.value}")
     }
 
     LaunchedEffect(randomMeal.value) {
-        imageBitmap.value = Client.getImage("${randomMeal.value?.strMealThumb}")
+        imageBitmap.value = Client.getImage(
+            mealName="${randomMeal.value?.strMealThumb}",
+            imageSize = ImageSize.LARGE
+        )
     }
 
     Column(
@@ -41,6 +51,7 @@ fun Recipe() {
             return
         }
 
+        Log.d("MEOW MEOW", "${randomMeal.value}")
         Text(
             text = "You should try\n ${randomMeal.value?.strMeal}!",
         )
