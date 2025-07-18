@@ -13,27 +13,26 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil3.Bitmap
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -43,12 +42,9 @@ import com.sonnenstahl.recime.utils.AppRoutes
 import com.sonnenstahl.recime.utils.Client
 import com.sonnenstahl.recime.utils.ImageSize
 import com.sonnenstahl.recime.utils.data.RandomMeal
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 
 @Composable
 fun Recipes(navController: NavController) {
-    val mealLock = Mutex()
     val randomMeals = remember { mutableStateListOf<RandomMeal?>() }
     val images = remember { mutableStateListOf<Bitmap?>() }
     var refreshing by remember { mutableStateOf(false) }
@@ -69,35 +65,34 @@ fun Recipes(navController: NavController) {
         }
     }
 
-    LaunchedEffect(refreshing) { // TODO: do the refreshing
+    LaunchedEffect(refreshing) {
         if (refreshing) {
-            mealLock.withLock {
-                randomMeals.clear()
-                images.clear()
+            randomMeals.clear()
+            images.clear()
+            Client.getRandomMeals(randomMeals)
+
+            for (meal in randomMeals) {
+                images.add(Client.getImage(
+                    mealName = meal?.strMealThumb ?: "",
+                    imageSize = ImageSize.SMALL
+                ))
             }
-
-            mealLock.withLock {
-                Client.getRandomMeals(randomMeals)
-
-            }
-
-            mealLock.withLock {
-                for (meal in randomMeals) {
-                    images.add(Client.getImage(
-                        mealName = meal?.strMealThumb ?: "",
-                        imageSize = ImageSize.SMALL
-                    ))
-                }
-            }
-
             refreshing = false
         }
     }
 
-    if (randomMeals.size != images.size && randomMeals.isNotEmpty() && ! refreshing) {
+    if (randomMeals.size != images.size) {
         Loading()
         return
     }
+
+    if (randomMeals.isEmpty()) {
+        Loading()
+        return
+    }
+
+
+
     SwipeRefresh(
         state = rememberSwipeRefreshState(isRefreshing = refreshing),
         onRefresh = { refreshing = true },
@@ -108,12 +103,20 @@ fun Recipes(navController: NavController) {
                     .fillMaxSize()
                     .padding(vertical = 50.dp)
                     .padding(horizontal = 30.dp),
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            item {
+                Text(
+                    text = "Recipes",
+                    style = MaterialTheme.typography.headlineMedium,
+                    modifier = Modifier.padding(vertical = 10.dp)
+                )
+            }
+
             items(randomMeals.size) { index ->
                 val meal = randomMeals[index]
                 val imageBitmap = images[index]
-
                 if (meal == null) {
                     return@items
                 }
@@ -159,8 +162,6 @@ fun Recipes(navController: NavController) {
                     }
                 }
             }
-
-
         }
     }
 }

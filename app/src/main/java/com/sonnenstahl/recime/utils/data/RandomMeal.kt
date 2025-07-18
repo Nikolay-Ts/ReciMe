@@ -1,5 +1,6 @@
 package com.sonnenstahl.recime.utils.data
 
+import androidx.lifecycle.ViewModel
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -10,6 +11,8 @@ import kotlinx.serialization.json.JsonDecoder
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.contentOrNull
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 @Serializable
 data class MealResponse(
@@ -88,4 +91,3 @@ data class RandomMeal(
         }
     }
 }
-

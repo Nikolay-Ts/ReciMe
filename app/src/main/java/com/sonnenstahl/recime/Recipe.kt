@@ -21,17 +21,16 @@ import androidx.compose.ui.unit.dp
 import com.sonnenstahl.recime.utils.ImageSize
 
 @Composable
-fun Recipe(id: String?) {
+fun Recipe(name: String?) {
     val randomMeal = remember { mutableStateOf<RandomMeal?>(null) }
     val imageBitmap = remember { mutableStateOf<Bitmap?>(null) }
 
     LaunchedEffect(Unit) {
-        if (id == null) {
+        if (name == null ) {
             randomMeal.value = Client.getRandomMeal()
         } else {
-            randomMeal.value = Client.getMealByName(id)
+            randomMeal.value = Client.getMealByName(name)
         }
-        Log.d("MEOW MEOW", "${randomMeal.value}")
     }
 
     LaunchedEffect(randomMeal.value) {

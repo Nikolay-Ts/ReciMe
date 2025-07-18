@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.sonnenstahl.recime.ui.theme.ReciMeTheme
 import com.sonnenstahl.recime.utils.Client
 import com.sonnenstahl.recime.utils.data.RandomMeal
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {

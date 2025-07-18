@@ -1,11 +1,12 @@
 import java.util.Properties
-import java.io.FileInputStream // Import FileInputStream for loading the properties file
+import java.io.FileInputStream
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("org.jetbrains.kotlin.plugin.serialization")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 
@@ -63,6 +64,7 @@ android {
     }
 }
 
+
 val ktorVersion: String by project
 val navVersion: String by project
 val coilVersion: String by project
@@ -77,6 +79,11 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-compose:$coilVersion")
 
     implementation("com.google.accompanist:accompanist-swiperefresh:0.24.13-rc")
+
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0") // or latest
+
+    implementation("com.google.dagger:hilt-android:2.50") // or latest
+    kapt("com.google.dagger:hilt-compiler:2.50")
 
 
     implementation("io.ktor:ktor-client-core:$ktorVersion")
