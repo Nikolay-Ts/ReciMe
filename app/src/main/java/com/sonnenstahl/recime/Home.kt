@@ -28,25 +28,29 @@ fun Home(navigation: NavHostController) {
             "meow meow",
             modifier =
                 Modifier
-                    .align(Alignment.TopEnd)
+                    .align(Alignment.TopStart)
 
         )
-        Text(
-            "meow meow",
+
+        Button(
+            onClick = { navigation.navigate(AppRoutes.RecipeFinder.route) },
             modifier =
-                Modifier
+                    Modifier
+                        .align(Alignment.TopEnd)
+        ) {
+            Text(
+                "got to recipe Finder",
+            )
+        }
 
-        )
+
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-
-
             Text("Hello World")
-
         }
 
         Button(

@@ -22,6 +22,10 @@ fun Navigation() {
             Recipe(mealId)
         }
 
+        composable(AppRoutes.RecipeFinder.route) {
+            RecipeFinder(navController=navController)
+        }
+
         composable(AppRoutes.Recipes.route) {
             Recipes(navController=navController)
         }

@@ -1,6 +1,5 @@
 package com.sonnenstahl.recime
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,9 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil3.Bitmap
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -49,19 +45,13 @@ fun Recipes(navController: NavController) {
     val images = remember { mutableStateListOf<Bitmap?>() }
     var refreshing by remember { mutableStateOf(false) }
 
-
     LaunchedEffect(Unit) {
         Client.getRandomMeals(randomMeals)
-    }
-
-    LaunchedEffect(randomMeals.size) {
-        if (! refreshing) {
-            for (meal in randomMeals) {
-                images.add(Client.getImage(
-                    mealName = meal?.strMealThumb ?: "",
-                    imageSize = ImageSize.SMALL
-                ))
-            }
+        for (meal in randomMeals) {
+            images.add(Client.getImage(
+                mealName = meal?.strMealThumb ?: "",
+                imageSize = ImageSize.SMALL
+            ))
         }
     }
 
@@ -81,17 +71,10 @@ fun Recipes(navController: NavController) {
         }
     }
 
-    if (randomMeals.size != images.size) {
+    if (randomMeals.size != images.size || randomMeals.isEmpty()) {
         Loading()
         return
     }
-
-    if (randomMeals.isEmpty()) {
-        Loading()
-        return
-    }
-
-
 
     SwipeRefresh(
         state = rememberSwipeRefreshState(isRefreshing = refreshing),
