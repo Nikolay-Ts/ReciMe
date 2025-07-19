@@ -7,15 +7,16 @@ val MEAT_OPTION_NAMES: Array<String> = arrayOf(
     "Beef",
     "Chicken",
     "Lamb",
-    "Miscellaneous",
     "Pasta",
     "Pork",
     "Seafood",
+    "Vegetarian",
     "Vegan",
-    "Vegetarian"
+    "Miscellaneous",
 )
 
 val excludedNames = setOf("Vegan", "Vegetarian", "Pasta")
+val veggies = setOf("Vegan", "Vegetarian")
 
 data class MeatOption (
     val name: String,
@@ -31,6 +32,12 @@ fun disableMeat(meatOptions: List<MeatOption>) =
 
 fun disableVegan(meatOptions: List<MeatOption>) =
     meatOptions
-        .filter { it.name in excludedNames.take(2) }
+        .filter { it.name in veggies }
         .forEach { it.isChosen.value = false }
+
+fun disableAllButVegan(meatOptions: List<MeatOption>) =
+    meatOptions
+        .filter { it.name != "Vegan" }
+        .forEach { it.isChosen.value = false }
+
 
