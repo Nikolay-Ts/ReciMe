@@ -1,26 +1,12 @@
 package com.sonnenstahl.recime
 
-import android.util.Log
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.spring
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -31,22 +17,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sonnenstahl.recime.utils.AppRoutes
+import com.sonnenstahl.recime.utils.data.EXCLUDED_NAMES
 import com.sonnenstahl.recime.utils.data.MEAT_OPTION_NAMES
 import com.sonnenstahl.recime.utils.data.MealOption
+import com.sonnenstahl.recime.utils.data.VEGGIES
 import com.sonnenstahl.recime.utils.data.disableAllButVegan
 import com.sonnenstahl.recime.utils.data.disableMeat
 import com.sonnenstahl.recime.utils.data.disableVegan
-import com.sonnenstahl.recime.utils.data.EXCLUDED_NAMES
-import com.sonnenstahl.recime.utils.data.initMeatOptions
-import com.sonnenstahl.recime.utils.data.VEGGIES
 import com.sonnenstahl.recime.utils.data.initMealTypeOptions
+import com.sonnenstahl.recime.utils.data.initMeatOptions
 
 @Composable
 fun RecipeFinder(navController: NavController) {
@@ -91,7 +73,7 @@ fun RecipeFinder(navController: NavController) {
 
             OptionsGrid(
                 options = meatOptions,
-                columns = 3
+                columns = 3,
             ) { mealOption ->
                 val isChosen = mealOption.isChosen.value
                 if (isChosen) {
@@ -114,7 +96,7 @@ fun RecipeFinder(navController: NavController) {
 
             OptionsGrid(
                 options = mealTimeOptions,
-                columns = 3
+                columns = 3,
             ) { }
         }
 

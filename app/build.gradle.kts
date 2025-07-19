@@ -1,3 +1,5 @@
+import org.jetbrains.dokka.DokkaDefaults.includeNonPublic
+import org.jetbrains.dokka.DokkaDefaults.outputDir
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -7,6 +9,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("org.jetbrains.kotlin.plugin.serialization")
     id("org.jetbrains.kotlin.kapt")
+    id("org.jetbrains.dokka") version "1.9.20"
 }
 
 android {

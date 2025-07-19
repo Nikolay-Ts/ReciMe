@@ -39,6 +39,11 @@ import com.sonnenstahl.recime.utils.Client
 import com.sonnenstahl.recime.utils.ImageSize
 import com.sonnenstahl.recime.utils.data.RandomMeal
 
+/**
+ * displays the fetched Meals
+ *
+ * @param navController navigate between screens
+ */
 @Composable
 fun Recipes(navController: NavController) {
     val randomMeals = remember { mutableStateListOf<RandomMeal?>() }

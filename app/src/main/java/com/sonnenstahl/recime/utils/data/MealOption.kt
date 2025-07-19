@@ -27,6 +27,7 @@ data class MealOption(
 )
 
 fun initMeatOptions(): List<MealOption> = MEAT_OPTION_NAMES.map { MealOption(it) }
+
 fun initMealTypeOptions(): List<MealOption> = MEAL_TYPE_OPTION.map { MealOption(it) }
 
 fun disableMeat(meatOptions: List<MealOption>) =

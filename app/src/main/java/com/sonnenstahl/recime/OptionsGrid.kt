@@ -36,7 +36,7 @@ import com.sonnenstahl.recime.utils.data.MealOption
 fun OptionsGrid(
     options: List<MealOption>,
     columns: Int,
-    onclick: (MealOption) -> Unit
+    onclick: (MealOption) -> Unit,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
