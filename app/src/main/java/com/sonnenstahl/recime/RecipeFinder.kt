@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -36,22 +37,26 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.sonnenstahl.recime.utils.AppRoutes
 import com.sonnenstahl.recime.utils.data.MEAT_OPTION_NAMES
-import com.sonnenstahl.recime.utils.data.MeatOption
+import com.sonnenstahl.recime.utils.data.MealOption
 import com.sonnenstahl.recime.utils.data.disableAllButVegan
 import com.sonnenstahl.recime.utils.data.disableMeat
 import com.sonnenstahl.recime.utils.data.disableVegan
-import com.sonnenstahl.recime.utils.data.excludedNames
+import com.sonnenstahl.recime.utils.data.EXCLUDED_NAMES
 import com.sonnenstahl.recime.utils.data.initMeatOptions
-import com.sonnenstahl.recime.utils.data.veggies
+import com.sonnenstahl.recime.utils.data.VEGGIES
+import com.sonnenstahl.recime.utils.data.initMealTypeOptions
 
 @Composable
 fun RecipeFinder(navController: NavController) {
     var mealName by remember { mutableStateOf("") }
-    var meatOptions by remember { mutableStateOf(emptyList<MeatOption>()) }
+    var meatOptions by remember { mutableStateOf(emptyList<MealOption>()) }
+    var mealTimeOptions by remember { mutableStateOf(emptyList<MealOption>()) }
 
     LaunchedEffect(Unit) {
         meatOptions = initMeatOptions()
+        mealTimeOptions = initMealTypeOptions()
     }
 
     Box(
@@ -60,7 +65,6 @@ fun RecipeFinder(navController: NavController) {
                 .fillMaxSize()
                 .padding(16.dp),
     ) {
-        Log.d("MEAT OPTIONS", "$meatOptions")
         Column(
             modifier =
                 Modifier
@@ -81,117 +85,47 @@ fun RecipeFinder(navController: NavController) {
                 modifier =
                     Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 16.dp),
+                        .padding(top = 10.dp)
+                        .padding(bottom = 20.dp),
             )
 
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(3),
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .height(300.dp)
-                        .weight(1f),
-                userScrollEnabled = false,
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-            ) {
-                items(meatOptions.size) { index ->
-                    val currentOption = meatOptions[index]
-                    val isChosen = currentOption.isChosen.value
-
-                    Log.d("OPTIONS", "${currentOption.name}: $isChosen")
-
-                    val interactionSource = remember { MutableInteractionSource() }
-                    val isPressed by interactionSource.collectIsPressedAsState()
-
-                    val containerColor by animateColorAsState(
-                        targetValue =
-                            when {
-                                isChosen -> MaterialTheme.colorScheme.primary.copy(alpha = 0.25f)
-                                isPressed -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.8f)
-                                else -> MaterialTheme.colorScheme.surface
-                            },
-                        animationSpec = spring(),
-                        label = "containerColorAnimation",
-                    )
-
-                    val contentColor by animateColorAsState(
-                        targetValue = if (isChosen) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface,
-                        animationSpec = spring(),
-                        label = "contentColorAnimation",
-                    )
-
-                    val borderColor by animateColorAsState(
-                        targetValue = if (isChosen) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
-                        animationSpec = spring(),
-                        label = "borderColorAnimation",
-                    )
-
-                    val elevation by animateDpAsState(
-                        targetValue = if (isPressed) 4.dp else 0.dp,
-                        animationSpec = spring(),
-                        label = "elevationAnimation",
-                    )
-
-                    if (isChosen) {
-                        if (currentOption.name in excludedNames.take(2)) {
-                            disableMeat(meatOptions)
-                        }
-                        val meats =
-                            MEAT_OPTION_NAMES
-                                .take(MEAT_OPTION_NAMES.size)
-                                .filter { it != "Pasta" && it != "Miscellaneous" && it !in veggies }
-
-                        if (currentOption.name in meats) {
-                            disableVegan(meatOptions)
-                        }
-                        if (currentOption.name == "Vegan") {
-                            disableAllButVegan(meatOptions)
-                        }
+            OptionsGrid(
+                options = meatOptions,
+                columns = 3
+            ) { mealOption ->
+                val isChosen = mealOption.isChosen.value
+                if (isChosen) {
+                    if (mealOption.name in EXCLUDED_NAMES.take(2)) {
+                        disableMeat(meatOptions)
                     }
+                    val meats =
+                        MEAT_OPTION_NAMES
+                            .take(MEAT_OPTION_NAMES.size)
+                            .filter { it != "Pasta" && it != "Miscellaneous" && it !in VEGGIES }
 
-                    OutlinedButton(
-                        onClick = {
-                            currentOption.isChosen.value = !isChosen
-                        },
-                        modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .height(68.dp)
-                                .padding(horizontal = 2.dp)
-                                .padding(vertical = elevation),
-                        shape = RoundedCornerShape(16.dp),
-                        border = BorderStroke(2.dp, borderColor),
-                        colors =
-                            ButtonDefaults.outlinedButtonColors(
-                                containerColor = containerColor,
-                                contentColor = contentColor,
-                            ),
-                        interactionSource = interactionSource,
-                    ) {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            val text =
-                                if (currentOption.name != "Miscellaneous") {
-                                    currentOption.name
-                                } else {
-                                    "other"
-                                }
-                            Text(
-                                text = text,
-                                fontSize = 14.sp,
-                                textAlign = TextAlign.Center,
-                                maxLines = 1,
-                                softWrap = false,
-                                overflow = TextOverflow.Ellipsis,
-                                fontWeight = FontWeight.SemiBold,
-                            )
-                        }
+                    if (mealOption.name in meats) {
+                        disableVegan(meatOptions)
+                    }
+                    if (mealOption.name == "Vegan") {
+                        disableAllButVegan(meatOptions)
                     }
                 }
             }
+
+            OptionsGrid(
+                options = mealTimeOptions,
+                columns = 3
+            ) { }
+        }
+
+        Button(
+            onClick = { navController.navigate(AppRoutes.Recipes.route) },
+            modifier =
+                Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 50.dp),
+        ) {
+            Text("Search")
         }
     }
 }

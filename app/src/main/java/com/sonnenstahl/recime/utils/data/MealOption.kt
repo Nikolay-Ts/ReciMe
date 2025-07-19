@@ -16,27 +16,30 @@ val MEAT_OPTION_NAMES: Array<String> =
         "Miscellaneous",
     )
 
-val excludedNames = setOf("Vegan", "Vegetarian", "Pasta")
-val veggies = setOf("Vegan", "Vegetarian")
+val MEAL_TYPE_OPTION: Array<String> = arrayOf("Breakfast", "Main", "Desert")
 
-data class MeatOption(
+val EXCLUDED_NAMES = setOf("Vegan", "Vegetarian", "Pasta")
+val VEGGIES = setOf("Vegan", "Vegetarian")
+
+data class MealOption(
     val name: String,
     var isChosen: MutableState<Boolean> = mutableStateOf(false),
 )
 
-fun initMeatOptions(): List<MeatOption> = MEAT_OPTION_NAMES.map { MeatOption(it) }
+fun initMeatOptions(): List<MealOption> = MEAT_OPTION_NAMES.map { MealOption(it) }
+fun initMealTypeOptions(): List<MealOption> = MEAL_TYPE_OPTION.map { MealOption(it) }
 
-fun disableMeat(meatOptions: List<MeatOption>) =
+fun disableMeat(meatOptions: List<MealOption>) =
     meatOptions
-        .filter { it.name !in excludedNames }
+        .filter { it.name !in EXCLUDED_NAMES }
         .forEach { it.isChosen.value = false }
 
-fun disableVegan(meatOptions: List<MeatOption>) =
+fun disableVegan(meatOptions: List<MealOption>) =
     meatOptions
-        .filter { it.name in veggies }
+        .filter { it.name in VEGGIES }
         .forEach { it.isChosen.value = false }
 
-fun disableAllButVegan(meatOptions: List<MeatOption>) =
+fun disableAllButVegan(meatOptions: List<MealOption>) =
     meatOptions
         .filter { it.name != "Vegan" }
         .forEach { it.isChosen.value = false }
