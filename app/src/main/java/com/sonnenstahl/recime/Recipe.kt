@@ -2,9 +2,11 @@ package com.sonnenstahl.recime
 
 import android.graphics.Bitmap
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -12,13 +14,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.sonnenstahl.recime.utils.Client
-import com.sonnenstahl.recime.utils.data.RandomMeal
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.size
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.unit.dp
+import com.sonnenstahl.recime.utils.Client
 import com.sonnenstahl.recime.utils.ImageSize
+import com.sonnenstahl.recime.utils.data.RandomMeal
 
 @Composable
 fun Recipe(name: String?) {
@@ -26,7 +26,7 @@ fun Recipe(name: String?) {
     val imageBitmap = remember { mutableStateOf<Bitmap?>(null) }
 
     LaunchedEffect(Unit) {
-        if (name == null ) {
+        if (name == null) {
             randomMeal.value = Client.getRandomMeal()
         } else {
             randomMeal.value = Client.getMealByName(name)
@@ -34,16 +34,17 @@ fun Recipe(name: String?) {
     }
 
     LaunchedEffect(randomMeal.value) {
-        imageBitmap.value = Client.getImage(
-            mealName="${randomMeal.value?.strMealThumb}",
-            imageSize = ImageSize.LARGE
-        )
+        imageBitmap.value =
+            Client.getImage(
+                mealName = "${randomMeal.value?.strMealThumb}",
+                imageSize = ImageSize.LARGE,
+            )
     }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         if (randomMeal.value == null || imageBitmap.value == null) {
             Loading()
@@ -55,21 +56,20 @@ fun Recipe(name: String?) {
             text = "You should try\n ${randomMeal.value?.strMeal}!",
         )
 
-        if (imageBitmap.value != null ) {
+        if (imageBitmap.value != null) {
             Image(
                 bitmap = imageBitmap.value!!.asImageBitmap(),
                 contentDescription = "Random Recipe",
                 modifier =
                     Modifier
-                        .size(200.dp)
+                        .size(200.dp),
             )
         }
 
-        for (i in  0..<randomMeal.value?.ingredients!!.size) {
+        for (i in 0..<randomMeal.value?.ingredients!!.size) {
             val ingredient = randomMeal.value?.ingredients!![i]
             val amount = randomMeal.value?.measures!![i]
             Text("$ingredient, amount: $amount")
         }
-
     }
 }

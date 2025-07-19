@@ -1,5 +1,5 @@
-import java.util.Properties
 import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -8,8 +8,6 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
     id("org.jetbrains.kotlin.kapt")
 }
-
-
 
 android {
     namespace = "com.sonnenstahl.recime"
@@ -43,7 +41,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -64,7 +62,6 @@ android {
     }
 }
 
-
 val ktorVersion: String by project
 val navVersion: String by project
 val coilVersion: String by project
@@ -84,7 +81,6 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.50") // or latest
     kapt("com.google.dagger:hilt-compiler:2.50")
-
 
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")

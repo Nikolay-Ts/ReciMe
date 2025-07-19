@@ -5,4 +5,3 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     id("org.jetbrains.kotlin.plugin.serialization")
 }
-

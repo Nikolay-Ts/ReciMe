@@ -1,6 +1,5 @@
 package com.sonnenstahl.recime
 
-import android.text.Layout
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,33 +21,30 @@ fun Home(navigation: NavHostController) {
             Modifier
                 .fillMaxSize()
                 .padding(top = 50.dp)
-                .padding(horizontal = 30.dp)
+                .padding(horizontal = 30.dp),
     ) {
         Text(
             "meow meow",
             modifier =
                 Modifier
-                    .align(Alignment.TopStart)
-
+                    .align(Alignment.TopStart),
         )
 
         Button(
             onClick = { navigation.navigate(AppRoutes.RecipeFinder.route) },
             modifier =
-                    Modifier
-                        .align(Alignment.TopEnd)
+                Modifier
+                    .align(Alignment.TopEnd),
         ) {
             Text(
                 "got to recipe Finder",
             )
         }
 
-
-
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         ) {
             Text("Hello World")
         }
@@ -58,8 +54,7 @@ fun Home(navigation: NavHostController) {
             modifier =
                 Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(bottom = 50.dp)
-
+                    .padding(bottom = 50.dp),
         ) {
             Text("Surprise")
         }

@@ -55,41 +55,45 @@ fun RecipeFinder(navController: NavController) {
     }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(16.dp),
     ) {
         Log.d("MEAT OPTIONS", "$meatOptions")
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = "Find a meal",
                 style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(vertical = 10.dp)
+                modifier = Modifier.padding(vertical = 10.dp),
             )
 
             TextField(
                 value = mealName,
                 singleLine = true,
                 onValueChange = { mealName = it },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
             )
 
             LazyVerticalGrid(
                 columns = GridCells.Fixed(3),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp)
-                    .weight(1f),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(300.dp)
+                        .weight(1f),
                 userScrollEnabled = false,
                 verticalArrangement = Arrangement.spacedBy(10.dp),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
             ) {
                 items(meatOptions.size) { index ->
                     val currentOption = meatOptions[index]
@@ -101,36 +105,42 @@ fun RecipeFinder(navController: NavController) {
                     val isPressed by interactionSource.collectIsPressedAsState()
 
                     val containerColor by animateColorAsState(
-                        targetValue = when {
-                            isChosen -> MaterialTheme.colorScheme.primary.copy(alpha = 0.25f)
-                            isPressed -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.8f)
-                            else -> MaterialTheme.colorScheme.surface
-                        },
-                        animationSpec = spring(), label = "containerColorAnimation"
+                        targetValue =
+                            when {
+                                isChosen -> MaterialTheme.colorScheme.primary.copy(alpha = 0.25f)
+                                isPressed -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.8f)
+                                else -> MaterialTheme.colorScheme.surface
+                            },
+                        animationSpec = spring(),
+                        label = "containerColorAnimation",
                     )
 
                     val contentColor by animateColorAsState(
                         targetValue = if (isChosen) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface,
-                        animationSpec = spring(), label = "contentColorAnimation"
+                        animationSpec = spring(),
+                        label = "contentColorAnimation",
                     )
 
                     val borderColor by animateColorAsState(
                         targetValue = if (isChosen) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
-                        animationSpec = spring(), label = "borderColorAnimation"
+                        animationSpec = spring(),
+                        label = "borderColorAnimation",
                     )
 
                     val elevation by animateDpAsState(
                         targetValue = if (isPressed) 4.dp else 0.dp,
-                        animationSpec = spring(), label = "elevationAnimation"
+                        animationSpec = spring(),
+                        label = "elevationAnimation",
                     )
 
                     if (isChosen) {
                         if (currentOption.name in excludedNames.take(2)) {
                             disableMeat(meatOptions)
                         }
-                        val meats = MEAT_OPTION_NAMES
-                            .take(MEAT_OPTION_NAMES.size )
-                            .filter { it != "Pasta" && it != "Miscellaneous" && it !in veggies }
+                        val meats =
+                            MEAT_OPTION_NAMES
+                                .take(MEAT_OPTION_NAMES.size)
+                                .filter { it != "Pasta" && it != "Miscellaneous" && it !in veggies }
 
                         if (currentOption.name in meats) {
                             disableVegan(meatOptions)
@@ -144,26 +154,31 @@ fun RecipeFinder(navController: NavController) {
                         onClick = {
                             currentOption.isChosen.value = !isChosen
                         },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(68.dp)
-                            .padding(horizontal = 2.dp)
-                            .padding(vertical = elevation),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .height(68.dp)
+                                .padding(horizontal = 2.dp)
+                                .padding(vertical = elevation),
                         shape = RoundedCornerShape(16.dp),
                         border = BorderStroke(2.dp, borderColor),
-                        colors = ButtonDefaults.outlinedButtonColors(
-                            containerColor = containerColor,
-                            contentColor = contentColor
-                        ),
-                        interactionSource = interactionSource
+                        colors =
+                            ButtonDefaults.outlinedButtonColors(
+                                containerColor = containerColor,
+                                contentColor = contentColor,
+                            ),
+                        interactionSource = interactionSource,
                     ) {
                         Box(
                             modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
+                            contentAlignment = Alignment.Center,
                         ) {
                             val text =
-                                if (currentOption.name != "Miscellaneous") currentOption.name
-                                else "other"
+                                if (currentOption.name != "Miscellaneous") {
+                                    currentOption.name
+                                } else {
+                                    "other"
+                                }
                             Text(
                                 text = text,
                                 fontSize = 14.sp,
@@ -171,13 +186,12 @@ fun RecipeFinder(navController: NavController) {
                                 maxLines = 1,
                                 softWrap = false,
                                 overflow = TextOverflow.Ellipsis,
-                                fontWeight = FontWeight.SemiBold
+                                fontWeight = FontWeight.SemiBold,
                             )
                         }
                     }
                 }
             }
-
         }
     }
 }

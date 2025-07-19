@@ -48,10 +48,12 @@ fun Recipes(navController: NavController) {
     LaunchedEffect(Unit) {
         Client.getRandomMeals(randomMeals)
         for (meal in randomMeals) {
-            images.add(Client.getImage(
-                mealName = meal?.strMealThumb ?: "",
-                imageSize = ImageSize.SMALL
-            ))
+            images.add(
+                Client.getImage(
+                    mealName = meal?.strMealThumb ?: "",
+                    imageSize = ImageSize.SMALL,
+                ),
+            )
         }
     }
 
@@ -62,10 +64,12 @@ fun Recipes(navController: NavController) {
             Client.getRandomMeals(randomMeals)
 
             for (meal in randomMeals) {
-                images.add(Client.getImage(
-                    mealName = meal?.strMealThumb ?: "",
-                    imageSize = ImageSize.SMALL
-                ))
+                images.add(
+                    Client.getImage(
+                        mealName = meal?.strMealThumb ?: "",
+                        imageSize = ImageSize.SMALL,
+                    ),
+                )
             }
             refreshing = false
         }
@@ -87,13 +91,13 @@ fun Recipes(navController: NavController) {
                     .padding(vertical = 50.dp)
                     .padding(horizontal = 30.dp),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             item {
                 Text(
                     text = "Recipes",
                     style = MaterialTheme.typography.headlineMedium,
-                    modifier = Modifier.padding(vertical = 10.dp)
+                    modifier = Modifier.padding(vertical = 10.dp),
                 )
             }
 
@@ -115,21 +119,22 @@ fun Recipes(navController: NavController) {
                             .clickable {
                                 navController.navigate("${AppRoutes.Recipe.route}/${meal.strMeal}")
                             },
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
                             meal.strMeal,
                             color = Color.White,
                             maxLines = 2,
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(start = 16.dp)
+                            modifier =
+                                Modifier
+                                    .weight(1f)
+                                    .padding(start = 16.dp),
                         )
 
                         if (imageBitmap != null) {
@@ -139,7 +144,7 @@ fun Recipes(navController: NavController) {
                                 modifier =
                                     Modifier
                                         .size(70.dp)
-                                        .clip(RoundedCornerShape(12.dp))
+                                        .clip(RoundedCornerShape(12.dp)),
                             )
                         }
                     }

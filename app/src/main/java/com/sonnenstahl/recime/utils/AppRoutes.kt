@@ -1,7 +1,7 @@
 package com.sonnenstahl.recime.utils
 
 sealed class AppRoutes(
-    val route: String
+    val route: String,
 ) {
     object Home : AppRoutes("home")
 

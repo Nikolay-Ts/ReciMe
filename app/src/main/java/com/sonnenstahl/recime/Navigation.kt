@@ -14,7 +14,7 @@ fun Navigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AppRoutes.Home.route) {
         composable(AppRoutes.Home.route) {
-            Home(navigation=navController)
+            Home(navigation = navController)
         }
 
         composable("${AppRoutes.Recipe.route}/{mealId}") { backStackEntry ->
@@ -23,13 +23,11 @@ fun Navigation() {
         }
 
         composable(AppRoutes.RecipeFinder.route) {
-            RecipeFinder(navController=navController)
+            RecipeFinder(navController = navController)
         }
 
         composable(AppRoutes.Recipes.route) {
-            Recipes(navController=navController)
+            Recipes(navController = navController)
         }
     }
-
-
 }
