@@ -1,5 +1,6 @@
 package com.sonnenstahl.recime
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,12 +17,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,65 +24,32 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import coil3.Bitmap
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.sonnenstahl.recime.ui.theme.RecipesBackground
-import com.sonnenstahl.recime.utils.AppRoutes
-import com.sonnenstahl.recime.utils.Client
-import com.sonnenstahl.recime.utils.ImageSize
 import com.sonnenstahl.recime.utils.data.RandomMeal
 
 /**
- * displays the fetched Meals
+ * a lazy list that displays the recipes and allows for refreshing of them. And navigates
+ * to the clicked recipe Users can also turn of the refreshing
  *
- * @param navController navigate between screens
+ * @param meals the lis tof meals you want to display
+ * @param images that correspond to the images in 1:1 ratio
+ * @param refreshing boolean to tell the lazy list to refresh
+ * @param onRefresh sets the boolean to true. What actually happens to refresh is up to you
+ * @param onClick where to navigate when clicking the meal
  */
 @Composable
-fun Recipes(navController: NavController) {
-    val randomMeals = remember { mutableStateListOf<RandomMeal?>() }
-    val images = remember { mutableStateListOf<Bitmap?>() }
-    var refreshing by remember { mutableStateOf(false) }
-
-    LaunchedEffect(Unit) {
-        Client.getRandomMeals(randomMeals)
-        for (meal in randomMeals) {
-            images.add(
-                Client.getImage(
-                    mealName = meal?.strMealThumb ?: "",
-                    imageSize = ImageSize.SMALL,
-                ),
-            )
-        }
-    }
-
-    LaunchedEffect(refreshing) {
-        if (refreshing) {
-            randomMeals.clear()
-            images.clear()
-            Client.getRandomMeals(randomMeals)
-
-            for (meal in randomMeals) {
-                images.add(
-                    Client.getImage(
-                        mealName = meal?.strMealThumb ?: "",
-                        imageSize = ImageSize.SMALL,
-                    ),
-                )
-            }
-            refreshing = false
-        }
-    }
-
-    if (randomMeals.size != images.size || randomMeals.isEmpty()) {
-        Loading()
-        return
-    }
-
+fun RecipesList(
+    meals: List<RandomMeal?>,
+    images: List<Bitmap?>,
+    refreshing: Boolean,
+    onRefresh: () -> Unit,
+    onClick: (String) -> Unit
+) {
     SwipeRefresh(
         state = rememberSwipeRefreshState(isRefreshing = refreshing),
-        onRefresh = { refreshing = true },
+        onRefresh = onRefresh,
     ) {
         LazyColumn(
             modifier =
@@ -106,8 +68,8 @@ fun Recipes(navController: NavController) {
                 )
             }
 
-            items(randomMeals.size) { index ->
-                val meal = randomMeals[index]
+            items(meals.size) { index ->
+                val meal = meals[index]
                 val imageBitmap = images[index]
                 if (meal == null) {
                     return@items
@@ -121,9 +83,7 @@ fun Recipes(navController: NavController) {
                             .padding(vertical = 10.dp)
                             .clip(RoundedCornerShape(12.dp))
                             .background(RecipesBackground)
-                            .clickable {
-                                navController.navigate("${AppRoutes.Recipe.route}/${meal.strMeal}")
-                            },
+                            .clickable { onClick(meal.strMeal) },
                     contentAlignment = Alignment.Center,
                 ) {
                     Row(

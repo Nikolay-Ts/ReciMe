@@ -26,4 +26,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "ReciMe"
-include(":app")
+include(":ReciMe")

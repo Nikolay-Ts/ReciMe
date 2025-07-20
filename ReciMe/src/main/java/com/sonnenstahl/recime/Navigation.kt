@@ -9,8 +9,6 @@ import com.sonnenstahl.recime.utils.AppRoutes
 
 @Composable
 fun Navigation() {
-    val context = LocalContext.current
-
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AppRoutes.Home.route) {
         composable(AppRoutes.Home.route) {

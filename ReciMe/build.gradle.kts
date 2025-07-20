@@ -1,5 +1,3 @@
-import org.jetbrains.dokka.DokkaDefaults.includeNonPublic
-import org.jetbrains.dokka.DokkaDefaults.outputDir
 import java.io.FileInputStream
 import java.util.Properties
 
