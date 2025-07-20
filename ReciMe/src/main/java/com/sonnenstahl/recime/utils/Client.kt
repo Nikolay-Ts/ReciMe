@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.sonnenstahl.recime.BuildConfig
 import com.sonnenstahl.recime.utils.data.MealResponse
-import com.sonnenstahl.recime.utils.data.RandomMeal
+import com.sonnenstahl.recime.utils.data.Meal
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.cio.CIO
@@ -70,7 +70,7 @@ object Client {
         }
     }
 
-    suspend fun getMealByName(mealName: String): RandomMeal? =
+    suspend fun getMealByName(mealName: String): Meal? =
         try {
             val url =
                 URLBuilder()
@@ -98,7 +98,7 @@ object Client {
             null
         }
 
-    suspend fun getRandomMeal(): RandomMeal? =
+    suspend fun getRandomMeal(): Meal? =
         try {
             val url =
                 URLBuilder()
@@ -123,7 +123,7 @@ object Client {
             null
         }
 
-    suspend fun getRandomMeals(mutableMeals: SnapshotStateList<RandomMeal?>) {
+    suspend fun getRandomMeals(mutableMeals: SnapshotStateList<Meal?>) {
         try {
             val url =
                 URLBuilder()

@@ -39,7 +39,7 @@ fun OptionsGrid(
     onclick: (MealOption) -> Unit,
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
+        columns = GridCells.Fixed(columns),
         modifier =
             Modifier
                 .fillMaxWidth()

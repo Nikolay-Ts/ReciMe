@@ -1,5 +1,6 @@
 package com.sonnenstahl.recime.utils.data
 
+import coil3.Bitmap
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -13,11 +14,11 @@ import kotlinx.serialization.json.jsonPrimitive
 
 @Serializable
 data class MealResponse(
-    val meals: List<RandomMeal>?,
+    val meals: List<Meal>?,
 )
 
-@Serializable(with = RandomMeal.Serializer::class)
-data class RandomMeal(
+@Serializable(with = Meal.Serializer::class)
+data class Meal(
     val idMeal: String,
     val strMeal: String,
     val strMealAlternate: String? = null,
@@ -34,7 +35,7 @@ data class RandomMeal(
     val strCreativeCommonsConfirmed: String? = null,
     val dateModified: String? = null,
 ) {
-    companion object Serializer : KSerializer<RandomMeal> {
+    companion object Serializer : KSerializer<Meal> {
         override val descriptor: SerialDescriptor =
             buildClassSerialDescriptor("Meal") {
                 element(
@@ -53,7 +54,7 @@ data class RandomMeal(
                 )
             }
 
-        override fun deserialize(decoder: Decoder): RandomMeal {
+        override fun deserialize(decoder: Decoder): Meal {
             val jsonDecoder = decoder as JsonDecoder
             val jsonObject = jsonDecoder.decodeJsonElement() as JsonObject
 
@@ -75,7 +76,7 @@ data class RandomMeal(
                 }
             }
 
-            return RandomMeal(
+            return Meal(
                 idMeal = jsonObject["idMeal"]?.jsonPrimitive?.content ?: "",
                 strMeal = jsonObject["strMeal"]?.jsonPrimitive?.content ?: "",
                 strMealAlternate = jsonObject["strMealAlternate"]?.jsonPrimitive?.contentOrNull,
@@ -96,7 +97,7 @@ data class RandomMeal(
 
         override fun serialize(
             encoder: Encoder,
-            value: RandomMeal,
+            value: Meal,
         ): Unit = throw NotImplementedError("Serialization for Meal is not implemented")
     }
 }

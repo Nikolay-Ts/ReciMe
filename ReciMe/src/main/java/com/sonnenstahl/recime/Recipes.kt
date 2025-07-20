@@ -12,7 +12,8 @@ import coil3.Bitmap
 import com.sonnenstahl.recime.utils.AppRoutes
 import com.sonnenstahl.recime.utils.Client
 import com.sonnenstahl.recime.utils.ImageSize
-import com.sonnenstahl.recime.utils.data.RandomMeal
+import com.sonnenstahl.recime.utils.TempStorage
+import com.sonnenstahl.recime.utils.data.Meal
 
 /**
  * displays the fetched Meals
@@ -21,13 +22,13 @@ import com.sonnenstahl.recime.utils.data.RandomMeal
  */
 @Composable
 fun Recipes(navController: NavController) {
-    val randomMeals = remember { mutableStateListOf<RandomMeal?>() }
+    val meals = remember { mutableStateListOf<Meal?>() }
     val images = remember { mutableStateListOf<Bitmap?>() }
     var refreshing by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        Client.getRandomMeals(randomMeals)
-        for (meal in randomMeals) {
+        Client.getRandomMeals(meals)
+        for (meal in meals) {
             images.add(
                 Client.getImage(
                     mealName = meal?.strMealThumb ?: "",
@@ -39,11 +40,11 @@ fun Recipes(navController: NavController) {
 
     LaunchedEffect(refreshing) {
         if (refreshing) {
-            randomMeals.clear()
+            meals.clear()
             images.clear()
-            Client.getRandomMeals(randomMeals)
+            Client.getRandomMeals(meals)
 
-            for (meal in randomMeals) {
+            for (meal in meals) {
                 images.add(
                     Client.getImage(
                         mealName = meal?.strMealThumb ?: "",
@@ -55,15 +56,18 @@ fun Recipes(navController: NavController) {
         }
     }
 
-    if (randomMeals.size != images.size || randomMeals.isEmpty()) {
+    if (meals.size != images.size || meals.isEmpty()) {
         Loading()
         return
     }
 
     RecipesList(
-        meals = randomMeals,
+        meals = meals,
         images = images,
         refreshing = refreshing,
         onRefresh = { refreshing = true }
-    ) { mealName -> navController.navigate("${AppRoutes.Recipe.route}/${mealName}") }
+    ) { meal ->
+        TempStorage.updateChosenMeal(meal)
+        navController.navigate("${AppRoutes.Recipe.route}/${meal.strMeal}")
+    }
 }

@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.sonnenstahl.recime.ui.theme.RecipesBackground
-import com.sonnenstahl.recime.utils.data.RandomMeal
+import com.sonnenstahl.recime.utils.data.Meal
 
 /**
  * a lazy list that displays the recipes and allows for refreshing of them. And navigates
@@ -41,11 +41,11 @@ import com.sonnenstahl.recime.utils.data.RandomMeal
  */
 @Composable
 fun RecipesList(
-    meals: List<RandomMeal?>,
+    meals: List<Meal?>,
     images: List<Bitmap?>,
     refreshing: Boolean,
     onRefresh: () -> Unit,
-    onClick: (String) -> Unit
+    onClick: (Meal) -> Unit
 ) {
     SwipeRefresh(
         state = rememberSwipeRefreshState(isRefreshing = refreshing),
@@ -83,7 +83,7 @@ fun RecipesList(
                             .padding(vertical = 10.dp)
                             .clip(RoundedCornerShape(12.dp))
                             .background(RecipesBackground)
-                            .clickable { onClick(meal.strMeal) },
+                            .clickable { onClick(meal) },
                     contentAlignment = Alignment.Center,
                 ) {
                     Row(

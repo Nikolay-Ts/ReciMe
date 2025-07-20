@@ -18,25 +18,37 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.unit.dp
 import com.sonnenstahl.recime.utils.Client
 import com.sonnenstahl.recime.utils.ImageSize
-import com.sonnenstahl.recime.utils.data.RandomMeal
+import com.sonnenstahl.recime.utils.TempStorage
+import com.sonnenstahl.recime.utils.data.Meal
 
+/**
+ * Shows the current recipe passed through as a name. There is also a TempStorage
+ * which caches the data and if the cache is sucesfull it will just load it in but if it fails
+ * it fetches it again by name
+ *
+ * @param name the name of the meal
+ */
 @Composable
 fun Recipe(name: String?) {
-    val randomMeal = remember { mutableStateOf<RandomMeal?>(null) }
-    val imageBitmap = remember { mutableStateOf<Bitmap?>(null) }
+    val meal = remember { mutableStateOf<Meal?>(TempStorage.chosenMeal.value) }
+    val imageBitmap = remember { mutableStateOf<Bitmap?>(TempStorage.chosenMealImg.value) }
 
     LaunchedEffect(Unit) {
+        if (meal.value != null) {
+            return@LaunchedEffect
+        }
+
         if (name == null) {
-            randomMeal.value = Client.getRandomMeal()
+            meal.value = Client.getRandomMeal()
         } else {
-            randomMeal.value = Client.getMealByName(name)
+            meal.value = Client.getMealByName(name)
         }
     }
 
-    LaunchedEffect(randomMeal.value) {
+    LaunchedEffect(meal.value) {
         imageBitmap.value =
             Client.getImage(
-                mealName = "${randomMeal.value?.strMealThumb}",
+                mealName = "${meal.value?.strMealThumb}",
                 imageSize = ImageSize.LARGE,
             )
     }
@@ -46,14 +58,14 @@ fun Recipe(name: String?) {
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize(),
     ) {
-        if (randomMeal.value == null || imageBitmap.value == null) {
+        if (meal.value == null || imageBitmap.value == null) {
             Loading()
             return
         }
 
-        Log.d("MEOW MEOW", "${randomMeal.value}")
+        Log.d("MEOW MEOW", "${meal.value}")
         Text(
-            text = "You should try\n ${randomMeal.value?.strMeal}!",
+            text = "You should try\n ${meal.value?.strMeal}!",
         )
 
         if (imageBitmap.value != null) {
@@ -66,9 +78,9 @@ fun Recipe(name: String?) {
             )
         }
 
-        for (i in 0..<randomMeal.value?.ingredients!!.size) {
-            val ingredient = randomMeal.value?.ingredients!![i]
-            val amount = randomMeal.value?.measures!![i]
+        for (i in 0..<meal.value?.ingredients!!.size) {
+            val ingredient = meal.value?.ingredients!![i]
+            val amount = meal.value?.measures!![i]
             Text("$ingredient, amount: $amount")
         }
     }
