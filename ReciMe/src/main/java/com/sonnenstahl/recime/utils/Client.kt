@@ -5,8 +5,8 @@ import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.sonnenstahl.recime.BuildConfig
-import com.sonnenstahl.recime.utils.data.MealResponse
 import com.sonnenstahl.recime.utils.data.Meal
+import com.sonnenstahl.recime.utils.data.MealResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.cio.CIO

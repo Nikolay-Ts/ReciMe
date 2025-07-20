@@ -1,6 +1,5 @@
 package com.sonnenstahl.recime.utils.data
 
-import coil3.Bitmap
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.SerialDescriptor

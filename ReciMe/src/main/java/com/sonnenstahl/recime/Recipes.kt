@@ -65,7 +65,7 @@ fun Recipes(navController: NavController) {
         meals = meals,
         images = images,
         refreshing = refreshing,
-        onRefresh = { refreshing = true }
+        onRefresh = { refreshing = true },
     ) { meal ->
         TempStorage.updateChosenMeal(meal)
         navController.navigate("${AppRoutes.Recipe.route}/${meal.strMeal}")

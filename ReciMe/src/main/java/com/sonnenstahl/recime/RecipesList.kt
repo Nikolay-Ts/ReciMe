@@ -45,7 +45,7 @@ fun RecipesList(
     images: List<Bitmap?>,
     refreshing: Boolean,
     onRefresh: () -> Unit,
-    onClick: (Meal) -> Unit
+    onClick: (Meal) -> Unit,
 ) {
     SwipeRefresh(
         state = rememberSwipeRefreshState(isRefreshing = refreshing),

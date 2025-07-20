@@ -1,7 +1,6 @@
 package com.sonnenstahl.recime
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -15,9 +14,9 @@ fun Navigation() {
             Home(navigation = navController)
         }
 
-        composable("${AppRoutes.Recipe.route}/{mealId}") { backStackEntry ->
-            val mealId = backStackEntry.arguments?.getString("mealId")
-            Recipe(mealId)
+        composable("${AppRoutes.Recipe.route}/{name}") { backStackEntry ->
+            val name = backStackEntry.arguments?.getString("name")
+            Recipe(navController = navController, name = name)
         }
 
         composable(AppRoutes.RecipeFinder.route) {
