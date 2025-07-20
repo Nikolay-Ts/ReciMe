@@ -21,7 +21,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 object Client {
-    val spoon = BuildConfig.SPOON
+    private const val SPOON = BuildConfig.SPOON
     private val client =
         HttpClient(CIO) {
             install(ContentNegotiation) {
@@ -75,14 +75,11 @@ object Client {
             val url =
                 URLBuilder()
                     .apply {
-                        takeFrom(spoon)
+                        takeFrom(SPOON)
                         appendPathSegments("search.php")
                         parameters.append("s", mealName)
                     }.toString()
 
-            Log.d("GET MEAL BY NAME", url)
-
-            Log.d("CRASHING_MEOW", url)
             val response = client.get(url)
 
             if (response.status.value == 200) {
@@ -103,7 +100,7 @@ object Client {
             val url =
                 URLBuilder()
                     .apply {
-                        takeFrom(spoon)
+                        takeFrom(SPOON)
                         appendPathSegments("random.php")
                     }.toString()
 
@@ -128,7 +125,7 @@ object Client {
             val url =
                 URLBuilder()
                     .apply {
-                        takeFrom(spoon)
+                        takeFrom(SPOON)
                         appendPathSegments("randomselection.php")
                     }.toString()
 

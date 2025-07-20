@@ -6,3 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
     id("org.jetbrains.dokka") version "1.9.20"
 }
+
+tasks.dokkaHtmlMultiModule {
+    includes.from("README.md")
+}

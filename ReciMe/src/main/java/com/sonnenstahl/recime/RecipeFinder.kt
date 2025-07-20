@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.sonnenstahl.recime.utils.AppRoutes
+import com.sonnenstahl.recime.utils.TempStorage
 import com.sonnenstahl.recime.utils.data.EXCLUDED_NAMES
 import com.sonnenstahl.recime.utils.data.MEAT_OPTION_NAMES
 import com.sonnenstahl.recime.utils.data.MealOption
@@ -101,7 +102,11 @@ fun RecipeFinder(navController: NavController) {
         }
 
         Button(
-            onClick = { navController.navigate(AppRoutes.Recipes.route) },
+            onClick = {
+                TempStorage.updateMeatOptions(meatOption = meatOptions)
+                TempStorage.updateMealOptions(mealOption = mealTimeOptions)
+                navController.navigate(AppRoutes.SearchRecipes.route)
+              },
             modifier =
                 Modifier
                     .align(Alignment.BottomCenter)
