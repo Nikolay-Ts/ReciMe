@@ -53,6 +53,7 @@ $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.Home///PointingToDeclarat
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.Recipe///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-recipe/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.RecipeFinder///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-recipe-finder/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.Recipes///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-recipes/index.html
+$dokka.location:com.sonnenstahl.recime.utils/AppRoutes.SearchRecipes///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-search-recipes/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes/route/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/route.html
 $dokka.location:com.sonnenstahl.recime.utils/Client///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-client/index.html
@@ -60,7 +61,6 @@ $dokka.location:com.sonnenstahl.recime.utils/Client/getImage/#kotlin.String#com.
 $dokka.location:com.sonnenstahl.recime.utils/Client/getMealByName/#kotlin.String/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-client/get-meal-by-name.html
 $dokka.location:com.sonnenstahl.recime.utils/Client/getRandomMeal/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-client/get-random-meal.html
 $dokka.location:com.sonnenstahl.recime.utils/Client/getRandomMeals/#androidx.compose.runtime.snapshots.SnapshotStateList[com.sonnenstahl.recime.utils.data.Meal?]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-client/get-random-meals.html
-$dokka.location:com.sonnenstahl.recime.utils/Client/spoon/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-client/spoon.html
 $dokka.location:com.sonnenstahl.recime.utils/ImageSize.LARGE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reci-me/com.sonnenstahl.recime.utils/-image-size/-l-a-r-g-e/index.html
 $dokka.location:com.sonnenstahl.recime.utils/ImageSize.MEDIUM///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reci-me/com.sonnenstahl.recime.utils/-image-size/-m-e-d-i-u-m/index.html
 $dokka.location:com.sonnenstahl.recime.utils/ImageSize.SMALL///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reci-me/com.sonnenstahl.recime.utils/-image-size/-s-m-a-l-l/index.html
@@ -71,7 +71,11 @@ $dokka.location:com.sonnenstahl.recime.utils/ImageSize/values/#/PointingToDeclar
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/index.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/chosenMeal/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/chosen-meal.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/chosenMealImg/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/chosen-meal-img.html
+$dokka.location:com.sonnenstahl.recime.utils/TempStorage/mealOptions/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/meal-options.html
+$dokka.location:com.sonnenstahl.recime.utils/TempStorage/meatOptions/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/meat-options.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateChosenMeal/#com.sonnenstahl.recime.utils.data.Meal?/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-chosen-meal.html
+$dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateMealOptions/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.MealOption?]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-meal-options.html
+$dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateMeatOptions/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.MealOption?]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-meat-options.html
 $dokka.location:com.sonnenstahl.recime////PointingToDeclaration/-reci-me/com.sonnenstahl.recime/index.html
 $dokka.location:com.sonnenstahl.recime//Home/#androidx.navigation.NavHostController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-home.html
 $dokka.location:com.sonnenstahl.recime//Loading/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-loading.html
@@ -81,6 +85,7 @@ $dokka.location:com.sonnenstahl.recime//Recipe/#androidx.navigation.NavControlle
 $dokka.location:com.sonnenstahl.recime//RecipeFinder/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-recipe-finder.html
 $dokka.location:com.sonnenstahl.recime//Recipes/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-recipes.html
 $dokka.location:com.sonnenstahl.recime//RecipesList/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.Meal?]#kotlin.collections.List[android.graphics.Bitmap?]#kotlin.Boolean#kotlin.Function0[kotlin.Unit]#kotlin.Function1[com.sonnenstahl.recime.utils.data.Meal,kotlin.Unit]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-recipes-list.html
+$dokka.location:com.sonnenstahl.recime//SearchRecipes/#androidx.navigation.NavController#kotlin.String?/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-search-recipes.html
 $dokka.location:com.sonnenstahl.recime/MainActivity///PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-main-activity/index.html
 $dokka.location:com.sonnenstahl.recime/MainActivity/MainActivity/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-main-activity/-main-activity.html
 com.sonnenstahl.recime
