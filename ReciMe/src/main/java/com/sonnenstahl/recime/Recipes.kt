@@ -1,5 +1,6 @@
 package com.sonnenstahl.recime
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -28,13 +29,18 @@ fun Recipes(navController: NavController) {
 
     LaunchedEffect(navController) {
         navController.currentBackStackEntryFlow.collect { backStackEntry ->
-            TempStorage.clearSuggestedMeals()
+            val destination = backStackEntry.destination.route
+            if (destination == AppRoutes.Home.route) {
+                TempStorage.clearSuggestedMeals()
+            }
         }
     }
 
     LaunchedEffect(Unit) {
         val cachedSuggestedMeals = TempStorage.suggestedMeals.value
         val cachedSuggestedMealImages = TempStorage.suggestedMealImages.value
+        Log.d("MAPPING", "$cachedSuggestedMeals")
+
 
         if (cachedSuggestedMeals.isNotEmpty() && cachedSuggestedMealImages.size == cachedSuggestedMeals.size) {
             meals.addAll(cachedSuggestedMeals)
@@ -86,6 +92,8 @@ fun Recipes(navController: NavController) {
         TempStorage.updateChosenMeal(meal)
         TempStorage.updateSuggestedMeals(meals)
         TempStorage.updateSuggestedMealImages(images)
+        Log.d("MAPPING", "${TempStorage.suggestedMeals.value}")
+
         navController.navigate("${AppRoutes.Recipe.route}/${meal.strMeal}")
     }
 }
