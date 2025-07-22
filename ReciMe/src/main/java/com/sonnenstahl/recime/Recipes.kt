@@ -26,16 +26,32 @@ fun Recipes(navController: NavController) {
     val images = remember { mutableStateListOf<Bitmap?>() }
     var refreshing by remember { mutableStateOf(false) }
 
+    LaunchedEffect(navController) {
+        navController.currentBackStackEntryFlow.collect { backStackEntry ->
+            TempStorage.clearSuggestedMeals()
+        }
+    }
+
     LaunchedEffect(Unit) {
+        val cachedSuggestedMeals = TempStorage.suggestedMeals.value
+        val cachedSuggestedMealImages = TempStorage.suggestedMealImages.value
+
+        if (cachedSuggestedMeals.isNotEmpty() && cachedSuggestedMealImages.size == cachedSuggestedMeals.size) {
+            meals.addAll(cachedSuggestedMeals)
+            images.addAll(cachedSuggestedMealImages)
+            return@LaunchedEffect
+        }
+
         Client.getRandomMeals(meals)
-        for (meal in meals) {
-            images.add(
-                Client.getImage(
-                    mealName = meal?.strMealThumb ?: "",
-                    imageSize = ImageSize.SMALL,
-                ),
+
+        val fetchedImages = meals.map { meal ->
+            Client.getImage(
+                mealName = meal?.strMealThumb ?: "",
+                imageSize = ImageSize.SMALL,
             )
         }
+
+        images.addAll(fetchedImages)
     }
 
     LaunchedEffect(refreshing) {
@@ -68,6 +84,8 @@ fun Recipes(navController: NavController) {
         onRefresh = { refreshing = true },
     ) { meal ->
         TempStorage.updateChosenMeal(meal)
+        TempStorage.updateSuggestedMeals(meals)
+        TempStorage.updateSuggestedMealImages(images)
         navController.navigate("${AppRoutes.Recipe.route}/${meal.strMeal}")
     }
 }

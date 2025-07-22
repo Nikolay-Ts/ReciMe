@@ -1,5 +1,7 @@
 package com.sonnenstahl.recime.utils
 
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshots.MutableSnapshot
 import coil3.Bitmap
 import com.sonnenstahl.recime.utils.data.Meal
 import com.sonnenstahl.recime.utils.data.MealOption
@@ -16,6 +18,10 @@ import kotlinx.coroutines.flow.update
 object TempStorage {
     private val _chosenMeal = MutableStateFlow<Meal?>(null)
     private val _chosenMealImg = MutableStateFlow<Bitmap?>(null)
+
+    private val _suggestedMeals = MutableStateFlow<List<Meal?>>(emptyList())
+    private val _suggestedMealImages = MutableStateFlow<List<Bitmap?>>(emptyList())
+
     private val _meatOptions = MutableStateFlow<List<MealOption?>>(emptyList())
     private val _mealOptions = MutableStateFlow<List<MealOption?>>(emptyList())
 
@@ -24,6 +30,12 @@ object TempStorage {
 
     val chosenMealImg
         get() = _chosenMealImg.asStateFlow()
+
+    val suggestedMeals
+        get() = _suggestedMeals.asStateFlow()
+
+    val suggestedMealImages
+        get() = _suggestedMealImages.asStateFlow()
 
     val meatOptions
         get() = _meatOptions.asStateFlow()
@@ -34,6 +46,19 @@ object TempStorage {
 
     fun updateChosenMeal(meal: Meal?) {
         _chosenMeal.value = meal
+    }
+
+    fun updateSuggestedMeals(meals: List<Meal?>) {
+        _suggestedMeals.value = meals
+    }
+
+    fun updateSuggestedMealImages(images: List<Bitmap?>) {
+        _suggestedMealImages.value = images
+    }
+
+    fun clearSuggestedMeals() {
+        _suggestedMeals.value = emptyList()
+        _suggestedMealImages.value = emptyList()
     }
 
     fun updateMeatOptions(meatOption: List<MealOption?>) {
