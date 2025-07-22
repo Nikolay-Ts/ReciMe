@@ -29,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
-import java.nio.file.WatchEvent
 
 @Composable
 fun Loading() {

@@ -105,7 +105,9 @@ fun RecipeFinder(navController: NavController) {
             onClick = {
                 TempStorage.updateMeatOptions(meatOption = meatOptions)
                 TempStorage.updateMealOptions(mealOption = mealTimeOptions)
-                navController.navigate(AppRoutes.SearchRecipes.route)
+                val urlName = if (mealName == "") null else mealName
+                val url = "${AppRoutes.Recipes.route}/true/$urlName"
+                navController.navigate(url)
               },
             modifier =
                 Modifier

@@ -22,7 +22,11 @@ import com.sonnenstahl.recime.utils.data.Meal
  * @param navController navigate between screens
  */
 @Composable
-fun Recipes(navController: NavController) {
+fun Recipes(
+    navController: NavController,
+    isRecipeFinder: Boolean,
+    mealName: String?
+) {
     val meals = remember { mutableStateListOf<Meal?>() }
     val images = remember { mutableStateListOf<Bitmap?>() }
     var refreshing by remember { mutableStateOf(false) }
@@ -30,17 +34,54 @@ fun Recipes(navController: NavController) {
     LaunchedEffect(Unit) {
         val cachedSuggestedMeals = TempStorage.suggestedMeals.value
         val cachedSuggestedMealImages = TempStorage.suggestedMealImages.value
-        Log.d("MAPPING", "$cachedSuggestedMeals")
-
-
         if (cachedSuggestedMeals.isNotEmpty() && cachedSuggestedMealImages.size == cachedSuggestedMeals.size) {
             meals.addAll(cachedSuggestedMeals)
             images.addAll(cachedSuggestedMealImages)
             return@LaunchedEffect
         }
 
-        Client.getRandomMeals(meals)
+        if (isRecipeFinder) {
+            var tempMeal: Meal? = null
+            if (mealName != null) {
+                tempMeal = Client.getMealByName(mealName)
+                if (tempMeal == null) { // could not find anything that matches the description
+                    //TODO: go to error menu and ask to go back
+                    return@LaunchedEffect
+                }
 
+
+                val meatOptions = TempStorage.meatOptions.value
+                val mealOptions = TempStorage.mealOptions.value
+
+                for (meatOption in meatOptions) {
+                    if (! meatOption.isChosen.value) {
+                        continue
+                    }
+                    Client.getMealByCategory(meals, meatOption.name)
+                }
+
+                for (mealOption in mealOptions) {
+                    if (! mealOption.isChosen.value) {
+                        continue
+                    }
+                    Client.getMealByCategory(meals, mealOption.name)
+                }
+
+                meals.filter { it?.strMeal?.contains(mealName) == true  }
+
+                val fetchedImages = meals.map { meal ->
+                    Client.getImage(
+                        mealName = meal?.strMealThumb ?: "",
+                        imageSize = ImageSize.SMALL,
+                    )
+                }
+                images.addAll(fetchedImages)
+            }
+            return@LaunchedEffect
+        }
+
+
+        Client.getRandomMeals(meals)
         val fetchedImages = meals.map { meal ->
             Client.getImage(
                 mealName = meal?.strMealThumb ?: "",

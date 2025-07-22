@@ -56,7 +56,10 @@ fun Home(navigation: NavHostController) {
         }
 
         Button(
-            onClick = { navigation.navigate(AppRoutes.Recipes.route) },
+            onClick = {
+                val url = "${AppRoutes.Recipes.route}/false/null"
+                navigation.navigate(url)
+              },
             modifier =
                 Modifier
                     .align(Alignment.BottomCenter)

@@ -22,8 +22,8 @@ object TempStorage {
     private val _suggestedMeals = MutableStateFlow<List<Meal?>>(emptyList())
     private val _suggestedMealImages = MutableStateFlow<List<Bitmap?>>(emptyList())
 
-    private val _meatOptions = MutableStateFlow<List<MealOption?>>(emptyList())
-    private val _mealOptions = MutableStateFlow<List<MealOption?>>(emptyList())
+    private val _meatOptions = MutableStateFlow<List<MealOption>>(emptyList())
+    private val _mealOptions = MutableStateFlow<List<MealOption>>(emptyList())
 
     val chosenMeal
         get() = _chosenMeal.asStateFlow()
@@ -61,10 +61,10 @@ object TempStorage {
         _suggestedMealImages.value = emptyList()
     }
 
-    fun updateMeatOptions(meatOption: List<MealOption?>) {
+    fun updateMeatOptions(meatOption: List<MealOption>) {
         _meatOptions.value = meatOption
     }
-    fun updateMealOptions(mealOption: List<MealOption?>) {
+    fun updateMealOptions(mealOption: List<MealOption>) {
         _mealOptions.value = mealOption
     }
 }
