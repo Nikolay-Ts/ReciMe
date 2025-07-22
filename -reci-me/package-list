@@ -72,11 +72,16 @@ $dokka.location:com.sonnenstahl.recime.utils/ImageSize/values/#/PointingToDeclar
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/index.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/chosenMeal/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/chosen-meal.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/chosenMealImg/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/chosen-meal-img.html
+$dokka.location:com.sonnenstahl.recime.utils/TempStorage/clearSuggestedMeals/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/clear-suggested-meals.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/mealOptions/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/meal-options.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/meatOptions/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/meat-options.html
+$dokka.location:com.sonnenstahl.recime.utils/TempStorage/suggestedMealImages/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/suggested-meal-images.html
+$dokka.location:com.sonnenstahl.recime.utils/TempStorage/suggestedMeals/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/suggested-meals.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateChosenMeal/#com.sonnenstahl.recime.utils.data.Meal?/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-chosen-meal.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateMealOptions/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.MealOption?]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-meal-options.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateMeatOptions/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.MealOption?]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-meat-options.html
+$dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateSuggestedMealImages/#kotlin.collections.List[[Error type: Unresolved type for Bitmap]?]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-suggested-meal-images.html
+$dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateSuggestedMeals/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.Meal?]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-suggested-meals.html
 $dokka.location:com.sonnenstahl.recime////PointingToDeclaration/-reci-me/com.sonnenstahl.recime/index.html
 $dokka.location:com.sonnenstahl.recime//Home/#androidx.navigation.NavHostController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-home.html
 $dokka.location:com.sonnenstahl.recime//Loading/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-loading.html
