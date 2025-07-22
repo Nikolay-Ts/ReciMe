@@ -25,7 +25,7 @@ fun Navigation() {
 
         composable("${AppRoutes.SearchRecipes.route}/{name") { backStackEntry ->
             val name = backStackEntry.arguments?.getString("name")
-            SearchRecipes(navController = navController, mealName = name)
+            SearchRecipes(navController = navController)
         }
 
         composable(AppRoutes.Recipes.route) {

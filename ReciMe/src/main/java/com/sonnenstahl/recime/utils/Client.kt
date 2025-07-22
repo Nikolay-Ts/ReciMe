@@ -148,4 +148,34 @@ object Client {
             Log.d("MEOW MEOW", e.toString())
         }
     }
+
+    suspend fun getMealByCategory(mutableMeals: SnapshotStateList<Meal?>, category: String) {
+        try {
+            val url = URLBuilder().apply {
+                takeFrom(SPOON)
+                appendPathSegments("filter.php")
+                parameters.append("c", category)
+            }.toString()
+
+            val response = client.get(url)
+
+            if (response.status.value == 200) {
+                val rawJson = response.bodyAsText()
+                Log.d("Client", "Raw JSON Response: $rawJson")
+
+                val meals = Json.decodeFromString<MealResponse>(rawJson).meals
+                if (meals == null) {
+                    return
+                }
+
+                for (meal in meals) {
+                    mutableMeals.add(meal)
+                }
+            }
+
+        } catch(e: Exception) {
+            Log.e("GET Meal by category", e.toString())
+        }
+
+    }
 }

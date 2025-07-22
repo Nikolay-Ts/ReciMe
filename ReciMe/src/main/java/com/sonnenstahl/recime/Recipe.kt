@@ -1,17 +1,27 @@
 package com.sonnenstahl.recime
 
 import android.graphics.Bitmap
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -27,22 +37,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.Navigator
-import coil3.compose.AsyncImage
 import com.sonnenstahl.recime.utils.AppRoutes
 import com.sonnenstahl.recime.utils.Client
 import com.sonnenstahl.recime.utils.ImageSize
 import com.sonnenstahl.recime.utils.TempStorage
 import com.sonnenstahl.recime.utils.data.Meal
 
-/**
- * Shows the current recipe passed through as a name. There is also a TempStorage
- * which caches the data and if the cache is successful it will just load it in but if it fails
- * it fetches it again by name
- *
- * @param navController used to navigate back to the [Home] view
- * @param name the name of the meal
- */
 @Composable
 fun Recipe(
     navController: NavController,
@@ -50,7 +50,7 @@ fun Recipe(
 ) {
     val meal = remember { mutableStateOf<Meal?>(TempStorage.chosenMeal.value) }
     val imageBitmap = remember { mutableStateOf<Bitmap?>(TempStorage.chosenMealImg.value) }
-    var isRecipeDisplayed by remember { mutableStateOf(false )}
+    var isRecipeDisplayed by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         if (meal.value != null) {
@@ -77,23 +77,35 @@ fun Recipe(
         return
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Column(modifier = Modifier.align(Alignment.TopCenter).padding(top=50.dp)) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 50.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Text(
                 text = "${meal.value?.strMeal}",
                 style = MaterialTheme.typography.headlineMedium,
             )
         }
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize(),
-        ) {
 
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
             if (imageBitmap.value != null) {
                 Image(
                     bitmap = imageBitmap.value!!.asImageBitmap(),
-                    contentDescription = "Random Recipe",
+                    contentDescription = "Recipe Image",
                     modifier =
                         Modifier
                             .padding(vertical = 10.dp)
@@ -102,39 +114,65 @@ fun Recipe(
                 )
             }
 
-            Button(onClick = {isRecipeDisplayed = !isRecipeDisplayed}) {
-                Row {
-                    Text("Recipe")
-
-                    val imageSrc = when (isRecipeDisplayed) {
-                        true -> "file:///android_asset/triangle-down.png"
-                        false -> "file:///android_asset/triangle-right.png"
-                    }
-
-                    AsyncImage(
-                        model = imageSrc,
-                        contentDescription = "visual queue for showing the recipe",
-                        modifier = Modifier.size(10.dp)
+            Button(
+                onClick = { isRecipeDisplayed = !isRecipeDisplayed },
+                modifier = Modifier.padding(top = 16.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("Ingredients")
+                    Spacer(modifier = Modifier.size(8.dp))
+                    Icon(
+                        imageVector = if (isRecipeDisplayed) Icons.Filled.KeyboardArrowDown else Icons.Filled.KeyboardArrowRight,
+                        contentDescription = "Toggle ingredients"
                     )
                 }
             }
 
-            for (i in 0..<meal.value?.ingredients!!.size) {
-                val ingredient = meal.value?.ingredients!![i]
-                val amount = meal.value?.measures!![i]
-                Text("$ingredient, amount: $amount")
+            if (isRecipeDisplayed) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp),
+                    elevation = CardDefaults.cardElevation(4.dp),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    LazyColumn(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .height(250.dp)
+                    ) {
+                        itemsIndexed(meal.value?.ingredients.orEmpty()) { index, ingredient ->
+                            val amount = meal.value?.measures?.getOrNull(index)
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 4.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    text = ingredient,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                )
+                                Text(
+                                    text = amount.orEmpty(),
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+                }
             }
         }
 
         Row(
             modifier =
                 Modifier
-                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
                     .padding(bottom = 50.dp),
+            horizontalArrangement = Arrangement.Center
         ) {
-            val buttonModifier =
-                Modifier
-                    .padding(horizontal = 10.dp)
+            val buttonModifier = Modifier.padding(horizontal = 10.dp)
 
             OutlinedButton(
                 modifier = buttonModifier,
@@ -144,9 +182,7 @@ fun Recipe(
             Button(
                 modifier = buttonModifier,
                 onClick = { navController.navigate(AppRoutes.Home.route) }
-            ) { Text("add to fridge") }
+            ) { Text("Add to Fridge") }
         }
-
     }
-
 }
