@@ -58,6 +58,7 @@ $dokka.location:com.sonnenstahl.recime.utils/AppRoutes///PointingToDeclaration/
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes/route/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/route.html
 $dokka.location:com.sonnenstahl.recime.utils/Client///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-client/index.html
 $dokka.location:com.sonnenstahl.recime.utils/Client/getImage/#kotlin.String#com.sonnenstahl.recime.utils.ImageSize/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-client/get-image.html
+$dokka.location:com.sonnenstahl.recime.utils/Client/getMealByCategory/#androidx.compose.runtime.snapshots.SnapshotStateList[com.sonnenstahl.recime.utils.data.Meal?]#kotlin.String/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-client/get-meal-by-category.html
 $dokka.location:com.sonnenstahl.recime.utils/Client/getMealByName/#kotlin.String/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-client/get-meal-by-name.html
 $dokka.location:com.sonnenstahl.recime.utils/Client/getRandomMeal/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-client/get-random-meal.html
 $dokka.location:com.sonnenstahl.recime.utils/Client/getRandomMeals/#androidx.compose.runtime.snapshots.SnapshotStateList[com.sonnenstahl.recime.utils.data.Meal?]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-client/get-random-meals.html
@@ -85,7 +86,7 @@ $dokka.location:com.sonnenstahl.recime//Recipe/#androidx.navigation.NavControlle
 $dokka.location:com.sonnenstahl.recime//RecipeFinder/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-recipe-finder.html
 $dokka.location:com.sonnenstahl.recime//Recipes/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-recipes.html
 $dokka.location:com.sonnenstahl.recime//RecipesList/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.Meal?]#kotlin.collections.List[android.graphics.Bitmap?]#kotlin.Boolean#kotlin.Function0[kotlin.Unit]#kotlin.Function1[com.sonnenstahl.recime.utils.data.Meal,kotlin.Unit]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-recipes-list.html
-$dokka.location:com.sonnenstahl.recime//SearchRecipes/#androidx.navigation.NavController#kotlin.String?/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-search-recipes.html
+$dokka.location:com.sonnenstahl.recime//SearchRecipes/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-search-recipes.html
 $dokka.location:com.sonnenstahl.recime/MainActivity///PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-main-activity/index.html
 $dokka.location:com.sonnenstahl.recime/MainActivity/MainActivity/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-main-activity/-main-activity.html
 com.sonnenstahl.recime
