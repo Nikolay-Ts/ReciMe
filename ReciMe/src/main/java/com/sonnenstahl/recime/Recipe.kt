@@ -3,7 +3,6 @@ package com.sonnenstahl.recime
 import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -35,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.sonnenstahl.recime.utils.AppRoutes
@@ -91,7 +91,21 @@ fun Recipe(
             Text(
                 text = "${meal.value?.strMeal}",
                 style = MaterialTheme.typography.headlineMedium,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
             )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            if (imageBitmap.value != null) {
+                Image(
+                    bitmap = imageBitmap.value!!.asImageBitmap(),
+                    contentDescription = "Recipe Image",
+                    modifier =
+                        Modifier
+                            .size(200.dp)
+                            .clip(RoundedCornerShape(25.dp)),
+                )
+            }
         }
 
         Column(
@@ -100,20 +114,8 @@ fun Recipe(
                 .weight(1f)
                 .padding(horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Top
         ) {
-            if (imageBitmap.value != null) {
-                Image(
-                    bitmap = imageBitmap.value!!.asImageBitmap(),
-                    contentDescription = "Recipe Image",
-                    modifier =
-                        Modifier
-                            .padding(vertical = 10.dp)
-                            .size(200.dp)
-                            .clip(RoundedCornerShape(25.dp)),
-                )
-            }
-
             Button(
                 onClick = { isRecipeDisplayed = !isRecipeDisplayed },
                 modifier = Modifier.padding(top = 16.dp)

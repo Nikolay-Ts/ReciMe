@@ -8,14 +8,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.sonnenstahl.recime.utils.AppRoutes
+import com.sonnenstahl.recime.utils.TempStorage
 
 @Composable
 fun Home(navigation: NavHostController) {
+    LaunchedEffect(Unit) {
+        TempStorage.clearSuggestedMeals()
+    }
+
     Box(
         modifier =
             Modifier

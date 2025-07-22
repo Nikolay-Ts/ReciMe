@@ -27,15 +27,6 @@ fun Recipes(navController: NavController) {
     val images = remember { mutableStateListOf<Bitmap?>() }
     var refreshing by remember { mutableStateOf(false) }
 
-    LaunchedEffect(navController) {
-        navController.currentBackStackEntryFlow.collect { backStackEntry ->
-            val destination = backStackEntry.destination.route
-            if (destination == AppRoutes.Home.route) {
-                TempStorage.clearSuggestedMeals()
-            }
-        }
-    }
-
     LaunchedEffect(Unit) {
         val cachedSuggestedMeals = TempStorage.suggestedMeals.value
         val cachedSuggestedMealImages = TempStorage.suggestedMealImages.value
