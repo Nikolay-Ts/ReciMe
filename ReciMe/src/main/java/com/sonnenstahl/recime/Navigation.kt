@@ -1,5 +1,6 @@
 package com.sonnenstahl.recime
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -29,13 +30,19 @@ fun Navigation() {
         }
 
         composable("${AppRoutes.Recipes.route}/{isRecipeFinder}/{mealName}") { backStackEntry ->
-            val isRecipeFinder = backStackEntry.arguments?.getBoolean("isRecipeFinder") == true
+            val isRecipeFinder = backStackEntry.arguments?.getString("isRecipeFinder") == "true"
             val mealName = backStackEntry.arguments?.getString("mealName")
+            Log.d("HOW AM I HERE", "$isRecipeFinder")
             Recipes(
                 navController = navController,
                 isRecipeFinder = isRecipeFinder,
                 mealName = mealName,
             )
         }
+
+        composable(AppRoutes.CouldNotLoad.route) {
+            CouldNotLoad(navController = navController)
+        }
+
     }
 }

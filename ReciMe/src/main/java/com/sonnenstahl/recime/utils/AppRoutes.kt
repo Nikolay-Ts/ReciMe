@@ -12,4 +12,6 @@ sealed class AppRoutes(
     object Recipes : AppRoutes("recipes")
 
     object Recipe : AppRoutes("recipe")
+
+    object CouldNotLoad : AppRoutes("CouldNotLoad")
 }

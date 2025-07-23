@@ -40,6 +40,8 @@ fun RecipeFinder(navController: NavController) {
     LaunchedEffect(Unit) {
         meatOptions = initMeatOptions()
         mealTimeOptions = initMealTypeOptions()
+
+        TempStorage.clearSuggestedMeals()
     }
 
     Box(
@@ -106,7 +108,11 @@ fun RecipeFinder(navController: NavController) {
                 TempStorage.updateMeatOptions(meatOption = meatOptions)
                 TempStorage.updateMealOptions(mealOption = mealTimeOptions)
                 val urlName = if (mealName == "") null else mealName
-                val url = "${AppRoutes.Recipes.route}/true/$urlName"
+                val isRecipeFinder =
+                    mealTimeOptions.any { it.isChosen.value == true } ||
+                    meatOptions.any { it.isChosen.value == true  }
+
+                val url = "${AppRoutes.Recipes.route}/$isRecipeFinder/$urlName"
                 navController.navigate(url)
               },
             modifier =

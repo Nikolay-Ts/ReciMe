@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
 import coil3.Bitmap
@@ -15,6 +16,8 @@ import com.sonnenstahl.recime.utils.Client
 import com.sonnenstahl.recime.utils.ImageSize
 import com.sonnenstahl.recime.utils.TempStorage
 import com.sonnenstahl.recime.utils.data.Meal
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * displays the fetched Meals
@@ -27,11 +30,21 @@ fun Recipes(
     isRecipeFinder: Boolean,
     mealName: String?
 ) {
+    val coroutine = rememberCoroutineScope()
     val meals = remember { mutableStateListOf<Meal?>() }
     val images = remember { mutableStateListOf<Bitmap?>() }
     var refreshing by remember { mutableStateOf(false) }
+    val isRecipeFinder by remember { mutableStateOf(isRecipeFinder) }
 
     LaunchedEffect(Unit) {
+        coroutine.launch{
+            delay(10000L)
+
+            if (meals.isEmpty()) {
+                navController.navigate(AppRoutes.CouldNotLoad.route)
+            }
+        }
+
         val cachedSuggestedMeals = TempStorage.suggestedMeals.value
         val cachedSuggestedMealImages = TempStorage.suggestedMealImages.value
         if (cachedSuggestedMeals.isNotEmpty() && cachedSuggestedMealImages.size == cachedSuggestedMeals.size) {
@@ -40,16 +53,10 @@ fun Recipes(
             return@LaunchedEffect
         }
 
-        if (isRecipeFinder) {
+        if (isRecipeFinder ==  true) {
             var tempMeal: Meal? = null
             if (mealName != null) {
                 tempMeal = Client.getMealByName(mealName)
-                if (tempMeal == null) { // could not find anything that matches the description
-                    //TODO: go to error menu and ask to go back
-                    return@LaunchedEffect
-                }
-
-
                 val meatOptions = TempStorage.meatOptions.value
                 val mealOptions = TempStorage.mealOptions.value
 
@@ -67,8 +74,10 @@ fun Recipes(
                     Client.getMealByCategory(meals, mealOption.name)
                 }
 
-                meals.filter { it?.strMeal?.contains(mealName) == true  }
+                if (tempMeal?.strMeal != null ) { // could not find anything that matches the description
+                    meals.filter { it?.strMeal?.contains(tempMeal.strMeal) == true  }
 
+                }
                 val fetchedImages = meals.map { meal ->
                     Client.getImage(
                         mealName = meal?.strMealThumb ?: "",
