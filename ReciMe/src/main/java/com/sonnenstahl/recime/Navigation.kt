@@ -24,11 +24,6 @@ fun Navigation() {
             RecipeFinder(navController = navController)
         }
 
-        composable("${AppRoutes.SearchRecipes.route}/{name") { backStackEntry ->
-            val name = backStackEntry.arguments?.getString("name")
-            SearchRecipes(navController = navController)
-        }
-
         composable("${AppRoutes.Recipes.route}/{isRecipeFinder}/{mealName}") { backStackEntry ->
             val isRecipeFinder = backStackEntry.arguments?.getString("isRecipeFinder") == "true"
             val mealName = backStackEntry.arguments?.getString("mealName")

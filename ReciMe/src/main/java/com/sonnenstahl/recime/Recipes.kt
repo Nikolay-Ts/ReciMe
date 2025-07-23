@@ -1,6 +1,5 @@
 package com.sonnenstahl.recime
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -23,6 +22,8 @@ import kotlinx.coroutines.launch
  * displays the fetched Meals
  *
  * @param navController navigate between screens
+ * @param isRecipeFinder true if there is a filter on
+ * @param mealName only used if isRecipeFinder is true
  */
 @Composable
 fun Recipes(
@@ -38,8 +39,7 @@ fun Recipes(
 
     LaunchedEffect(Unit) {
         coroutine.launch{
-            delay(10000L)
-
+            delay(20000L)
             if (meals.isEmpty()) {
                 navController.navigate(AppRoutes.CouldNotLoad.route)
             }
@@ -89,7 +89,6 @@ fun Recipes(
             return@LaunchedEffect
         }
 
-
         Client.getRandomMeals(meals)
         val fetchedImages = meals.map { meal ->
             Client.getImage(
@@ -97,7 +96,6 @@ fun Recipes(
                 imageSize = ImageSize.SMALL,
             )
         }
-
         images.addAll(fetchedImages)
     }
 
@@ -133,8 +131,6 @@ fun Recipes(
         TempStorage.updateChosenMeal(meal)
         TempStorage.updateSuggestedMeals(meals)
         TempStorage.updateSuggestedMealImages(images)
-        Log.d("MAPPING", "${TempStorage.suggestedMeals.value}")
-
         navController.navigate("${AppRoutes.Recipe.route}/${meal.strMeal}")
     }
 }
