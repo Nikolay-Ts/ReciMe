@@ -49,6 +49,7 @@ $dokka.location:com.sonnenstahl.recime.utils.data/MealResponse///PointingToDecla
 $dokka.location:com.sonnenstahl.recime.utils.data/MealResponse/MealResponse/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.Meal]?/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-meal-response/-meal-response.html
 $dokka.location:com.sonnenstahl.recime.utils.data/MealResponse/meals/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-meal-response/meals.html
 $dokka.location:com.sonnenstahl.recime.utils////PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/index.html
+$dokka.location:com.sonnenstahl.recime.utils/AppRoutes.CouldNotLoad///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-could-not-load/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.Home///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-home/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.Recipe///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-recipe/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.RecipeFinder///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-recipe-finder/index.html
@@ -83,6 +84,7 @@ $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateMeatOptions/#kotl
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateSuggestedMealImages/#kotlin.collections.List[[Error type: Unresolved type for Bitmap]?]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-suggested-meal-images.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateSuggestedMeals/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.Meal?]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-suggested-meals.html
 $dokka.location:com.sonnenstahl.recime////PointingToDeclaration/-reci-me/com.sonnenstahl.recime/index.html
+$dokka.location:com.sonnenstahl.recime//CouldNotLoad/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-could-not-load.html
 $dokka.location:com.sonnenstahl.recime//Home/#androidx.navigation.NavHostController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-home.html
 $dokka.location:com.sonnenstahl.recime//Loading/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-loading.html
 $dokka.location:com.sonnenstahl.recime//Navigation/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-navigation.html
