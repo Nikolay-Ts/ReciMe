@@ -39,9 +39,13 @@ fun Recipes(
 
     LaunchedEffect(Unit) {
         coroutine.launch{
-            delay(20000L)
+            delay(10000L)
             if (meals.isEmpty()) {
-                navController.navigate(AppRoutes.CouldNotLoad.route)
+                navController.navigate(AppRoutes.CouldNotLoad.route) {
+                    popUpTo(AppRoutes.Home.route) {
+                        inclusive = true
+                    }
+                }
             }
         }
 

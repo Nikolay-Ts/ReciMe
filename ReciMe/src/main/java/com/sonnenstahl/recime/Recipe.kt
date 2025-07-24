@@ -29,6 +29,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,17 +43,31 @@ import com.sonnenstahl.recime.utils.Client
 import com.sonnenstahl.recime.utils.ImageSize
 import com.sonnenstahl.recime.utils.TempStorage
 import com.sonnenstahl.recime.utils.data.Meal
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun Recipe(
     navController: NavController,
     name: String?
 ) {
+    val coroutine = rememberCoroutineScope()
     val meal = remember { mutableStateOf<Meal?>(TempStorage.chosenMeal.value) }
     val imageBitmap = remember { mutableStateOf<Bitmap?>(TempStorage.chosenMealImg.value) }
     var isRecipeDisplayed by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
+        coroutine.launch{
+            delay(10000L)
+            if (meal.value == null) {
+                navController.navigate(AppRoutes.CouldNotLoad.route) {
+                    popUpTo(AppRoutes.Home.route) {
+                        inclusive = true
+                    }
+                }
+            }
+        }
+
         if (meal.value != null) {
             return@LaunchedEffect
         }

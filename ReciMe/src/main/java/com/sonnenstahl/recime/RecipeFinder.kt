@@ -2,13 +2,16 @@ package com.sonnenstahl.recime
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -40,7 +43,6 @@ fun RecipeFinder(navController: NavController) {
     LaunchedEffect(Unit) {
         meatOptions = initMeatOptions()
         mealTimeOptions = initMealTypeOptions()
-
         TempStorage.clearSuggestedMeals()
     }
 
@@ -54,26 +56,32 @@ fun RecipeFinder(navController: NavController) {
             modifier =
                 Modifier
                     .fillMaxSize()
-                    .padding(16.dp),
+                    .padding(horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = "Find a meal",
                 style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(vertical = 10.dp),
+                modifier = Modifier.padding(vertical = 24.dp),
             )
 
-            TextField(
+            OutlinedTextField(
                 value = mealName,
                 singleLine = true,
                 onValueChange = { mealName = it },
+                label = { Text("Search by meal name") },
+                shape = RoundedCornerShape(12.dp),
                 modifier =
                     Modifier
                         .fillMaxWidth()
-                        .padding(top = 10.dp)
-                        .padding(bottom = 20.dp),
+                        .padding(bottom = 24.dp),
             )
 
+            Text(
+                text = "Dietary Preferences",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.align(Alignment.Start).padding(bottom = 8.dp),
+            )
             OptionsGrid(
                 options = meatOptions,
                 columns = 3,
@@ -97,6 +105,13 @@ fun RecipeFinder(navController: NavController) {
                 }
             }
 
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Text(
+                text = "Meal Type",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.align(Alignment.Start).padding(bottom = 8.dp),
+            )
             OptionsGrid(
                 options = mealTimeOptions,
                 columns = 3,
@@ -109,16 +124,19 @@ fun RecipeFinder(navController: NavController) {
                 TempStorage.updateMealOptions(mealOption = mealTimeOptions)
                 val urlName = if (mealName == "") null else mealName
                 val isRecipeFinder =
-                    mealTimeOptions.any { it.isChosen.value == true } ||
-                    meatOptions.any { it.isChosen.value == true  }
+                    mealTimeOptions.any { it.isChosen.value } ||
+                            meatOptions.any { it.isChosen.value }
 
                 val url = "${AppRoutes.Recipes.route}/$isRecipeFinder/$urlName"
                 navController.navigate(url)
-              },
+            },
             modifier =
                 Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(bottom = 50.dp),
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .padding(bottom = 32.dp),
+            shape = RoundedCornerShape(12.dp)
         ) {
             Text("Search")
         }

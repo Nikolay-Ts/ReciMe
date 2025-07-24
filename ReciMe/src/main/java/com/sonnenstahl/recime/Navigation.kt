@@ -35,6 +35,10 @@ fun Navigation() {
             )
         }
 
+        composable(AppRoutes.Fridge.route) {
+            Fridge(navController = navController)
+        }
+
         composable(AppRoutes.CouldNotLoad.route) {
             CouldNotLoad(navController = navController)
         }

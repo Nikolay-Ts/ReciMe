@@ -29,15 +29,20 @@ fun Home(navigation: NavHostController) {
                 .padding(top = 50.dp)
                 .padding(horizontal = 30.dp),
     ) {
-        Text(
-            "meow meow",
-            modifier =
-                Modifier
-                    .align(Alignment.TopStart),
-        )
 
         Button(
             onClick = { navigation.navigate(AppRoutes.RecipeFinder.route) },
+            modifier =
+                Modifier
+                    .align(Alignment.TopStart),
+        ) {
+            Text(
+                "Fridge"
+                )
+        }
+
+        Button(
+            onClick = { navigation.navigate(AppRoutes.Fridge.route) },
             modifier =
                 Modifier
                     .align(Alignment.TopEnd),

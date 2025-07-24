@@ -16,6 +16,14 @@ data class MealResponse(
     val meals: List<Meal>?,
 )
 
+/**
+ * a representation of the json response from the API a lot of the main properties are listed
+ *
+ * @param idMeal used to search and query more info about the meal
+ * @param strMeal name of the meal, can be used the same way as idMeal
+ * @param strMealThumb the image url. A separate request must be done to obtain the actual image]
+ * @param ingredients which the user can add to the Fridge
+ */
 @Serializable(with = Meal.Serializer::class)
 data class Meal(
     val idMeal: String,
