@@ -50,11 +50,11 @@ $dokka.location:com.sonnenstahl.recime.utils.data/MealResponse/MealResponse/#kot
 $dokka.location:com.sonnenstahl.recime.utils.data/MealResponse/meals/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-meal-response/meals.html
 $dokka.location:com.sonnenstahl.recime.utils////PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.CouldNotLoad///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-could-not-load/index.html
+$dokka.location:com.sonnenstahl.recime.utils/AppRoutes.Fridge///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-fridge/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.Home///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-home/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.Recipe///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-recipe/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.RecipeFinder///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-recipe-finder/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.Recipes///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-recipes/index.html
-$dokka.location:com.sonnenstahl.recime.utils/AppRoutes.SearchRecipes///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-search-recipes/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes/route/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/route.html
 $dokka.location:com.sonnenstahl.recime.utils/Client///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-client/index.html
@@ -85,6 +85,7 @@ $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateSuggestedMealImag
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateSuggestedMeals/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.Meal?]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-suggested-meals.html
 $dokka.location:com.sonnenstahl.recime////PointingToDeclaration/-reci-me/com.sonnenstahl.recime/index.html
 $dokka.location:com.sonnenstahl.recime//CouldNotLoad/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-could-not-load.html
+$dokka.location:com.sonnenstahl.recime//Fridge/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-fridge.html
 $dokka.location:com.sonnenstahl.recime//Home/#androidx.navigation.NavHostController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-home.html
 $dokka.location:com.sonnenstahl.recime//Loading/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-loading.html
 $dokka.location:com.sonnenstahl.recime//Navigation/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-navigation.html
