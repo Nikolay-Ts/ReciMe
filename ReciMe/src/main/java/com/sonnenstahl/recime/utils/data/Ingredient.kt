@@ -6,13 +6,16 @@ import java.util.UUID
 /**
  * data class to represent the ingredients in the fridge
  *
+ * @param id UUID to parse it to the LazyVerticalGrid
  * @param name given by the user or added from the recipes, can have typos or be in plural
+ * @param isSelected which ingredients to use for the query, cannot be more than 10
  * @param filePath of the image. There will be an algorithm to map the word to the closest image
  */
 @Serializable
 data class Ingredient(
     val id: String = UUID.randomUUID().toString(),
     val name: String,
+    var isSelected: Boolean = false,
     val filePath: String = "file:///android_asset/default-ingredient.png",
 )
 
