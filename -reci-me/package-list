@@ -22,9 +22,10 @@ $dokka.location:com.sonnenstahl.recime.utils.data//disableVegan/#kotlin.collecti
 $dokka.location:com.sonnenstahl.recime.utils.data//initMealTypeOptions/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/init-meal-type-options.html
 $dokka.location:com.sonnenstahl.recime.utils.data//initMeatOptions/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/init-meat-options.html
 $dokka.location:com.sonnenstahl.recime.utils.data/Ingredient///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-ingredient/index.html
-$dokka.location:com.sonnenstahl.recime.utils.data/Ingredient/Ingredient/#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-ingredient/-ingredient.html
+$dokka.location:com.sonnenstahl.recime.utils.data/Ingredient/Ingredient/#kotlin.String#kotlin.String#kotlin.Boolean#kotlin.String/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-ingredient/-ingredient.html
 $dokka.location:com.sonnenstahl.recime.utils.data/Ingredient/filePath/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-ingredient/file-path.html
 $dokka.location:com.sonnenstahl.recime.utils.data/Ingredient/id/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-ingredient/id.html
+$dokka.location:com.sonnenstahl.recime.utils.data/Ingredient/isSelected/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-ingredient/is-selected.html
 $dokka.location:com.sonnenstahl.recime.utils.data/Ingredient/name/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-ingredient/name.html
 $dokka.location:com.sonnenstahl.recime.utils.data/Meal.Serializer///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-meal/-serializer/index.html
 $dokka.location:com.sonnenstahl.recime.utils.data/Meal.Serializer/descriptor/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-meal/-serializer/descriptor.html
