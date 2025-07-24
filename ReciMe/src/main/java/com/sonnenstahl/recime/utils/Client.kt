@@ -149,13 +149,18 @@ object Client {
         }
     }
 
-    suspend fun getMealByCategory(mutableMeals: SnapshotStateList<Meal?>, category: String) {
+    suspend fun getMealByCategory(
+        mutableMeals: SnapshotStateList<Meal?>,
+        category: String,
+    ) {
         try {
-            val url = URLBuilder().apply {
-                takeFrom(SPOON)
-                appendPathSegments("filter.php")
-                parameters.append("c", category)
-            }.toString()
+            val url =
+                URLBuilder()
+                    .apply {
+                        takeFrom(SPOON)
+                        appendPathSegments("filter.php")
+                        parameters.append("c", category)
+                    }.toString()
 
             val response = client.get(url)
 
@@ -172,10 +177,8 @@ object Client {
                     mutableMeals.add(meal)
                 }
             }
-
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             Log.e("GET Meal by category", e.toString())
         }
-
     }
 }

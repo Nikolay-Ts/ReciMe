@@ -29,20 +29,19 @@ fun Home(navigation: NavHostController) {
                 .padding(top = 50.dp)
                 .padding(horizontal = 30.dp),
     ) {
-
         Button(
-            onClick = { navigation.navigate(AppRoutes.RecipeFinder.route) },
+            onClick = { navigation.navigate(AppRoutes.Fridge.route) },
             modifier =
                 Modifier
                     .align(Alignment.TopStart),
         ) {
             Text(
-                "Fridge"
-                )
+                "Fridge",
+            )
         }
 
         Button(
-            onClick = { navigation.navigate(AppRoutes.Fridge.route) },
+            onClick = { navigation.navigate(AppRoutes.RecipeFinder.route) },
             modifier =
                 Modifier
                     .align(Alignment.TopEnd),
@@ -64,7 +63,7 @@ fun Home(navigation: NavHostController) {
             onClick = {
                 val url = "${AppRoutes.Recipes.route}/false/null"
                 navigation.navigate(url)
-              },
+            },
             modifier =
                 Modifier
                     .align(Alignment.BottomCenter)

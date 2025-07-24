@@ -2,10 +2,10 @@ package com.sonnenstahl.recime
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.animateFloat
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -50,25 +50,27 @@ fun Loading() {
     val rotationDegrees by infiniteTransition.animateFloat(
         initialValue = 0f,
         targetValue = 360f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 1000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        ),
-        label = "rotation_degrees"
+        animationSpec =
+            infiniteRepeatable(
+                animation = tween(durationMillis = 1000, easing = LinearEasing),
+                repeatMode = RepeatMode.Restart,
+            ),
+        label = "rotation_degrees",
     )
 
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Icon(
             imageVector = Icons.Filled.Refresh,
             contentDescription = "Loading spinner",
-            modifier = Modifier
-                .size(70.dp)
-                .rotate(rotationDegrees),
-            tint = MaterialTheme.colorScheme.primary
+            modifier =
+                Modifier
+                    .size(70.dp)
+                    .rotate(rotationDegrees),
+            tint = MaterialTheme.colorScheme.primary,
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -77,7 +79,7 @@ fun Loading() {
             text = loading,
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.width(100.dp)
+            modifier = Modifier.width(100.dp),
         )
     }
 }

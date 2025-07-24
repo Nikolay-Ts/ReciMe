@@ -125,7 +125,7 @@ fun RecipeFinder(navController: NavController) {
                 val urlName = if (mealName == "") null else mealName
                 val isRecipeFinder =
                     mealTimeOptions.any { it.isChosen.value } ||
-                            meatOptions.any { it.isChosen.value }
+                        meatOptions.any { it.isChosen.value }
 
                 val url = "${AppRoutes.Recipes.route}/$isRecipeFinder/$urlName"
                 navController.navigate(url)
@@ -136,7 +136,7 @@ fun RecipeFinder(navController: NavController) {
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
                     .padding(bottom = 32.dp),
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(12.dp),
         ) {
             Text("Search")
         }

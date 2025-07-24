@@ -20,23 +20,24 @@ import com.sonnenstahl.recime.utils.AppRoutes
 @Composable
 fun CouldNotLoad(navController: NavController) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(24.dp),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
             text = "Oops! Something went wrong...",
             style = MaterialTheme.typography.headlineSmall,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.error
+            color = MaterialTheme.colorScheme.error,
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = "We're having trouble loading the content. Please check your internet connection and try again.",
             style = MaterialTheme.typography.bodyLarge,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.height(32.dp))
         Button(
@@ -46,7 +47,7 @@ fun CouldNotLoad(navController: NavController) {
                         inclusive = true
                     }
                 }
-            }
+            },
         ) {
             Text("Go Back Home")
         }

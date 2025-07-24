@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 fun Recipes(
     navController: NavController,
     isRecipeFinder: Boolean,
-    mealName: String?
+    mealName: String?,
 ) {
     val coroutine = rememberCoroutineScope()
     val meals = remember { mutableStateListOf<Meal?>() }
@@ -38,7 +38,7 @@ fun Recipes(
     val isRecipeFinder by remember { mutableStateOf(isRecipeFinder) }
 
     LaunchedEffect(Unit) {
-        coroutine.launch{
+        coroutine.launch {
             delay(10000L)
             if (meals.isEmpty()) {
                 navController.navigate(AppRoutes.CouldNotLoad.route) {
@@ -57,7 +57,7 @@ fun Recipes(
             return@LaunchedEffect
         }
 
-        if (isRecipeFinder ==  true) {
+        if (isRecipeFinder == true) {
             var tempMeal: Meal? = null
             if (mealName != null) {
                 tempMeal = Client.getMealByName(mealName)
@@ -65,41 +65,42 @@ fun Recipes(
                 val mealOptions = TempStorage.mealOptions.value
 
                 for (meatOption in meatOptions) {
-                    if (! meatOption.isChosen.value) {
+                    if (!meatOption.isChosen.value) {
                         continue
                     }
                     Client.getMealByCategory(meals, meatOption.name)
                 }
 
                 for (mealOption in mealOptions) {
-                    if (! mealOption.isChosen.value) {
+                    if (!mealOption.isChosen.value) {
                         continue
                     }
                     Client.getMealByCategory(meals, mealOption.name)
                 }
 
-                if (tempMeal?.strMeal != null ) { // could not find anything that matches the description
-                    meals.filter { it?.strMeal?.contains(tempMeal.strMeal) == true  }
-
+                if (tempMeal?.strMeal != null) { // could not find anything that matches the description
+                    meals.filter { it?.strMeal?.contains(tempMeal.strMeal) == true }
                 }
-                val fetchedImages = meals.map { meal ->
-                    Client.getImage(
-                        mealName = meal?.strMealThumb ?: "",
-                        imageSize = ImageSize.SMALL,
-                    )
-                }
+                val fetchedImages =
+                    meals.map { meal ->
+                        Client.getImage(
+                            mealName = meal?.strMealThumb ?: "",
+                            imageSize = ImageSize.SMALL,
+                        )
+                    }
                 images.addAll(fetchedImages)
             }
             return@LaunchedEffect
         }
 
         Client.getRandomMeals(meals)
-        val fetchedImages = meals.map { meal ->
-            Client.getImage(
-                mealName = meal?.strMealThumb ?: "",
-                imageSize = ImageSize.SMALL,
-            )
-        }
+        val fetchedImages =
+            meals.map { meal ->
+                Client.getImage(
+                    mealName = meal?.strMealThumb ?: "",
+                    imageSize = ImageSize.SMALL,
+                )
+            }
         images.addAll(fetchedImages)
     }
 

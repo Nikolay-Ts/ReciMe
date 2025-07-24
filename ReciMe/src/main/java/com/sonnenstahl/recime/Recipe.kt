@@ -49,7 +49,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun Recipe(
     navController: NavController,
-    name: String?
+    name: String?,
 ) {
     val coroutine = rememberCoroutineScope()
     val meal = remember { mutableStateOf<Meal?>(TempStorage.chosenMeal.value) }
@@ -57,7 +57,7 @@ fun Recipe(
     var isRecipeDisplayed by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        coroutine.launch{
+        coroutine.launch {
             delay(10000L)
             if (meal.value == null) {
                 navController.navigate(AppRoutes.CouldNotLoad.route) {
@@ -95,19 +95,20 @@ fun Recipe(
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.SpaceBetween,
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 50.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(top = 50.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = "${meal.value?.strMeal}",
                 style = MaterialTheme.typography.headlineMedium,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -124,47 +125,51 @@ fun Recipe(
         }
 
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .padding(horizontal = 16.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .padding(horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top
+            verticalArrangement = Arrangement.Top,
         ) {
             Button(
                 onClick = { isRecipeDisplayed = !isRecipeDisplayed },
-                modifier = Modifier.padding(top = 16.dp)
+                modifier = Modifier.padding(top = 16.dp),
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text("Ingredients")
                     Spacer(modifier = Modifier.size(8.dp))
                     Icon(
                         imageVector = if (isRecipeDisplayed) Icons.Filled.KeyboardArrowDown else Icons.Filled.KeyboardArrowRight,
-                        contentDescription = "Toggle ingredients"
+                        contentDescription = "Toggle ingredients",
                     )
                 }
             }
 
             if (isRecipeDisplayed) {
                 Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp),
                     elevation = CardDefaults.cardElevation(4.dp),
-                    shape = RoundedCornerShape(12.dp)
+                    shape = RoundedCornerShape(12.dp),
                 ) {
                     LazyColumn(
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .height(250.dp)
+                        modifier =
+                            Modifier
+                                .padding(16.dp)
+                                .height(250.dp),
                     ) {
                         itemsIndexed(meal.value?.ingredients.orEmpty()) { index, ingredient ->
                             val amount = meal.value?.measures?.getOrNull(index)
                             Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 4.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween
+                                modifier =
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 4.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween,
                             ) {
                                 Text(
                                     text = ingredient,
@@ -173,7 +178,7 @@ fun Recipe(
                                 Text(
                                     text = amount.orEmpty(),
                                     style = MaterialTheme.typography.bodyLarge,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 )
                             }
                         }
@@ -187,18 +192,18 @@ fun Recipe(
                 Modifier
                     .fillMaxWidth()
                     .padding(bottom = 50.dp),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
         ) {
             val buttonModifier = Modifier.padding(horizontal = 10.dp)
 
             OutlinedButton(
                 modifier = buttonModifier,
-                onClick = { navController.navigate(AppRoutes.Home.route) }
+                onClick = { navController.navigate(AppRoutes.Home.route) },
             ) { Text("Back Home") }
 
             Button(
                 modifier = buttonModifier,
-                onClick = { navController.navigate(AppRoutes.Home.route) }
+                onClick = { navController.navigate(AppRoutes.Home.route) },
             ) { Text("Add to Fridge") }
         }
     }

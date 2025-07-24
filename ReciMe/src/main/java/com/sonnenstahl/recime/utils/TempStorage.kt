@@ -1,13 +1,10 @@
 package com.sonnenstahl.recime.utils
 
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.snapshots.MutableSnapshot
 import coil3.Bitmap
 import com.sonnenstahl.recime.utils.data.Meal
 import com.sonnenstahl.recime.utils.data.MealOption
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 
 /**
  * class used to minimise GET requests to the API
@@ -43,7 +40,6 @@ object TempStorage {
     val mealOptions
         get() = _mealOptions.asStateFlow()
 
-
     fun updateChosenMeal(meal: Meal?) {
         _chosenMeal.value = meal
     }
@@ -64,6 +60,7 @@ object TempStorage {
     fun updateMeatOptions(meatOption: List<MealOption>) {
         _meatOptions.value = meatOption
     }
+
     fun updateMealOptions(mealOption: List<MealOption>) {
         _mealOptions.value = mealOption
     }
