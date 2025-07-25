@@ -155,6 +155,9 @@ fun Recipe(
                             .padding(top = 16.dp),
                     elevation = CardDefaults.cardElevation(4.dp),
                     shape = RoundedCornerShape(12.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+                    )
                 ) {
                     LazyColumn(
                         modifier =
@@ -174,6 +177,7 @@ fun Recipe(
                                 Text(
                                     text = ingredient,
                                     style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 )
                                 Text(
                                     text = amount.orEmpty(),

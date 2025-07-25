@@ -1,5 +1,7 @@
 package com.sonnenstahl.recime.utils.data
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import kotlinx.serialization.Serializable
 import java.util.UUID
 
@@ -15,7 +17,7 @@ import java.util.UUID
 data class Ingredient(
     val id: String = UUID.randomUUID().toString(),
     val name: String,
-    var isSelected: Boolean = false,
+    var isSelected: MutableState<Boolean> = mutableStateOf(false),
     val filePath: String = "file:///android_asset/default-ingredient.png",
 )
 

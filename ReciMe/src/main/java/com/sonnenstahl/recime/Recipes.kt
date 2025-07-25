@@ -79,8 +79,11 @@ fun Recipes(
                 }
 
                 if (tempMeal?.strMeal != null) { // could not find anything that matches the description
+                    meals.add(tempMeal)
                     meals.filter { it?.strMeal?.contains(tempMeal.strMeal) == true }
                 }
+
+                meals.shuffle()
                 val fetchedImages =
                     meals.map { meal ->
                         Client.getImage(
@@ -90,6 +93,8 @@ fun Recipes(
                     }
                 images.addAll(fetchedImages)
             }
+
+
             return@LaunchedEffect
         }
 
