@@ -86,7 +86,6 @@ fun Fridge(navController: NavController) {
                     items = TEST_VEGGIES_LIST,
                     key = { ingredient: Ingredient -> ingredient.id }
                 ) { ingredient ->
-
                     val infiniteTransition = rememberInfiniteTransition(label = "shakingTransition")
                     val rotationAngle by infiniteTransition.animateFloat(
                         initialValue = -0.25f, // rotation
@@ -98,9 +97,7 @@ fun Fridge(navController: NavController) {
                         label = "rotationAngle"
                     )
 
-                    Box(
-                        modifier = Modifier.fillMaxSize()
-                    ) {
+                    Box(modifier = Modifier.fillMaxSize()) {
                         Card(
                             modifier = Modifier
                                 .fillMaxSize()
@@ -155,8 +152,7 @@ fun Fridge(navController: NavController) {
                                         color = if (ingredient.isSelected.value) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSurfaceVariant,
                                         shape = CircleShape
                                     )
-                            ) {
-                            }
+                            )
                         }
                     }
                 }
