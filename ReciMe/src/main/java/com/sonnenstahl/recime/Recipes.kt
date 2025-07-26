@@ -15,6 +15,9 @@ import com.sonnenstahl.recime.utils.Client
 import com.sonnenstahl.recime.utils.ImageSize
 import com.sonnenstahl.recime.utils.TempStorage
 import com.sonnenstahl.recime.utils.data.Meal
+import com.sonnenstahl.recime.utils.data.SearchType
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -28,14 +31,14 @@ import kotlinx.coroutines.launch
 @Composable
 fun Recipes(
     navController: NavController,
-    isRecipeFinder: Boolean,
+    searchType: SearchType,
     mealName: String?,
 ) {
     val coroutine = rememberCoroutineScope()
     val meals = remember { mutableStateListOf<Meal?>() }
     val images = remember { mutableStateListOf<Bitmap?>() }
     var refreshing by remember { mutableStateOf(false) }
-    val isRecipeFinder by remember { mutableStateOf(isRecipeFinder) }
+    val searchType by remember { mutableStateOf(searchType) }
 
     LaunchedEffect(Unit) {
         coroutine.launch {
@@ -57,56 +60,68 @@ fun Recipes(
             return@LaunchedEffect
         }
 
-        if (isRecipeFinder == true) {
-            var tempMeal: Meal? = null
-            if (mealName != null) {
-                tempMeal = Client.getMealByName(mealName)
-                val meatOptions = TempStorage.meatOptions.value
-                val mealOptions = TempStorage.mealOptions.value
+        when (searchType) {
+            SearchType.CATEGORY -> {
+                var tempMeal: Meal? = null
+                if (mealName != null) {
+                    tempMeal = Client.getMealByName(mealName)
+                    val meatOptions = TempStorage.meatOptions.value
+                    val mealOptions = TempStorage.mealOptions.value
 
-                for (meatOption in meatOptions) {
-                    if (!meatOption.isChosen.value) {
-                        continue
+                    val deferredMeatCategoryFetches = meatOptions
+                        .filter { it.isChosen.value }
+                        .map { meatOption ->
+                            coroutine.async {
+                                Client.getMealByCategory(meals, meatOption.name)
+                            }
+                        }
+                    deferredMeatCategoryFetches.awaitAll()
+
+                    for (mealOption in mealOptions) {
+                        if (!mealOption.isChosen.value) {
+                            continue
+                        }
+                        Client.getMealByCategory(meals, mealOption.name)
                     }
-                    Client.getMealByCategory(meals, meatOption.name)
-                }
 
-                for (mealOption in mealOptions) {
-                    if (!mealOption.isChosen.value) {
-                        continue
+                    if (tempMeal?.strMeal != null) { // could not find anything that matches the description
+                        meals.add(tempMeal)
+                        meals.filter { it?.strMeal?.contains(tempMeal.strMeal) == true }
                     }
-                    Client.getMealByCategory(meals, mealOption.name)
-                }
 
-                if (tempMeal?.strMeal != null) { // could not find anything that matches the description
-                    meals.add(tempMeal)
-                    meals.filter { it?.strMeal?.contains(tempMeal.strMeal) == true }
-                }
 
-                meals.shuffle()
-                val fetchedImages =
-                    meals.map { meal ->
-                        Client.getImage(
-                            mealName = meal?.strMealThumb ?: "",
-                            imageSize = ImageSize.SMALL,
-                        )
-                    }
-                images.addAll(fetchedImages)
+                }
             }
 
+            SearchType.INGREDIENTS -> {
+                val ingredients = TempStorage.ingredients.value
 
-            return@LaunchedEffect
+                val deferredMealFetches = ingredients.map { ingredient ->
+                    coroutine.async {
+                        Client.getMealByIngredient(meals, ingredient)
+                    }
+                }
+                deferredMealFetches.awaitAll()
+            }
+
+            SearchType.NONE -> {
+                Client.getRandomMeals(meals)
+            }
+
         }
 
-        Client.getRandomMeals(meals)
+        meals.shuffle()
+
         val fetchedImages =
             meals.map { meal ->
-                Client.getImage(
-                    mealName = meal?.strMealThumb ?: "",
-                    imageSize = ImageSize.SMALL,
-                )
+                coroutine.async {
+                    Client.getImage(
+                        mealName = meal?.strMealThumb ?: "",
+                        imageSize = ImageSize.SMALL,
+                    )
+                }
             }
-        images.addAll(fetchedImages)
+        images.addAll(fetchedImages.awaitAll())
     }
 
     LaunchedEffect(refreshing) {

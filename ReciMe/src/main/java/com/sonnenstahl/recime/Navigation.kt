@@ -1,11 +1,11 @@
 package com.sonnenstahl.recime
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.sonnenstahl.recime.utils.AppRoutes
+import com.sonnenstahl.recime.utils.data.SearchType
 
 @Composable
 fun Navigation() {
@@ -24,13 +24,14 @@ fun Navigation() {
             RecipeFinder(navController = navController)
         }
 
-        composable("${AppRoutes.Recipes.route}/{isRecipeFinder}/{mealName}") { backStackEntry ->
-            val isRecipeFinder = backStackEntry.arguments?.getString("isRecipeFinder") == "true"
+        composable("${AppRoutes.Recipes.route}/{mealType}/{mealName}") { backStackEntry ->
+            val searchTypeString = backStackEntry.arguments?.getString("mealType")
+            val searchType = searchTypeString?.let { SearchType.valueOf(it) } ?: SearchType.NONE
             val mealName = backStackEntry.arguments?.getString("mealName")
-            Log.d("HOW AM I HERE", "$isRecipeFinder")
+
             Recipes(
                 navController = navController,
-                isRecipeFinder = isRecipeFinder,
+                searchType = searchType,
                 mealName = mealName,
             )
         }

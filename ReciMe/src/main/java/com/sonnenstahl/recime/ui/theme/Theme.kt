@@ -10,13 +10,13 @@ import androidx.compose.ui.graphics.Color
 private val DarkColorScheme =
     darkColorScheme(
         primary = RecipesBackground,
-        secondary = Color.White,
-        tertiary = Color.White,
+        secondary = PurpleGrey40,
+        tertiary = Pink40,
     )
 
 private val LightColorScheme =
     lightColorScheme(
-        primary = Color.White,
+        primary = RecipesBackground,
         secondary = PurpleGrey40,
         tertiary = Pink40,
     /* Other default colors to override

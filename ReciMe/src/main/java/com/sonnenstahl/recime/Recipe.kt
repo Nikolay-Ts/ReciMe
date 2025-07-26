@@ -1,6 +1,7 @@
 package com.sonnenstahl.recime
 
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -85,6 +86,8 @@ fun Recipe(
                 mealName = "${meal.value?.strMealThumb}",
                 imageSize = ImageSize.LARGE,
             )
+
+        Log.d("MEOW MOEW", "${meal.value?.ingredients}")
     }
 
     if (meal.value == null || imageBitmap.value == null) {
@@ -155,9 +158,10 @@ fun Recipe(
                             .padding(top = 16.dp),
                     elevation = CardDefaults.cardElevation(4.dp),
                     shape = RoundedCornerShape(12.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
-                    )
+                    colors =
+                        CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                        ),
                 ) {
                     LazyColumn(
                         modifier =

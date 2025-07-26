@@ -1,6 +1,7 @@
 package com.sonnenstahl.recime.utils
 
 import coil3.Bitmap
+import com.sonnenstahl.recime.utils.data.Ingredient
 import com.sonnenstahl.recime.utils.data.Meal
 import com.sonnenstahl.recime.utils.data.MealOption
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,6 +12,9 @@ import kotlinx.coroutines.flow.asStateFlow
  * and efficiently pass variables between views
  *
  * @property chosenMeal the current meal that has been stored to be displayed
+ * @property chosenMealImg the image to correspond
+ * @property suggestedMeals the array coming in from the search recipe
+ * @property suggestedMealImages the corresponding array of images
  */
 object TempStorage {
     private val _chosenMeal = MutableStateFlow<Meal?>(null)
@@ -21,6 +25,8 @@ object TempStorage {
 
     private val _meatOptions = MutableStateFlow<List<MealOption>>(emptyList())
     private val _mealOptions = MutableStateFlow<List<MealOption>>(emptyList())
+
+    private val _ingredients = MutableStateFlow<List<String>>(emptyList())
 
     val chosenMeal
         get() = _chosenMeal.asStateFlow()
@@ -39,6 +45,9 @@ object TempStorage {
 
     val mealOptions
         get() = _mealOptions.asStateFlow()
+
+    val ingredients
+        get() = _ingredients.asStateFlow()
 
     fun updateChosenMeal(meal: Meal?) {
         _chosenMeal.value = meal
@@ -64,4 +73,9 @@ object TempStorage {
     fun updateMealOptions(mealOption: List<MealOption>) {
         _mealOptions.value = mealOption
     }
+
+    fun updateIngredients(ingredients: List<String>) {
+        _ingredients.value = ingredients
+    }
+
 }

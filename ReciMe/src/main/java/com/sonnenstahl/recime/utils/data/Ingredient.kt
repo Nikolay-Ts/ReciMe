@@ -51,5 +51,5 @@ val TEST_VEGGIES_LIST: List<Ingredient> =
         Ingredient(name = "Garlic"),
         Ingredient(name = "Corn"),
         Ingredient(name = "Green Bean"),
-        Ingredient(name = "Cabbage")
+        Ingredient(name = "Cabbage"),
     )

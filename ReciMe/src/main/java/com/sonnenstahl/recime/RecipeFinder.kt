@@ -27,6 +27,7 @@ import com.sonnenstahl.recime.utils.TempStorage
 import com.sonnenstahl.recime.utils.data.EXCLUDED_NAMES
 import com.sonnenstahl.recime.utils.data.MEAT_OPTION_NAMES
 import com.sonnenstahl.recime.utils.data.MealOption
+import com.sonnenstahl.recime.utils.data.SearchType
 import com.sonnenstahl.recime.utils.data.VEGGIES
 import com.sonnenstahl.recime.utils.data.disableAllButVegan
 import com.sonnenstahl.recime.utils.data.disableMeat
@@ -123,11 +124,16 @@ fun RecipeFinder(navController: NavController) {
                 TempStorage.updateMeatOptions(meatOption = meatOptions)
                 TempStorage.updateMealOptions(mealOption = mealTimeOptions)
                 val urlName = if (mealName == "") null else mealName
-                val isRecipeFinder =
-                    mealTimeOptions.any { it.isChosen.value } ||
-                        meatOptions.any { it.isChosen.value }
+                val searchType =
+                    when (
+                        mealTimeOptions.any { it.isChosen.value } ||
+                            meatOptions.any { it.isChosen.value }
+                    ) {
+                        true -> SearchType.CATEGORY
+                        false -> SearchType.NONE
+                    }
 
-                val url = "${AppRoutes.Recipes.route}/$isRecipeFinder/$urlName"
+                val url = "${AppRoutes.Recipes.route}/$searchType/$urlName"
                 navController.navigate(url)
             },
             modifier =

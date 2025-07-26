@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.sonnenstahl.recime.utils.AppRoutes
 import com.sonnenstahl.recime.utils.TempStorage
+import com.sonnenstahl.recime.utils.data.SearchType
 
 @Composable
 fun Home(navigation: NavHostController) {
@@ -61,7 +62,7 @@ fun Home(navigation: NavHostController) {
 
         Button(
             onClick = {
-                val url = "${AppRoutes.Recipes.route}/false/null"
+                val url = "${AppRoutes.Recipes.route}/${SearchType.NONE}/"
                 navigation.navigate(url)
             },
             modifier =
