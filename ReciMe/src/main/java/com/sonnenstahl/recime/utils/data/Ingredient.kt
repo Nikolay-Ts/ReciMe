@@ -2,7 +2,14 @@ package com.sonnenstahl.recime.utils.data
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import java.util.UUID
 
 /**
@@ -17,6 +24,7 @@ import java.util.UUID
 data class Ingredient(
     val id: String = UUID.randomUUID().toString(),
     val name: String,
+    @Serializable(with = MutableBooleanStateSerializer::class)
     var isSelected: MutableState<Boolean> = mutableStateOf(false),
     val filePath: String = "file:///android_asset/default-ingredient.png",
 )
@@ -53,3 +61,16 @@ val TEST_VEGGIES_LIST: List<Ingredient> =
         Ingredient(name = "Green Bean"),
         Ingredient(name = "Cabbage"),
     )
+
+object MutableBooleanStateSerializer : KSerializer<MutableState<Boolean>> {
+    override val descriptor: SerialDescriptor =
+        PrimitiveSerialDescriptor("MutableBooleanState", PrimitiveKind.BOOLEAN)
+
+    override fun serialize(encoder: Encoder, value: MutableState<Boolean>) {
+        encoder.encodeBoolean(value.value)
+    }
+
+    override fun deserialize(decoder: Decoder): MutableState<Boolean> {
+        return mutableStateOf(decoder.decodeBoolean())
+    }
+}

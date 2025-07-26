@@ -28,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -36,13 +37,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.sonnenstahl.recime.utils.AppRoutes
 import com.sonnenstahl.recime.utils.Client
 import com.sonnenstahl.recime.utils.ImageSize
+import com.sonnenstahl.recime.utils.IngredientFileManager
 import com.sonnenstahl.recime.utils.TempStorage
+import com.sonnenstahl.recime.utils.data.Ingredient
 import com.sonnenstahl.recime.utils.data.Meal
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -52,9 +56,11 @@ fun Recipe(
     navController: NavController,
     name: String?,
 ) {
+    val context = LocalContext.current
     val coroutine = rememberCoroutineScope()
     val meal = remember { mutableStateOf<Meal?>(TempStorage.chosenMeal.value) }
     val imageBitmap = remember { mutableStateOf<Bitmap?>(TempStorage.chosenMealImg.value) }
+    val ingredients = remember { mutableStateListOf<String>() }
     var isRecipeDisplayed by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
@@ -78,6 +84,8 @@ fun Recipe(
         } else {
             meal.value = Client.getMealByName(name)
         }
+
+        ingredients.addAll(meal.value?.ingredients ?: emptyList())
     }
 
     LaunchedEffect(meal.value) {
@@ -87,7 +95,6 @@ fun Recipe(
                 imageSize = ImageSize.LARGE,
             )
 
-        Log.d("MEOW MOEW", "${meal.value?.ingredients}")
     }
 
     if (meal.value == null || imageBitmap.value == null) {
@@ -211,7 +218,28 @@ fun Recipe(
 
             Button(
                 modifier = buttonModifier,
-                onClick = { navController.navigate(AppRoutes.Home.route) },
+                onClick = {
+
+                    coroutine.launch {
+                        val existingFridgeIngredients = IngredientFileManager.loadIngredients(context).toMutableList()
+                        val currentMealIngredientNames = meal.value?.ingredients.orEmpty()
+                        val newIngredientsToAdd = mutableListOf<Ingredient>()
+                        currentMealIngredientNames.forEach { newIngredientName ->
+                            if (existingFridgeIngredients.none { it.name.equals(newIngredientName, ignoreCase = true) }) {
+                                newIngredientsToAdd.add(
+                                    Ingredient(name = newIngredientName, isSelected = mutableStateOf(false))
+                                )
+                            } else {
+                                Log.d("Recipe", "Skipping '$newIngredientName' as it's already in fridge.")
+                            }
+                        }
+
+                        existingFridgeIngredients.addAll(newIngredientsToAdd)
+                        IngredientFileManager.saveIngredients(context, existingFridgeIngredients)
+
+                        navController.navigate(AppRoutes.Fridge.route)
+                    }
+              },
             ) { Text("Add to Fridge") }
         }
     }
