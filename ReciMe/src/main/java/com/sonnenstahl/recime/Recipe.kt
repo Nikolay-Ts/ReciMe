@@ -237,6 +237,7 @@ fun Recipe(
                         existingFridgeIngredients.addAll(newIngredientsToAdd)
                         IngredientFileManager.saveIngredients(context, existingFridgeIngredients)
 
+                        TempStorage.updateChosenMeal(null)
                         navController.navigate(AppRoutes.Fridge.route)
                     }
               },
