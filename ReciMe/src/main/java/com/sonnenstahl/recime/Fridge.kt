@@ -1,7 +1,5 @@
 package com.sonnenstahl.recime
 
-import android.util.Log
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
@@ -11,8 +9,6 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -32,13 +28,11 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -72,7 +66,9 @@ import kotlinx.coroutines.launch
 
 class NoRippleInteractionSource : MutableInteractionSource {
     override val interactions: kotlinx.coroutines.flow.Flow<Interaction> = kotlinx.coroutines.flow.emptyFlow()
+
     override suspend fun emit(interaction: Interaction) = Unit
+
     override fun tryEmit(interaction: Interaction): Boolean = true
 }
 
@@ -105,24 +101,25 @@ fun Fridge(navController: NavController) {
     }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 16.dp)
-            .padding(horizontal = 16.dp)
-            .clickable(
-                enabled = isSelectingMany,
-                indication = null,
-                interactionSource = remember { NoRippleInteractionSource() },
-                onClick = {
-                    if (isSelectingMany) {
-                        isSelectingMany = false
-                        ingredients.forEach { it.isSelected.value = false }
-                        coroutineScope.launch {
-                            IngredientFileManager.saveIngredients(context, ingredients.toList())
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(top = 16.dp)
+                .padding(horizontal = 16.dp)
+                .clickable(
+                    enabled = isSelectingMany,
+                    indication = null,
+                    interactionSource = remember { NoRippleInteractionSource() },
+                    onClick = {
+                        if (isSelectingMany) {
+                            isSelectingMany = false
+                            ingredients.forEach { it.isSelected.value = false }
+                            coroutineScope.launch {
+                                IngredientFileManager.saveIngredients(context, ingredients.toList())
+                            }
                         }
-                    }
-                },
-            )
+                    },
+                ),
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -139,7 +136,9 @@ fun Fridge(navController: NavController) {
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.weight(1f).padding(bottom = 16.dp),
-                contentPadding = androidx.compose.foundation.layout.PaddingValues(8.dp),
+                contentPadding =
+                    androidx.compose.foundation.layout
+                        .PaddingValues(8.dp),
             ) {
                 items(
                     items = ingredients,
@@ -149,10 +148,11 @@ fun Fridge(navController: NavController) {
                     val rotationAngle by infiniteTransition.animateFloat(
                         initialValue = -0.25f,
                         targetValue = 0.25f,
-                        animationSpec = infiniteRepeatable(
-                            animation = tween(durationMillis = 100),
-                            repeatMode = RepeatMode.Reverse,
-                        ),
+                        animationSpec =
+                            infiniteRepeatable(
+                                animation = tween(durationMillis = 100),
+                                repeatMode = RepeatMode.Reverse,
+                            ),
                         label = "rotationAngle",
                     )
 
@@ -173,32 +173,34 @@ fun Fridge(navController: NavController) {
                     }
 
                     Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(150.dp)
-                            .graphicsLayer(
-                                scaleX = scale.value,
-                                scaleY = scale.value,
-                                alpha = alpha.value
-                            )
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .height(150.dp)
+                                .graphicsLayer(
+                                    scaleX = scale.value,
+                                    scaleY = scale.value,
+                                    alpha = alpha.value,
+                                ),
                     ) {
                         Card(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(4.dp)
-                                .graphicsLayer(rotationZ = if (isSelectingMany) rotationAngle else 0f)
-                                .combinedClickable(
-                                    onClick = {
-                                        if (isSelectingMany) {
+                            modifier =
+                                Modifier
+                                    .fillMaxSize()
+                                    .padding(4.dp)
+                                    .graphicsLayer(rotationZ = if (isSelectingMany) rotationAngle else 0f)
+                                    .combinedClickable(
+                                        onClick = {
+                                            if (isSelectingMany) {
+                                                ingredient.isSelected.value = !ingredient.isSelected.value
+                                            }
+                                        },
+                                        onLongClick = {
+                                            isSelectingMany = !isSelectingMany
                                             ingredient.isSelected.value = !ingredient.isSelected.value
-                                        }
-                                    },
-                                    onLongClick = {
-                                        isSelectingMany = !isSelectingMany
-                                        ingredient.isSelected.value = !ingredient.isSelected.value
-                                        showActionButtons = !showActionButtons
-                                    },
-                                ),
+                                            showActionButtons = !showActionButtons
+                                        },
+                                    ),
                             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
                             elevation = CardDefaults.cardElevation(pressedElevation = 10.dp),
                         ) {
@@ -224,19 +226,19 @@ fun Fridge(navController: NavController) {
 
                         if (isSelectingMany) {
                             Box(
-                                modifier = Modifier
-                                    .align(Alignment.TopStart)
-                                    .offset(x = (-4).dp, y = (-4).dp)
-                                    .size(24.dp)
-                                    .background(
-                                        color = if (ingredient.isSelected.value) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surfaceVariant,
-                                        shape = CircleShape,
-                                    )
-                                    .border(
-                                        width = 2.dp,
-                                        color = if (ingredient.isSelected.value) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSurfaceVariant,
-                                        shape = CircleShape,
-                                    ),
+                                modifier =
+                                    Modifier
+                                        .align(Alignment.TopStart)
+                                        .offset(x = (-4).dp, y = (-4).dp)
+                                        .size(24.dp)
+                                        .background(
+                                            color = if (ingredient.isSelected.value) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surfaceVariant,
+                                            shape = CircleShape,
+                                        ).border(
+                                            width = 2.dp,
+                                            color = if (ingredient.isSelected.value) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                            shape = CircleShape,
+                                        ),
                             )
                         }
                     }
@@ -245,58 +247,58 @@ fun Fridge(navController: NavController) {
         }
 
         Box(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(bottom = 16.dp, end = 16.dp)
-                .size(56.dp)
-                .combinedClickable(
-                    onClick = {
-                        if (isSelectingMany) {
-                            isSelectingMany = false
-                            showActionButtons = false
-                            ingredients.forEach { it.isSelected.value = false }
-                            coroutineScope.launch {
-                                IngredientFileManager.saveIngredients(context, ingredients.toList())
+            modifier =
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(bottom = 16.dp, end = 16.dp)
+                    .size(56.dp)
+                    .combinedClickable(
+                        onClick = {
+                            if (isSelectingMany) {
+                                isSelectingMany = false
+                                showActionButtons = false
+                                ingredients.forEach { it.isSelected.value = false }
+                                coroutineScope.launch {
+                                    IngredientFileManager.saveIngredients(context, ingredients.toList())
+                                }
+                            } else {
+                                coroutineScope.launch {
+                                    IngredientFileManager.saveIngredients(context, ingredients.toList())
+                                }
+                                navController.navigate(AppRoutes.Home.route)
                             }
-                        } else {
-                            coroutineScope.launch {
-                                IngredientFileManager.saveIngredients(context, ingredients.toList())
-                            }
-                            navController.navigate(AppRoutes.Home.route)
-                        }
-                    },
-                    onLongClick = {
-                        showActionButtons = !showActionButtons
-                        isSelectingMany = !isSelectingMany
-                    },
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null
-                )
+                        },
+                        onLongClick = {
+                            showActionButtons = !showActionButtons
+                            isSelectingMany = !isSelectingMany
+                        },
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                    ),
         ) {
             val fabScale by animateFloatAsState(
                 targetValue = if (showActionButtons) 1f else 0f,
                 animationSpec = tween(300),
-                label = "fabScale"
+                label = "fabScale",
             )
             val fabAlpha by animateFloatAsState(
                 targetValue = if (showActionButtons) 1f else 0f,
                 animationSpec = tween(300),
-                label = "fabAlpha"
+                label = "fabAlpha",
             )
 
             val fabSpacing = 56.dp
 
-
             val searchOffset by animateDpAsState(
                 targetValue = if (showActionButtons) fabSpacing * 2 else 0.dp,
                 animationSpec = tween(300),
-                label = "searchOffset"
+                label = "searchOffset",
             )
 
             val deleteOffset by animateDpAsState(
                 targetValue = if (showActionButtons) fabSpacing else 0.dp,
                 animationSpec = tween(300),
-                label = "deleteOffset"
+                label = "deleteOffset",
             )
 
             SmallFloatingActionButton(
@@ -306,23 +308,23 @@ fun Fridge(navController: NavController) {
                     coroutineScope.launch {
                         IngredientFileManager.saveIngredients(
                             context,
-                            ingredients.toList().filterNot { toDelete.contains(it) }
+                            ingredients.toList().filterNot { toDelete.contains(it) },
                         )
                     }
                     isSelectingMany = false
                     showActionButtons = false
                     ingredients.forEach { it.isSelected.value = false }
                 },
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .offset(y = -deleteOffset)
-                    .graphicsLayer {
-                        scaleX = fabScale
-                        scaleY = fabScale
-                        alpha = fabAlpha
-                    }
-                    .padding(end = 16.dp, bottom = 16.dp)
-                    .size(48.dp)
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomEnd)
+                        .offset(y = -deleteOffset)
+                        .graphicsLayer {
+                            scaleX = fabScale
+                            scaleY = fabScale
+                            alpha = fabAlpha
+                        }.padding(end = 16.dp, bottom = 16.dp)
+                        .size(48.dp),
             ) {
                 Icon(Icons.Filled.Delete, contentDescription = "Delete Selected")
             }
@@ -338,16 +340,16 @@ fun Fridge(navController: NavController) {
                     ingredients.forEach { it.isSelected.value = false }
                     navController.navigate(url)
                 },
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .offset(y = -searchOffset)
-                    .graphicsLayer {
-                        scaleX = fabScale
-                        scaleY = fabScale
-                        alpha = fabAlpha
-                    }
-                    .padding(end = 16.dp, bottom = 16.dp)
-                    .size(48.dp)
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomEnd)
+                        .offset(y = -searchOffset)
+                        .graphicsLayer {
+                            scaleX = fabScale
+                            scaleY = fabScale
+                            alpha = fabAlpha
+                        }.padding(end = 16.dp, bottom = 16.dp)
+                        .size(48.dp),
             ) {
                 Icon(Icons.Filled.Search, contentDescription = "Search for Recipes")
             }
@@ -368,15 +370,16 @@ fun Fridge(navController: NavController) {
                         navController.navigate(AppRoutes.Home.route)
                     }
                 },
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(end = 16.dp, bottom = 16.dp),
-                containerColor = MaterialTheme.colorScheme.primary
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(end = 16.dp, bottom = 16.dp),
+                containerColor = MaterialTheme.colorScheme.primary,
             ) {
                 Icon(
                     imageVector = if (isSelectingMany) Icons.Filled.Done else Icons.Filled.Add,
                     contentDescription = if (isSelectingMany) "Done" else "Add New",
-                    tint = MaterialTheme.colorScheme.onPrimary
+                    tint = MaterialTheme.colorScheme.onPrimary,
                 )
             }
         }

@@ -68,13 +68,14 @@ fun Recipes(
                     val meatOptions = TempStorage.meatOptions.value
                     val mealOptions = TempStorage.mealOptions.value
 
-                    val deferredMeatCategoryFetches = meatOptions
-                        .filter { it.isChosen.value }
-                        .map { meatOption ->
-                            coroutine.async {
-                                Client.getMealByCategory(meals, meatOption.name)
+                    val deferredMeatCategoryFetches =
+                        meatOptions
+                            .filter { it.isChosen.value }
+                            .map { meatOption ->
+                                coroutine.async {
+                                    Client.getMealByCategory(meals, meatOption.name)
+                                }
                             }
-                        }
                     deferredMeatCategoryFetches.awaitAll()
 
                     for (mealOption in mealOptions) {
@@ -88,26 +89,24 @@ fun Recipes(
                         meals.add(tempMeal)
                         meals.filter { it?.strMeal?.contains(tempMeal.strMeal) == true }
                     }
-
-
                 }
             }
 
             SearchType.INGREDIENTS -> {
                 val ingredients = TempStorage.ingredients.value
 
-                val deferredMealFetches = ingredients.map { ingredient ->
-                    coroutine.async {
-                        Client.getMealByIngredient(meals, ingredient)
+                val deferredMealFetches =
+                    ingredients.map { ingredient ->
+                        coroutine.async {
+                            Client.getMealByIngredient(meals, ingredient)
+                        }
                     }
-                }
                 deferredMealFetches.awaitAll()
             }
 
             SearchType.NONE -> {
                 Client.getRandomMeals(meals)
             }
-
         }
 
         meals.shuffle()

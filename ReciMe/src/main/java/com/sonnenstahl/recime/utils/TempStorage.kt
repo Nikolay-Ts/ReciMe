@@ -1,7 +1,6 @@
 package com.sonnenstahl.recime.utils
 
 import coil3.Bitmap
-import com.sonnenstahl.recime.utils.data.Ingredient
 import com.sonnenstahl.recime.utils.data.Meal
 import com.sonnenstahl.recime.utils.data.MealOption
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -77,5 +76,4 @@ object TempStorage {
     fun updateIngredients(ingredients: List<String>) {
         _ingredients.value = ingredients
     }
-
 }

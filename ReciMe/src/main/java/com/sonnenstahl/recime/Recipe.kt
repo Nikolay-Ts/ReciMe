@@ -94,7 +94,6 @@ fun Recipe(
                 mealName = "${meal.value?.strMealThumb}",
                 imageSize = ImageSize.LARGE,
             )
-
     }
 
     if (meal.value == null || imageBitmap.value == null) {
@@ -219,7 +218,6 @@ fun Recipe(
             Button(
                 modifier = buttonModifier,
                 onClick = {
-
                     coroutine.launch {
                         val existingFridgeIngredients = IngredientFileManager.loadIngredients(context).toMutableList()
                         val currentMealIngredientNames = meal.value?.ingredients.orEmpty()
@@ -227,7 +225,7 @@ fun Recipe(
                         currentMealIngredientNames.forEach { newIngredientName ->
                             if (existingFridgeIngredients.none { it.name.equals(newIngredientName, ignoreCase = true) }) {
                                 newIngredientsToAdd.add(
-                                    Ingredient(name = newIngredientName, isSelected = mutableStateOf(false))
+                                    Ingredient(name = newIngredientName, isSelected = mutableStateOf(false)),
                                 )
                             } else {
                                 Log.d("Recipe", "Skipping '$newIngredientName' as it's already in fridge.")
@@ -240,7 +238,7 @@ fun Recipe(
                         TempStorage.updateChosenMeal(null)
                         navController.navigate(AppRoutes.Fridge.route)
                     }
-              },
+                },
             ) { Text("Add to Fridge") }
         }
     }

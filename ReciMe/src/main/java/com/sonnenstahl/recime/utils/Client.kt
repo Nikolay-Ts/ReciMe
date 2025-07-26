@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.sonnenstahl.recime.BuildConfig
-import com.sonnenstahl.recime.utils.data.Ingredient
 import com.sonnenstahl.recime.utils.data.Meal
 import com.sonnenstahl.recime.utils.data.MealResponse
 import io.ktor.client.HttpClient
@@ -185,15 +184,16 @@ object Client {
 
     suspend fun getMealByIngredient(
         mutableMeals: SnapshotStateList<Meal?>,
-        ingredient: String
+        ingredient: String,
     ) {
         try {
             val url =
-                URLBuilder().apply {
-                    takeFrom(SPOON)
-                    appendPathSegments("filter.php")
-                    parameters.append("i", ingredient)
-                }.toString()
+                URLBuilder()
+                    .apply {
+                        takeFrom(SPOON)
+                        appendPathSegments("filter.php")
+                        parameters.append("i", ingredient)
+                    }.toString()
 
             val response = client.get(url)
             if (response.status.value == 200) {
@@ -207,7 +207,6 @@ object Client {
                     mutableMeals.add(meal)
                 }
             }
-
         } catch (e: Exception) {
             Log.e("Getting meal by ingredient", e.toString())
         }

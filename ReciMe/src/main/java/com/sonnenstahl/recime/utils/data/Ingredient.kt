@@ -4,7 +4,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -66,11 +65,12 @@ object MutableBooleanStateSerializer : KSerializer<MutableState<Boolean>> {
     override val descriptor: SerialDescriptor =
         PrimitiveSerialDescriptor("MutableBooleanState", PrimitiveKind.BOOLEAN)
 
-    override fun serialize(encoder: Encoder, value: MutableState<Boolean>) {
+    override fun serialize(
+        encoder: Encoder,
+        value: MutableState<Boolean>,
+    ) {
         encoder.encodeBoolean(value.value)
     }
 
-    override fun deserialize(decoder: Decoder): MutableState<Boolean> {
-        return mutableStateOf(decoder.decodeBoolean())
-    }
+    override fun deserialize(decoder: Decoder): MutableState<Boolean> = mutableStateOf(decoder.decodeBoolean())
 }
