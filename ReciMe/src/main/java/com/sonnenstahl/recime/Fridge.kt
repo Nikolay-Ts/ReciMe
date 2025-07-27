@@ -78,10 +78,14 @@ fun Fridge(navController: NavController) {
     val coroutineScope = rememberCoroutineScope()
     val ingredients = remember { mutableStateListOf<Ingredient>() }
     var isSelectingMany by remember { mutableStateOf(false) }
-    var showActionButtons by remember { mutableStateOf(false) }
     val searchOffset = remember { Animatable(0f) }
     val deleteOffset = remember { Animatable(0f) }
     val pendingRemoval = remember { mutableStateListOf<Ingredient>() }
+
+    var displayDialog by remember { mutableStateOf(false) }
+    var ingredientDialog by remember { mutableStateOf<Ingredient>(Ingredient(name="")) }
+
+    var deleteAllDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(navController.currentBackStackEntry) {
         TempStorage.clearSuggestedMeals()
@@ -90,8 +94,8 @@ fun Fridge(navController: NavController) {
         ingredients.addAll(loadedList)
     }
 
-    LaunchedEffect(showActionButtons) {
-        if (showActionButtons) {
+    LaunchedEffect(isSelectingMany) {
+        if (isSelectingMany) {
             searchOffset.animateTo(-64f, animationSpec = tween(300, easing = FastOutSlowInEasing))
             deleteOffset.animateTo(-128f, animationSpec = tween(300, easing = FastOutSlowInEasing))
         } else {
@@ -121,6 +125,21 @@ fun Fridge(navController: NavController) {
                     },
                 ),
     ) {
+        if (displayDialog) {
+            IngredientPopupDialog(
+                navController = navController,
+                ingredients = ingredients,
+                ingredient = ingredientDialog
+            ) { displayDialog = false }
+        }
+
+        if (deleteAllDialog) {
+            DeleteAllDialog(ingredients = ingredients) {
+                deleteAllDialog = false
+                isSelectingMany = false
+            }
+        }
+
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -198,8 +217,11 @@ fun Fridge(navController: NavController) {
                                         onLongClick = {
                                             isSelectingMany = !isSelectingMany
                                             ingredient.isSelected.value = !ingredient.isSelected.value
-                                            showActionButtons = !showActionButtons
                                         },
+                                        onDoubleClick = {
+                                            displayDialog = true
+                                            ingredientDialog = ingredient
+                                        }
                                     ),
                             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
                             elevation = CardDefaults.cardElevation(pressedElevation = 10.dp),
@@ -256,7 +278,6 @@ fun Fridge(navController: NavController) {
                         onClick = {
                             if (isSelectingMany) {
                                 isSelectingMany = false
-                                showActionButtons = false
                                 ingredients.forEach { it.isSelected.value = false }
                                 coroutineScope.launch {
                                     IngredientFileManager.saveData(context, ingredients.toList())
@@ -269,7 +290,6 @@ fun Fridge(navController: NavController) {
                             }
                         },
                         onLongClick = {
-                            showActionButtons = !showActionButtons
                             isSelectingMany = !isSelectingMany
                         },
                         interactionSource = remember { MutableInteractionSource() },
@@ -277,12 +297,12 @@ fun Fridge(navController: NavController) {
                     ),
         ) {
             val fabScale by animateFloatAsState(
-                targetValue = if (showActionButtons) 1f else 0f,
+                targetValue = if (isSelectingMany) 1f else 0f,
                 animationSpec = tween(300),
                 label = "fabScale",
             )
             val fabAlpha by animateFloatAsState(
-                targetValue = if (showActionButtons) 1f else 0f,
+                targetValue = if (isSelectingMany) 1f else 0f,
                 animationSpec = tween(300),
                 label = "fabAlpha",
             )
@@ -290,19 +310,24 @@ fun Fridge(navController: NavController) {
             val fabSpacing = 56.dp
 
             val searchOffset by animateDpAsState(
-                targetValue = if (showActionButtons) fabSpacing * 2 else 0.dp,
+                targetValue = if (isSelectingMany) fabSpacing * 2 else 0.dp,
                 animationSpec = tween(300),
                 label = "searchOffset",
             )
 
             val deleteOffset by animateDpAsState(
-                targetValue = if (showActionButtons) fabSpacing else 0.dp,
+                targetValue = if (isSelectingMany) fabSpacing else 0.dp,
                 animationSpec = tween(300),
                 label = "deleteOffset",
             )
 
             SmallFloatingActionButton(
                 onClick = {
+                    if (ingredients.all { it.isSelected.value == false }) {
+                        deleteAllDialog = true
+                        return@SmallFloatingActionButton
+                    }
+
                     val toDelete = ingredients.filter { it.isSelected.value }
                     pendingRemoval.addAll(toDelete)
                     coroutineScope.launch {
@@ -312,7 +337,6 @@ fun Fridge(navController: NavController) {
                         )
                     }
                     isSelectingMany = false
-                    showActionButtons = false
                     ingredients.forEach { it.isSelected.value = false }
                 },
                 modifier =
@@ -336,7 +360,6 @@ fun Fridge(navController: NavController) {
                     val searchType = if (selected.isNotEmpty()) SearchType.INGREDIENTS else SearchType.NONE
                     val url = "${AppRoutes.Recipes.route}/$searchType/"
                     isSelectingMany = false
-                    showActionButtons = false
                     ingredients.forEach { it.isSelected.value = false }
                     navController.navigate(url)
                 },
@@ -358,7 +381,6 @@ fun Fridge(navController: NavController) {
                 onClick = {
                     if (isSelectingMany) {
                         isSelectingMany = false
-                        showActionButtons = false
                         ingredients.forEach { it.isSelected.value = false }
                         coroutineScope.launch {
                             IngredientFileManager.saveData(context, ingredients.toList())

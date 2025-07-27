@@ -17,6 +17,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.sonnenstahl.recime.utils.AppRoutes
 
+/**
+ * view that is showed then the data was not fetched in time from the API
+ *
+ * @param navController used to navigate back to the [Home] view
+ */
 @Composable
 fun CouldNotLoad(navController: NavController) {
     Column(
