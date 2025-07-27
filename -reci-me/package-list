@@ -82,6 +82,18 @@ $dokka.location:com.sonnenstahl.recime.utils/Client/getMealByIngredient/#android
 $dokka.location:com.sonnenstahl.recime.utils/Client/getMealByName/#kotlin.String/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-client/get-meal-by-name.html
 $dokka.location:com.sonnenstahl.recime.utils/Client/getRandomMeal/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-client/get-random-meal.html
 $dokka.location:com.sonnenstahl.recime.utils/Client/getRandomMeals/#androidx.compose.runtime.snapshots.SnapshotStateList[com.sonnenstahl.recime.utils.data.Meal?]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-client/get-random-meals.html
+$dokka.location:com.sonnenstahl.recime.utils/DailyMealScheduler///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-daily-meal-scheduler/index.html
+$dokka.location:com.sonnenstahl.recime.utils/DailyMealScheduler/schedule/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-daily-meal-scheduler/schedule.html
+$dokka.location:com.sonnenstahl.recime.utils/DailyMealTask.Companion///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-daily-meal-task/-companion/index.html
+$dokka.location:com.sonnenstahl.recime.utils/DailyMealTask.Companion/WORKER_ID/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-daily-meal-task/-companion/-w-o-r-k-e-r_-i-d.html
+$dokka.location:com.sonnenstahl.recime.utils/DailyMealTask///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-daily-meal-task/index.html
+$dokka.location:com.sonnenstahl.recime.utils/DailyMealTask/DailyMealTask/#android.content.Context#androidx.work.WorkerParameters/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-daily-meal-task/-daily-meal-task.html
+$dokka.location:com.sonnenstahl.recime.utils/DailyMealTask/doWork/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-daily-meal-task/do-work.html
+$dokka.location:com.sonnenstahl.recime.utils/FileManager///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-file-manager/index.html
+$dokka.location:com.sonnenstahl.recime.utils/FileManager/FILENAME/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-file-manager/-f-i-l-e-n-a-m-e.html
+$dokka.location:com.sonnenstahl.recime.utils/FileManager/deleteData/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-file-manager/delete-data.html
+$dokka.location:com.sonnenstahl.recime.utils/FileManager/loadData/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-file-manager/load-data.html
+$dokka.location:com.sonnenstahl.recime.utils/FileManager/saveData/#android.content.Context#kotlin.collections.List[TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-file-manager/save-data.html
 $dokka.location:com.sonnenstahl.recime.utils/ImageSize.LARGE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reci-me/com.sonnenstahl.recime.utils/-image-size/-l-a-r-g-e/index.html
 $dokka.location:com.sonnenstahl.recime.utils/ImageSize.MEDIUM///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reci-me/com.sonnenstahl.recime.utils/-image-size/-m-e-d-i-u-m/index.html
 $dokka.location:com.sonnenstahl.recime.utils/ImageSize.SMALL///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reci-me/com.sonnenstahl.recime.utils/-image-size/-s-m-a-l-l/index.html
@@ -90,9 +102,15 @@ $dokka.location:com.sonnenstahl.recime.utils/ImageSize/entries/#/PointingToDecla
 $dokka.location:com.sonnenstahl.recime.utils/ImageSize/valueOf/#kotlin.String/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-image-size/value-of.html
 $dokka.location:com.sonnenstahl.recime.utils/ImageSize/values/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-image-size/values.html
 $dokka.location:com.sonnenstahl.recime.utils/IngredientFileManager///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-ingredient-file-manager/index.html
-$dokka.location:com.sonnenstahl.recime.utils/IngredientFileManager/deleteIngredientsFile/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-ingredient-file-manager/delete-ingredients-file.html
-$dokka.location:com.sonnenstahl.recime.utils/IngredientFileManager/loadIngredients/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-ingredient-file-manager/load-ingredients.html
-$dokka.location:com.sonnenstahl.recime.utils/IngredientFileManager/saveIngredients/#android.content.Context#kotlin.collections.List[com.sonnenstahl.recime.utils.data.Ingredient]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-ingredient-file-manager/save-ingredients.html
+$dokka.location:com.sonnenstahl.recime.utils/IngredientFileManager/FILENAME/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-ingredient-file-manager/-f-i-l-e-n-a-m-e.html
+$dokka.location:com.sonnenstahl.recime.utils/IngredientFileManager/deleteData/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-ingredient-file-manager/delete-data.html
+$dokka.location:com.sonnenstahl.recime.utils/IngredientFileManager/loadData/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-ingredient-file-manager/load-data.html
+$dokka.location:com.sonnenstahl.recime.utils/IngredientFileManager/saveData/#android.content.Context#kotlin.collections.List[com.sonnenstahl.recime.utils.data.Ingredient]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-ingredient-file-manager/save-data.html
+$dokka.location:com.sonnenstahl.recime.utils/MealFileManager///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/index.html
+$dokka.location:com.sonnenstahl.recime.utils/MealFileManager/FILENAME/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/-f-i-l-e-n-a-m-e.html
+$dokka.location:com.sonnenstahl.recime.utils/MealFileManager/deleteData/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/delete-data.html
+$dokka.location:com.sonnenstahl.recime.utils/MealFileManager/loadData/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/load-data.html
+$dokka.location:com.sonnenstahl.recime.utils/MealFileManager/saveData/#android.content.Context#kotlin.collections.List[com.sonnenstahl.recime.utils.data.Meal]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/save-data.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/index.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/chosenMeal/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/chosen-meal.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/chosenMealImg/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/chosen-meal-img.html
@@ -126,6 +144,9 @@ $dokka.location:com.sonnenstahl.recime/NoRippleInteractionSource/NoRippleInterac
 $dokka.location:com.sonnenstahl.recime/NoRippleInteractionSource/emit/#androidx.compose.foundation.interaction.Interaction/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-no-ripple-interaction-source/emit.html
 $dokka.location:com.sonnenstahl.recime/NoRippleInteractionSource/interactions/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-no-ripple-interaction-source/interactions.html
 $dokka.location:com.sonnenstahl.recime/NoRippleInteractionSource/tryEmit/#androidx.compose.foundation.interaction.Interaction/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-no-ripple-interaction-source/try-emit.html
+$dokka.location:com.sonnenstahl.recime/ReciMe///PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-reci-me/index.html
+$dokka.location:com.sonnenstahl.recime/ReciMe/ReciMe/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-reci-me/-reci-me.html
+$dokka.location:com.sonnenstahl.recime/ReciMe/onCreate/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-reci-me/on-create.html
 com.sonnenstahl.recime
 com.sonnenstahl.recime.ui.theme
 com.sonnenstahl.recime.utils
