@@ -77,12 +77,15 @@ fun Recipe(
         }
 
         if (meal.value != null) {
-            val tempMealResult  = coroutine.async { Client.getMealByName(meal.value!!.strMeal) }
+            val tempMealResult = coroutine.async { Client.getMealByName(meal.value!!.strMeal) }
             val tempMeal = tempMealResult.await()
-            ingredients.addAll(tempMeal?.ingredients ?: emptyList())
-            Log.d("INGREDIENTS", "IN ${meal.value!!.ingredients}")
-            Log.d("INGREDIENTS", "STORAGE ${tempMeal?.ingredients}")
-            return@LaunchedEffect
+
+            if (tempMeal != null) {
+                meal.value = tempMeal
+                ingredients.clear()
+                ingredients.addAll(tempMeal.ingredients ?: emptyList())
+                Log.d("INGREDIENTS", "Fetched: ${tempMeal.ingredients}")
+            }
         } else if (name == null) {
             meal.value = Client.getRandomMeal()
         } else {

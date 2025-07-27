@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="ReciMe">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-07-26T13:22:52.435093Z">
+        <DropdownSelection timestamp="2025-07-27T14:54:26.696437Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=R5CW70576JZ" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=/Users/nik/.android/avd/Pixel_7_Pro_API_36.avd" />
             </handle>
           </Target>
         </DropdownSelection>
