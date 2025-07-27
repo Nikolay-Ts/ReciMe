@@ -14,7 +14,6 @@ $dokka.location:com.sonnenstahl.recime.utils.data////PointingToDeclaration/-rec
 $dokka.location:com.sonnenstahl.recime.utils.data//EXCLUDED_NAMES/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-e-x-c-l-u-d-e-d_-n-a-m-e-s.html
 $dokka.location:com.sonnenstahl.recime.utils.data//MEAL_TYPE_OPTION/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-m-e-a-l_-t-y-p-e_-o-p-t-i-o-n.html
 $dokka.location:com.sonnenstahl.recime.utils.data//MEAT_OPTION_NAMES/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-m-e-a-t_-o-p-t-i-o-n_-n-a-m-e-s.html
-$dokka.location:com.sonnenstahl.recime.utils.data//TEST_VEGGIES_LIST/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-t-e-s-t_-v-e-g-g-i-e-s_-l-i-s-t.html
 $dokka.location:com.sonnenstahl.recime.utils.data//VEGGIES/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-v-e-g-g-i-e-s.html
 $dokka.location:com.sonnenstahl.recime.utils.data//disableAllButVegan/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.MealOption]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/disable-all-but-vegan.html
 $dokka.location:com.sonnenstahl.recime.utils.data//disableMeat/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.MealOption]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/disable-meat.html
@@ -121,6 +120,7 @@ $dokka.location:com.sonnenstahl.recime.utils/TempStorage/meatOptions/#/PointingT
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/suggestedMealImages/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/suggested-meal-images.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/suggestedMeals/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/suggested-meals.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateChosenMeal/#com.sonnenstahl.recime.utils.data.Meal?/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-chosen-meal.html
+$dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateChosenMealImage/#[Error type: Unresolved type for Bitmap]?/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-chosen-meal-image.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateIngredients/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-ingredients.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateMealOptions/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.MealOption]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-meal-options.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateMeatOptions/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.MealOption]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-meat-options.html
@@ -130,7 +130,7 @@ $dokka.location:com.sonnenstahl.recime////PointingToDeclaration/-reci-me/com.so
 $dokka.location:com.sonnenstahl.recime//CouldNotLoad/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-could-not-load.html
 $dokka.location:com.sonnenstahl.recime//Fridge/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-fridge.html
 $dokka.location:com.sonnenstahl.recime//Home/#androidx.navigation.NavHostController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-home.html
-$dokka.location:com.sonnenstahl.recime//Loading/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-loading.html
+$dokka.location:com.sonnenstahl.recime//Loading/#androidx.compose.ui.Modifier/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-loading.html
 $dokka.location:com.sonnenstahl.recime//Navigation/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-navigation.html
 $dokka.location:com.sonnenstahl.recime//OptionsGrid/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.MealOption]#kotlin.Int#kotlin.Function1[com.sonnenstahl.recime.utils.data.MealOption,kotlin.Unit]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-options-grid.html
 $dokka.location:com.sonnenstahl.recime//Recipe/#androidx.navigation.NavController#kotlin.String?/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-recipe.html
