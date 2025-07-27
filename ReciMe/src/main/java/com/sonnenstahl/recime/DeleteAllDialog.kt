@@ -20,7 +20,7 @@ import com.sonnenstahl.recime.utils.data.Ingredient
 @Composable
 fun DeleteAllDialog(
     ingredients: SnapshotStateList<Ingredient>,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -36,11 +36,12 @@ fun DeleteAllDialog(
                     ingredients.clear()
                     onDismiss()
                 },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.error,
-                    contentColor = MaterialTheme.colorScheme.onError
-                ),
-                shape = RoundedCornerShape(8.dp)
+                colors =
+                    ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error,
+                        contentColor = MaterialTheme.colorScheme.onError,
+                    ),
+                shape = RoundedCornerShape(8.dp),
             ) {
                 Text("Yes, Delete") // This will now correctly display
             }
@@ -48,10 +49,10 @@ fun DeleteAllDialog(
         dismissButton = {
             Button(
                 onClick = onDismiss,
-                shape = RoundedCornerShape(8.dp)
+                shape = RoundedCornerShape(8.dp),
             ) {
                 Text("Cancel") // This will now correctly display
             }
-        }
+        },
     )
 }

@@ -37,7 +37,7 @@ data class Meal(
     val strMealThumb: String? = null,
     val strTags: String? = null,
     val strYoutube: String? = null,
-    val ingredients: List<String>? = null,
+    val ingredients: MutableList<String>? = null,
     val measures: List<String>? = null,
     val strSource: String? = null,
     val strImageSource: String? = null,
@@ -104,7 +104,10 @@ data class Meal(
             )
         }
 
-        override fun serialize(encoder: Encoder, value: Meal) {
+        override fun serialize(
+            encoder: Encoder,
+            value: Meal,
+        ) {
             val jsonEncoder = encoder as kotlinx.serialization.json.JsonEncoder
             jsonEncoder.encodeJsonElement(
                 buildJsonObject {
@@ -129,7 +132,7 @@ data class Meal(
                     value.measures?.forEachIndexed { index, measure ->
                         put("strMeasure${index + 1}", JsonPrimitive(measure))
                     }
-                }
+                },
             )
         }
     }

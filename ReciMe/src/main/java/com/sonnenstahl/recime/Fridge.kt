@@ -83,7 +83,7 @@ fun Fridge(navController: NavController) {
     val pendingRemoval = remember { mutableStateListOf<Ingredient>() }
 
     var displayDialog by remember { mutableStateOf(false) }
-    var ingredientDialog by remember { mutableStateOf<Ingredient>(Ingredient(name="")) }
+    var ingredientDialog by remember { mutableStateOf<Ingredient>(Ingredient(name = "")) }
 
     var deleteAllDialog by remember { mutableStateOf(false) }
 
@@ -129,7 +129,7 @@ fun Fridge(navController: NavController) {
             IngredientPopupDialog(
                 navController = navController,
                 ingredients = ingredients,
-                ingredient = ingredientDialog
+                ingredient = ingredientDialog,
             ) { displayDialog = false }
         }
 
@@ -221,7 +221,7 @@ fun Fridge(navController: NavController) {
                                         onDoubleClick = {
                                             displayDialog = true
                                             ingredientDialog = ingredient
-                                        }
+                                        },
                                     ),
                             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
                             elevation = CardDefaults.cardElevation(pressedElevation = 10.dp),

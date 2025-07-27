@@ -40,7 +40,7 @@ fun IngredientPopupDialog(
     navController: NavController,
     ingredients: SnapshotStateList<Ingredient>,
     ingredient: Ingredient,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -48,29 +48,31 @@ fun IngredientPopupDialog(
         title = null,
         text = {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 AsyncImage(
                     model = ingredient.filePath,
                     contentDescription = ingredient.name,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 12.dp)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 12.dp),
                 )
 
                 Text(
                     text = ingredient.name,
                     style = MaterialTheme.typography.headlineSmall,
-                    modifier = Modifier.padding(bottom = 20.dp)
+                    modifier = Modifier.padding(bottom = 20.dp),
                 )
 
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Button(
                         onClick = {
@@ -79,16 +81,17 @@ fun IngredientPopupDialog(
                         },
                         modifier = Modifier.weight(1.0f),
                         shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.error,
-                            contentColor = MaterialTheme.colorScheme.onError
-                        )
+                        colors =
+                            ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.error,
+                                contentColor = MaterialTheme.colorScheme.onError,
+                            ),
                     ) {
                         Text("Delete", modifier = Modifier.padding(end = 8.dp))
 
                         Icon(
                             imageVector = Icons.Filled.Delete,
-                            contentDescription = "Delete"
+                            contentDescription = "Delete",
                         )
                     }
 
@@ -100,17 +103,17 @@ fun IngredientPopupDialog(
                             onDismiss()
                         },
                         modifier = Modifier.weight(1.0f),
-                        shape = RoundedCornerShape(12.dp)
+                        shape = RoundedCornerShape(12.dp),
                     ) {
                         Text("Search", modifier = Modifier.padding(end = 8.dp))
 
                         Icon(
                             imageVector = Icons.Filled.Search,
-                            contentDescription = "Search"
+                            contentDescription = "Search",
                         )
                     }
                 }
             }
-        }
+        },
     )
 }

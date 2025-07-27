@@ -48,6 +48,7 @@ import com.sonnenstahl.recime.utils.IngredientFileManager
 import com.sonnenstahl.recime.utils.TempStorage
 import com.sonnenstahl.recime.utils.data.Ingredient
 import com.sonnenstahl.recime.utils.data.Meal
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -76,11 +77,13 @@ fun Recipe(
         }
 
         if (meal.value != null) {
-            ingredients.addAll(meal.value?.ingredients ?: emptyList())
+            val tempMealResult  = coroutine.async { Client.getMealByName(meal.value!!.strMeal) }
+            val tempMeal = tempMealResult.await()
+            ingredients.addAll(tempMeal?.ingredients ?: emptyList())
+            Log.d("INGREDIENTS", "IN ${meal.value!!.ingredients}")
+            Log.d("INGREDIENTS", "STORAGE ${tempMeal?.ingredients}")
             return@LaunchedEffect
-        }
-
-        else if (name == null) {
+        } else if (name == null) {
             meal.value = Client.getRandomMeal()
         } else {
             meal.value = Client.getMealByName(name)
@@ -132,8 +135,6 @@ fun Recipe(
                             .clip(RoundedCornerShape(25.dp)),
                 )
             }
-
-
         }
 
         Column(
@@ -215,7 +216,10 @@ fun Recipe(
 
             OutlinedButton(
                 modifier = buttonModifier,
-                onClick = { navController.navigate(AppRoutes.Home.route) },
+                onClick = {
+                    TempStorage.updateIngredients(emptyList())
+                    navController.navigate(AppRoutes.Home.route)
+                },
             ) { Text("Back Home") }
 
             Button(
@@ -237,8 +241,9 @@ fun Recipe(
 
                         existingFridgeIngredients.addAll(newIngredientsToAdd)
                         IngredientFileManager.saveData(context, existingFridgeIngredients)
-
                         TempStorage.updateChosenMeal(null)
+                        TempStorage.updateIngredients(emptyList())
+
                         navController.navigate(AppRoutes.Fridge.route)
                     }
                 },

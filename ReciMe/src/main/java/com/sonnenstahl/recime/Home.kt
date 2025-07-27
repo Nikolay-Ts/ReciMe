@@ -67,63 +67,67 @@ fun Home(navigation: NavHostController) {
     }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(24.dp),
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 15.dp)
-                .padding(start = 5.dp, end = 5.dp)
-                .align(Alignment.TopCenter),
-            horizontalArrangement = Arrangement.SpaceBetween
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(top = 15.dp)
+                    .padding(start = 5.dp, end = 5.dp)
+                    .align(Alignment.TopCenter),
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Button(
                 onClick = { navigation.navigate(AppRoutes.Fridge.route) },
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(20.dp),
             ) {
                 Icon(
                     imageVector = Icons.Filled.ShoppingCart,
                     contentDescription = null,
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(20.dp),
                 )
             }
 
             Button(
                 onClick = { navigation.navigate(AppRoutes.RecipeFinder.route) },
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(20.dp),
             ) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = null,
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(20.dp),
                 )
             }
         }
 
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Center)
-                .padding(horizontal = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.Center)
+                    .padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Card(
                 shape = RoundedCornerShape(16.dp),
                 modifier = Modifier.fillMaxWidth(),
-                elevation = CardDefaults.cardElevation(8.dp)
+                elevation = CardDefaults.cardElevation(8.dp),
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth()
+                    modifier =
+                        Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
                 ) {
                     Text(
                         text = "Daily Meal",
                         style = MaterialTheme.typography.headlineSmall,
-                        modifier = Modifier.padding(bottom = 8.dp)
+                        modifier = Modifier.padding(bottom = 8.dp),
                     )
 
                     if (meal != null && mealImageBitmap != null) {
@@ -131,14 +135,15 @@ fun Home(navigation: NavHostController) {
                             text = meal!!.strMeal,
                             style = MaterialTheme.typography.titleMedium,
                             textAlign = TextAlign.Center,
-                            modifier = Modifier.padding(bottom = 8.dp)
+                            modifier = Modifier.padding(bottom = 8.dp),
                         )
                         Image(
                             bitmap = mealImageBitmap!!.asImageBitmap(),
                             contentDescription = meal!!.strMeal,
-                            modifier = Modifier
-                                .size(240.dp)
-                                .clip(RoundedCornerShape(25.dp))
+                            modifier =
+                                Modifier
+                                    .size(240.dp)
+                                    .clip(RoundedCornerShape(25.dp)),
                         )
 
                         Spacer(modifier = Modifier.height(16.dp))
@@ -150,16 +155,17 @@ fun Home(navigation: NavHostController) {
                                 val url = "${AppRoutes.Recipe.route}/${meal!!.strMeal}"
                                 navigation.navigate(url)
                             },
-                            shape = RoundedCornerShape(12.dp)
+                            shape = RoundedCornerShape(12.dp),
                         ) {
                             Text("More Info")
                         }
                     } else {
                         Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(400.dp),
-                            contentAlignment = Alignment.Center
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .height(400.dp),
+                            contentAlignment = Alignment.Center,
                         ) {
                             Loading()
                         }
@@ -173,10 +179,11 @@ fun Home(navigation: NavHostController) {
                 val url = "${AppRoutes.Recipes.route}/${SearchType.NONE}/"
                 navigation.navigate(url)
             },
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 36.dp),
-            shape = RoundedCornerShape(24.dp)
+            modifier =
+                Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 36.dp),
+            shape = RoundedCornerShape(24.dp),
         ) {
             Text("Surprise Me")
         }
