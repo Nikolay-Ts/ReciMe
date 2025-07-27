@@ -69,19 +69,18 @@ val coilVersion: String by project
 
 dependencies {
     implementation("androidx.navigation:navigation-compose:$navVersion")
-//    // Views/Fragments integration
-//    implementation("androidx.navigation:navigation-fragment:$navVersion")
-//    implementation("androidx.navigation:navigation-ui:$navVersion")
 
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("io.coil-kt.coil3:coil-compose:$coilVersion")
 
     implementation("com.google.accompanist:accompanist-swiperefresh:0.24.13-rc")
 
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0") // or latest
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
-    implementation("com.google.dagger:hilt-android:2.50") // or latest
+    implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-compiler:2.50")
+
+    implementation("androidx.work:work-runtime-ktx:2.10.2")
 
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")

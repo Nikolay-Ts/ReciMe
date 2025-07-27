@@ -219,7 +219,7 @@ fun Recipe(
                 modifier = buttonModifier,
                 onClick = {
                     coroutine.launch {
-                        val existingFridgeIngredients = IngredientFileManager.loadIngredients(context).toMutableList()
+                        val existingFridgeIngredients = IngredientFileManager.loadData(context).toMutableList()
                         val currentMealIngredientNames = meal.value?.ingredients.orEmpty()
                         val newIngredientsToAdd = mutableListOf<Ingredient>()
                         currentMealIngredientNames.forEach { newIngredientName ->
@@ -233,7 +233,7 @@ fun Recipe(
                         }
 
                         existingFridgeIngredients.addAll(newIngredientsToAdd)
-                        IngredientFileManager.saveIngredients(context, existingFridgeIngredients)
+                        IngredientFileManager.saveData(context, existingFridgeIngredients)
 
                         TempStorage.updateChosenMeal(null)
                         navController.navigate(AppRoutes.Fridge.route)

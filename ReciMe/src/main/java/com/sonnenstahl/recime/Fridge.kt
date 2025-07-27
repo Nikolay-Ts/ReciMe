@@ -85,7 +85,7 @@ fun Fridge(navController: NavController) {
 
     LaunchedEffect(navController.currentBackStackEntry) {
         TempStorage.clearSuggestedMeals()
-        val loadedList = IngredientFileManager.loadIngredients(context)
+        val loadedList = IngredientFileManager.loadData(context)
         ingredients.clear()
         ingredients.addAll(loadedList)
     }
@@ -115,7 +115,7 @@ fun Fridge(navController: NavController) {
                             isSelectingMany = false
                             ingredients.forEach { it.isSelected.value = false }
                             coroutineScope.launch {
-                                IngredientFileManager.saveIngredients(context, ingredients.toList())
+                                IngredientFileManager.saveData(context, ingredients.toList())
                             }
                         }
                     },
@@ -259,11 +259,11 @@ fun Fridge(navController: NavController) {
                                 showActionButtons = false
                                 ingredients.forEach { it.isSelected.value = false }
                                 coroutineScope.launch {
-                                    IngredientFileManager.saveIngredients(context, ingredients.toList())
+                                    IngredientFileManager.saveData(context, ingredients.toList())
                                 }
                             } else {
                                 coroutineScope.launch {
-                                    IngredientFileManager.saveIngredients(context, ingredients.toList())
+                                    IngredientFileManager.saveData(context, ingredients.toList())
                                 }
                                 navController.navigate(AppRoutes.Home.route)
                             }
@@ -306,7 +306,7 @@ fun Fridge(navController: NavController) {
                     val toDelete = ingredients.filter { it.isSelected.value }
                     pendingRemoval.addAll(toDelete)
                     coroutineScope.launch {
-                        IngredientFileManager.saveIngredients(
+                        IngredientFileManager.saveData(
                             context,
                             ingredients.toList().filterNot { toDelete.contains(it) },
                         )
@@ -361,11 +361,11 @@ fun Fridge(navController: NavController) {
                         showActionButtons = false
                         ingredients.forEach { it.isSelected.value = false }
                         coroutineScope.launch {
-                            IngredientFileManager.saveIngredients(context, ingredients.toList())
+                            IngredientFileManager.saveData(context, ingredients.toList())
                         }
                     } else {
                         coroutineScope.launch {
-                            IngredientFileManager.saveIngredients(context, ingredients.toList())
+                            IngredientFileManager.saveData(context, ingredients.toList())
                         }
                         navController.navigate(AppRoutes.Home.route)
                     }

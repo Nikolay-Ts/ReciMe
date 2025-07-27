@@ -2,16 +2,13 @@ package com.sonnenstahl.recime.utils
 
 import android.content.Context
 import android.util.Log
-import com.sonnenstahl.recime.utils.data.Ingredient
+import com.sonnenstahl.recime.utils.data.Meal
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileNotFoundException
 
-/**
- * object to load, store and delete the ingredients in your fridge
- */
-object IngredientFileManager : FileManager<Ingredient> {
-    override val FILENAME = "ingredients.json"
+object MealFileManager : FileManager<Meal> {
+    override val FILENAME = "meals.json"
     private val json =
         Json {
             prettyPrint = true
@@ -19,18 +16,12 @@ object IngredientFileManager : FileManager<Ingredient> {
             encodeDefaults = true
         }
 
-    /**
-     * Saves a list of ingredients to internal storage as a JSON file.
-     *
-     * @param context The application context.
-     * @param ingredients The list of [Ingredient] objects to save.
-     */
     override fun saveData(
         context: Context,
-        ingredients: List<Ingredient>,
+        meal: List<Meal>,
     ) {
         try {
-            val jsonString = json.encodeToString(ingredients)
+            val jsonString = json.encodeToString(meal)
             context.openFileOutput(FILENAME, Context.MODE_PRIVATE).use { outputStream ->
                 outputStream.write(jsonString.toByteArray())
             }
@@ -39,17 +30,11 @@ object IngredientFileManager : FileManager<Ingredient> {
         }
     }
 
-    /**
-     * loads a list of ingredients from a JSON file in internal storage.
-     *
-     * @param context The application context.
-     * @return The loaded list of [Ingredient] objects, or an empty list if loading fails or file not found.
-     */
-    override fun loadData(context: Context): List<Ingredient> =
+    override fun loadData(context: Context): List<Meal> =
         try {
             context.openFileInput(FILENAME).use { inputStream ->
                 val jsonString = inputStream.bufferedReader().use { it.readText() }
-                json.decodeFromString<List<Ingredient>>(jsonString)
+                json.decodeFromString<List<Meal>>(jsonString)
             }
         } catch (e: FileNotFoundException) {
             emptyList()
@@ -57,11 +42,6 @@ object IngredientFileManager : FileManager<Ingredient> {
             emptyList()
         }
 
-    /**
-     * Deletes the ingredients file from internal storage.
-     * Use with caution!
-     * @param context The application context.
-     */
     override fun deleteData(context: Context) =
         {
             try {
@@ -71,13 +51,13 @@ object IngredientFileManager : FileManager<Ingredient> {
                     if (deleted) {
                         println("$FILENAME deleted successfully.")
                     } else {
-                        System.err.println("Failed to delete $FILENAME.")
+                        System.err.println("Failed to delete ${MealFileManager.FILENAME}.")
                     }
                 } else {
                     println("$FILENAME does not exist.")
                 }
             } catch (e: Exception) {
-                System.err.println("Error deleting ingredients file: ${e.message}")
+                System.err.println("Error deleting meal file: ${e.message}")
                 e.printStackTrace()
             }
         }
