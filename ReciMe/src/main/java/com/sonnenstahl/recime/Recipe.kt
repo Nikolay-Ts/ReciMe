@@ -65,7 +65,7 @@ fun Recipe(
 
     LaunchedEffect(Unit) {
         coroutine.launch {
-            delay(10000L)
+            delay(5000L)
             if (meal.value == null) {
                 navController.navigate(AppRoutes.CouldNotLoad.route) {
                     popUpTo(AppRoutes.Home.route) {
@@ -76,10 +76,11 @@ fun Recipe(
         }
 
         if (meal.value != null) {
+            ingredients.addAll(meal.value?.ingredients ?: emptyList())
             return@LaunchedEffect
         }
 
-        if (name == null) {
+        else if (name == null) {
             meal.value = Client.getRandomMeal()
         } else {
             meal.value = Client.getMealByName(name)
@@ -131,6 +132,8 @@ fun Recipe(
                             .clip(RoundedCornerShape(25.dp)),
                 )
             }
+
+
         }
 
         Column(

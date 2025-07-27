@@ -3,6 +3,10 @@ package com.sonnenstahl.recime.utils.data
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 
+val MEAL_TYPE_OPTION = setOf("Breakfast", "Main", "Desert")
+val EXCLUDED_NAMES = setOf("Vegan", "Vegetarian", "Pasta")
+val VEGGIES = setOf("Vegan", "Vegetarian")
+
 val MEAT_OPTION_NAMES: Array<String> =
     arrayOf(
         "Beef",
@@ -15,11 +19,6 @@ val MEAT_OPTION_NAMES: Array<String> =
         "Vegan",
         "Miscellaneous",
     )
-
-val MEAL_TYPE_OPTION: Array<String> = arrayOf("Breakfast", "Main", "Desert")
-
-val EXCLUDED_NAMES = setOf("Vegan", "Vegetarian", "Pasta")
-val VEGGIES = setOf("Vegan", "Vegetarian")
 
 data class MealOption(
     val name: String,

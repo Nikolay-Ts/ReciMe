@@ -28,39 +28,6 @@ data class Ingredient(
     val filePath: String = "file:///android_asset/default-ingredient.png",
 )
 
-val TEST_VEGGIES_LIST: List<Ingredient> =
-    listOf(
-        Ingredient(name = "Carrot"),
-        Ingredient(name = "Broccoli"),
-        Ingredient(name = "Spinach"),
-        Ingredient(name = "Tomato"),
-        Ingredient(name = "Onion"),
-        Ingredient(name = "Bell Pepper"),
-        Ingredient(name = "Potato"),
-        Ingredient(name = "Cucumber"),
-        Ingredient(name = "Zucchini"),
-        Ingredient(name = "Lettuce"),
-        Ingredient(name = "Mushroom"),
-        Ingredient(name = "Garlic"),
-        Ingredient(name = "Corn"),
-        Ingredient(name = "Green Bean"),
-        Ingredient(name = "Cabbage"),
-        Ingredient(name = "Broccoli"),
-        Ingredient(name = "Spinach"),
-        Ingredient(name = "Tomato"),
-        Ingredient(name = "Onion"),
-        Ingredient(name = "Bell Pepper"),
-        Ingredient(name = "Potato"),
-        Ingredient(name = "Cucumber"),
-        Ingredient(name = "Zucchini"),
-        Ingredient(name = "Lettuce"),
-        Ingredient(name = "Mushroom"),
-        Ingredient(name = "Garlic"),
-        Ingredient(name = "Corn"),
-        Ingredient(name = "Green Bean"),
-        Ingredient(name = "Cabbage"),
-    )
-
 object MutableBooleanStateSerializer : KSerializer<MutableState<Boolean>> {
     override val descriptor: SerialDescriptor =
         PrimitiveSerialDescriptor("MutableBooleanState", PrimitiveKind.BOOLEAN)

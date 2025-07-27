@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 
 @Composable
-fun Loading() {
+fun Loading(modifier: Modifier = Modifier.fillMaxSize()) {
     val infiniteTransition = rememberInfiniteTransition(label = "rotation_animation")
     var loading by remember { mutableStateOf("Loading") }
 
@@ -59,7 +59,7 @@ fun Loading() {
     )
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

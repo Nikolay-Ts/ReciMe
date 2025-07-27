@@ -8,6 +8,8 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.JsonDecoder
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonPrimitive
 
@@ -102,9 +104,33 @@ data class Meal(
             )
         }
 
-        override fun serialize(
-            encoder: Encoder,
-            value: Meal,
-        ): Unit = throw NotImplementedError("Serialization for Meal is not implemented")
+        override fun serialize(encoder: Encoder, value: Meal) {
+            val jsonEncoder = encoder as kotlinx.serialization.json.JsonEncoder
+            jsonEncoder.encodeJsonElement(
+                buildJsonObject {
+                    put("idMeal", JsonPrimitive(value.idMeal))
+                    put("strMeal", JsonPrimitive(value.strMeal))
+
+                    value.strMealAlternate?.let { put("strMealAlternate", JsonPrimitive(it)) }
+                    value.strCategory?.let { put("strCategory", JsonPrimitive(it)) }
+                    value.strArea?.let { put("strArea", JsonPrimitive(it)) }
+                    value.strInstructions?.let { put("strInstructions", JsonPrimitive(it)) }
+                    value.strMealThumb?.let { put("strMealThumb", JsonPrimitive(it)) }
+                    value.strTags?.let { put("strTags", JsonPrimitive(it)) }
+                    value.strYoutube?.let { put("strYoutube", JsonPrimitive(it)) }
+                    value.strSource?.let { put("strSource", JsonPrimitive(it)) }
+                    value.strImageSource?.let { put("strImageSource", JsonPrimitive(it)) }
+                    value.strCreativeCommonsConfirmed?.let { put("strCreativeCommonsConfirmed", JsonPrimitive(it)) }
+                    value.dateModified?.let { put("dateModified", JsonPrimitive(it)) }
+
+                    value.ingredients?.forEachIndexed { index, ingredient ->
+                        put("strIngredient${index + 1}", JsonPrimitive(ingredient))
+                    }
+                    value.measures?.forEachIndexed { index, measure ->
+                        put("strMeasure${index + 1}", JsonPrimitive(measure))
+                    }
+                }
+            )
+        }
     }
 }

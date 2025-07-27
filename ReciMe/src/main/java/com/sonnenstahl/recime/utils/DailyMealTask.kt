@@ -20,9 +20,7 @@ class DailyMealTask(
                 throw Exception("Could not get a meal from the API")
             }
 
-            val meals = MealFileManager.loadData(context).toMutableList()
-            meals.add(meal)
-            MealFileManager.saveData(context, meals)
+            MealFileManager.saveData(context, listOf(meal))
 
             Result.success()
         } catch (e: Exception) {

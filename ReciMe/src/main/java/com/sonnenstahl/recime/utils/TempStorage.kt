@@ -52,6 +52,10 @@ object TempStorage {
         _chosenMeal.value = meal
     }
 
+    fun updateChosenMealImage(image: Bitmap?) {
+        _chosenMealImg.value = image
+    }
+
     fun updateSuggestedMeals(meals: List<Meal?>) {
         _suggestedMeals.value = meals
     }
