@@ -40,6 +40,10 @@ fun Navigation() {
             Fridge(navController = navController)
         }
 
+        composable(AppRoutes.AddIngredients.route) {
+            AddIngredients(navController = navController)
+        }
+
         composable(AppRoutes.CouldNotLoad.route) {
             CouldNotLoad(navController = navController)
         }

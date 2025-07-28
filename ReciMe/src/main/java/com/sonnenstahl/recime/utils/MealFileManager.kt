@@ -7,6 +7,10 @@ import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileNotFoundException
 
+/**
+ * used to save and load the daily image to prevent loading screen when entering the app
+ * for a nicer user expirience
+ */
 object MealFileManager : FileManager<Meal> {
     override val FILENAME = "meals.json"
     private val json =

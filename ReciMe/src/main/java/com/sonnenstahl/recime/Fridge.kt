@@ -1,5 +1,6 @@
 package com.sonnenstahl.recime
 
+import android.util.Log
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
@@ -13,6 +14,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -29,6 +31,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
@@ -51,6 +54,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -310,6 +314,12 @@ fun Fridge(navController: NavController) {
             val fabSpacing = 56.dp
 
             val searchOffset by animateDpAsState(
+                targetValue = if (isSelectingMany) fabSpacing * 3 else 0.dp,
+                animationSpec = tween(300),
+                label = "searchOffset",
+            )
+
+            val cameraOffset by animateDpAsState(
                 targetValue = if (isSelectingMany) fabSpacing * 2 else 0.dp,
                 animationSpec = tween(300),
                 label = "searchOffset",
@@ -320,6 +330,38 @@ fun Fridge(navController: NavController) {
                 animationSpec = tween(300),
                 label = "deleteOffset",
             )
+
+            SmallFloatingActionButton(
+                onClick = {
+                    if (ingredients.all { it.isSelected.value == false }) {
+                        deleteAllDialog = true
+                        return@SmallFloatingActionButton
+                    }
+
+                    val toDelete = ingredients.filter { it.isSelected.value }
+                    pendingRemoval.addAll(toDelete)
+                    coroutineScope.launch {
+                        IngredientFileManager.saveData(
+                            context,
+                            ingredients.toList().filterNot { toDelete.contains(it) },
+                        )
+                    }
+                    isSelectingMany = false
+                    ingredients.forEach { it.isSelected.value = false }
+                },
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomEnd)
+                        .offset(y = -cameraOffset)
+                        .graphicsLayer {
+                            scaleX = fabScale
+                            scaleY = fabScale
+                            alpha = fabAlpha
+                        }.padding(end = 16.dp, bottom = 16.dp)
+                        .size(48.dp),
+            ) {
+                Icon(Icons.Filled.AccountBox, contentDescription = "Delete Selected")
+            }
 
             SmallFloatingActionButton(
                 onClick = {
@@ -389,7 +431,7 @@ fun Fridge(navController: NavController) {
                         coroutineScope.launch {
                             IngredientFileManager.saveData(context, ingredients.toList())
                         }
-                        navController.navigate(AppRoutes.Home.route)
+                        navController.navigate(AppRoutes.AddIngredients.route)
                     }
                 },
                 modifier =
@@ -404,6 +446,7 @@ fun Fridge(navController: NavController) {
                     tint = MaterialTheme.colorScheme.onPrimary,
                 )
             }
+
         }
     }
 }
