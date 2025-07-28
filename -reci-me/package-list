@@ -128,6 +128,7 @@ $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateMeatOptions/#kotl
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateSuggestedMealImages/#kotlin.collections.List[[Error type: Unresolved type for Bitmap]?]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-suggested-meal-images.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateSuggestedMeals/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.Meal?]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/update-suggested-meals.html
 $dokka.location:com.sonnenstahl.recime////PointingToDeclaration/-reci-me/com.sonnenstahl.recime/index.html
+$dokka.location:com.sonnenstahl.recime//AddIngredients/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-add-ingredients.html
 $dokka.location:com.sonnenstahl.recime//CouldNotLoad/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-could-not-load.html
 $dokka.location:com.sonnenstahl.recime//DeleteAllDialog/#androidx.compose.runtime.snapshots.SnapshotStateList[com.sonnenstahl.recime.utils.data.Ingredient]#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-delete-all-dialog.html
 $dokka.location:com.sonnenstahl.recime//Fridge/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-fridge.html
