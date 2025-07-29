@@ -78,6 +78,7 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
     implementation("com.google.dagger:hilt-android:2.50")
+    implementation(libs.androidx.glance.appwidget)
     kapt("com.google.dagger:hilt-compiler:2.50")
 
     implementation("androidx.work:work-runtime-ktx:2.10.2")
