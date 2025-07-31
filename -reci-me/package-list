@@ -12,6 +12,7 @@ $dokka.location:com.sonnenstahl.recime.ui.theme//RecipesBackground/#/PointingToD
 $dokka.location:com.sonnenstahl.recime.ui.theme//Typography/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.ui.theme/-typography.html
 $dokka.location:com.sonnenstahl.recime.utils.data////PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/index.html
 $dokka.location:com.sonnenstahl.recime.utils.data//EXCLUDED_NAMES/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-e-x-c-l-u-d-e-d_-n-a-m-e-s.html
+$dokka.location:com.sonnenstahl.recime.utils.data//INGREDIENTS_NAME_SET/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-i-n-g-r-e-d-i-e-n-t-s_-n-a-m-e_-s-e-t.html
 $dokka.location:com.sonnenstahl.recime.utils.data//MEAL_TYPE_OPTION/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-m-e-a-l_-t-y-p-e_-o-p-t-i-o-n.html
 $dokka.location:com.sonnenstahl.recime.utils.data//MEAT_OPTION_NAMES/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-m-e-a-t_-o-p-t-i-o-n_-n-a-m-e-s.html
 $dokka.location:com.sonnenstahl.recime.utils.data//VEGGIES/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-v-e-g-g-i-e-s.html
