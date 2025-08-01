@@ -9,10 +9,10 @@ val INGREDIENTS_NAME_SET: Set<String> = setOf(
     "all-purpose_flour",
     "baking_powder",
     "baking_soda",
-    "granulated_sugar",
-    "brown_sugar",
-    "powdered_sugar",
-    "salt",
+    "sugar", // used the sugar.png
+    "brown_sugar", // used the sugar.png
+    "powdered_sugar", // used the sugar.png
+    "salt", // used the sugar.png
     "black_pepper",
     "olive_oil",
     "vegetable_oil",
@@ -26,9 +26,7 @@ val INGREDIENTS_NAME_SET: Set<String> = setOf(
     "potatoes",
     "carrots",
     "celery",
-    "bell_peppers_(green)",
-    "bell_peppers_(red)",
-    "bell_peppers_(yellow)",
+    "bell_peppers",
     "spinach",
     "lettuce_(romaine)",
     "lettuce_(iceberg)",
@@ -51,8 +49,8 @@ val INGREDIENTS_NAME_SET: Set<String> = setOf(
     "salmon_fillet",
     "shrimp",
     "canned_tuna",
-    "canned_black_beans",
-    "canned_chickpeas",
+    "canned_black_beans", // TODO: find this
+    "canned_chickpeas", // TODO: find this
     "canned_diced_tomatoes",
     "pasta_(spaghetti)",
     "pasta_(penne)",
