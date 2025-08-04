@@ -25,7 +25,12 @@ sealed class AppRoutes(
     object Fridge : AppRoutes("fridge")
 
     /**
-     * links to the [] view
+     * links to the [IngredientCamera] view
+     */
+    object IngredientCamera : AppRoutes("ingredientCamera")
+
+    /**
+     * links to the [AddIngredients] view
      */
     object AddIngredients : AppRoutes("addIngredients")
 

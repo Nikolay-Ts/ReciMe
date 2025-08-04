@@ -1,6 +1,11 @@
 package com.sonnenstahl.recime
 
-import android.util.Log
+import android.Manifest
+import android.widget.Toast
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.camera.core.Camera
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
@@ -14,7 +19,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -31,11 +35,11 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.rounded.Call
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -54,7 +58,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -85,11 +88,22 @@ fun Fridge(navController: NavController) {
     val searchOffset = remember { Animatable(0f) }
     val deleteOffset = remember { Animatable(0f) }
     val pendingRemoval = remember { mutableStateListOf<Ingredient>() }
-
+    var cameraView by remember { mutableStateOf(false) }
     var displayDialog by remember { mutableStateOf(false) }
     var ingredientDialog by remember { mutableStateOf<Ingredient>(Ingredient(name = "")) }
 
     var deleteAllDialog by remember { mutableStateOf(false) }
+
+    val cameraPermission = Manifest.permission.CAMERA
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) { }
+        else {
+            Toast.makeText(context, "Camera permission denied", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     LaunchedEffect(navController.currentBackStackEntry) {
         TempStorage.clearSuggestedMeals()
@@ -106,6 +120,20 @@ fun Fridge(navController: NavController) {
             searchOffset.animateTo(0f, animationSpec = tween(300, easing = FastOutSlowInEasing))
             deleteOffset.animateTo(0f, animationSpec = tween(300, easing = FastOutSlowInEasing))
         }
+    }
+
+    if (cameraView) {
+        IngredientCamera(navController) { cameraView = false }
+        return
+    }
+
+    BackHandler {
+        if (isSelectingMany) {
+            isSelectingMany = false
+            return@BackHandler
+        }
+
+        navController.popBackStack()
     }
 
     Box(
@@ -129,6 +157,8 @@ fun Fridge(navController: NavController) {
                     },
                 ),
     ) {
+
+
         if (displayDialog) {
             IngredientPopupDialog(
                 navController = navController,
@@ -333,21 +363,8 @@ fun Fridge(navController: NavController) {
 
             SmallFloatingActionButton(
                 onClick = {
-                    if (ingredients.all { it.isSelected.value == false }) {
-                        deleteAllDialog = true
-                        return@SmallFloatingActionButton
-                    }
-
-                    val toDelete = ingredients.filter { it.isSelected.value }
-                    pendingRemoval.addAll(toDelete)
-                    coroutineScope.launch {
-                        IngredientFileManager.saveData(
-                            context,
-                            ingredients.toList().filterNot { toDelete.contains(it) },
-                        )
-                    }
-                    isSelectingMany = false
-                    ingredients.forEach { it.isSelected.value = false }
+                    permissionLauncher.launch(cameraPermission)
+                    cameraView = true
                 },
                 modifier =
                     Modifier
@@ -360,7 +377,7 @@ fun Fridge(navController: NavController) {
                         }.padding(end = 16.dp, bottom = 16.dp)
                         .size(48.dp),
             ) {
-                Icon(Icons.Filled.AccountBox, contentDescription = "Delete Selected")
+                Icon(Icons.Rounded.Call , contentDescription = "Show Camera")
             }
 
             SmallFloatingActionButton(

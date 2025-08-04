@@ -66,6 +66,8 @@ android {
 val ktorVersion: String by project
 val navVersion: String by project
 val coilVersion: String by project
+val cameraVersion: String by project
+val composeCameraView: String by project
 
 dependencies {
     implementation("androidx.navigation:navigation-compose:$navVersion")
@@ -91,6 +93,16 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
     implementation("androidx.compose.animation:animation:1.8.3")
+
+    implementation("androidx.camera:camera-core:$cameraVersion")
+    implementation("androidx.camera:camera-camera2:$cameraVersion")
+    implementation("androidx.camera:camera-lifecycle:$cameraVersion")
+    implementation("androidx.camera:camera-view:$cameraVersion")
+    implementation("androidx.camera:camera-extensions:$cameraVersion")
+
+    implementation("androidx.compose.ui:ui:$composeCameraView")
+    implementation("androidx.compose.runtime:runtime-livedata:$composeCameraView")
+    implementation("androidx.compose.runtime:runtime:$composeCameraView")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
