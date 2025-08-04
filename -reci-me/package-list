@@ -71,6 +71,7 @@ $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.AddIngredients///Pointing
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.CouldNotLoad///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-could-not-load/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.Fridge///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-fridge/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.Home///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-home/index.html
+$dokka.location:com.sonnenstahl.recime.utils/AppRoutes.IngredientCamera///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-ingredient-camera/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.Recipe///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-recipe/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.RecipeFinder///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-recipe-finder/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.Recipes///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-recipes/index.html
@@ -134,6 +135,7 @@ $dokka.location:com.sonnenstahl.recime//CouldNotLoad/#androidx.navigation.NavCon
 $dokka.location:com.sonnenstahl.recime//DeleteAllDialog/#androidx.compose.runtime.snapshots.SnapshotStateList[com.sonnenstahl.recime.utils.data.Ingredient]#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-delete-all-dialog.html
 $dokka.location:com.sonnenstahl.recime//Fridge/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-fridge.html
 $dokka.location:com.sonnenstahl.recime//Home/#androidx.navigation.NavHostController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-home.html
+$dokka.location:com.sonnenstahl.recime//IngredientCamera/#androidx.navigation.NavController#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-ingredient-camera.html
 $dokka.location:com.sonnenstahl.recime//IngredientPopupDialog/#androidx.navigation.NavController#androidx.compose.runtime.snapshots.SnapshotStateList[com.sonnenstahl.recime.utils.data.Ingredient]#com.sonnenstahl.recime.utils.data.Ingredient#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-ingredient-popup-dialog.html
 $dokka.location:com.sonnenstahl.recime//Loading/#androidx.compose.ui.Modifier/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-loading.html
 $dokka.location:com.sonnenstahl.recime//Navigation/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-navigation.html
