@@ -2,6 +2,7 @@ package com.sonnenstahl.recime.utils
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Log
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.sonnenstahl.recime.BuildConfig
@@ -211,4 +212,6 @@ object Client {
             Log.e("Getting meal by ingredient", e.toString())
         }
     }
+
+    suspend fun getIngredientsFromImage(imageUri: Uri): List<String> = TODO("Not implemented yet!")
 }

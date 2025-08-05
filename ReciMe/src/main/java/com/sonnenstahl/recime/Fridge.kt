@@ -1,6 +1,7 @@
 package com.sonnenstahl.recime
 
 import android.Manifest
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -123,7 +124,9 @@ fun Fridge(navController: NavController) {
     }
 
     if (cameraView) {
-        IngredientCamera(navController) { cameraView = false }
+        IngredientCamera(navController, onDismiss =  { cameraView = false }) { uri ->
+            Log.d("Camera", "Image captured at: $uri")
+        }
         return
     }
 

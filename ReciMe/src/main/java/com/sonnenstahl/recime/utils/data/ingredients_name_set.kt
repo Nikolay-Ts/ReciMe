@@ -53,8 +53,7 @@ val INGREDIENTS_NAME_SET: Set<String> = setOf(
     "canned_chickpeas", // TODO: find this
     "canned_diced_tomatoes",
     "pasta_(spaghetti)",
-    "pasta_(penne)",
-    "rice_(white)",
+    "pasta_(penne)",    "rice_(white)",
     "rice_(brown)",
     "bread",
     "yeast",
