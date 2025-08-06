@@ -1,5 +1,6 @@
 package com.sonnenstahl.recime
 
+import android.content.Context
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -9,6 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.unit.dp
+import androidx.glance.LocalContext
+import com.sonnenstahl.recime.utils.IngredientFileManager
 import com.sonnenstahl.recime.utils.data.Ingredient
 
 /**
@@ -19,6 +22,7 @@ import com.sonnenstahl.recime.utils.data.Ingredient
  */
 @Composable
 fun DeleteAllDialog(
+    context: Context,
     ingredients: SnapshotStateList<Ingredient>,
     onDismiss: () -> Unit,
 ) {
@@ -34,6 +38,7 @@ fun DeleteAllDialog(
             Button(
                 onClick = {
                     ingredients.clear()
+                    IngredientFileManager.saveData(context, ingredients)
                     onDismiss()
                 },
                 colors =
@@ -43,7 +48,7 @@ fun DeleteAllDialog(
                     ),
                 shape = RoundedCornerShape(8.dp),
             ) {
-                Text("Yes, Delete") // This will now correctly display
+                Text("Yes, Delete")
             }
         },
         dismissButton = {
@@ -51,7 +56,7 @@ fun DeleteAllDialog(
                 onClick = onDismiss,
                 shape = RoundedCornerShape(8.dp),
             ) {
-                Text("Cancel") // This will now correctly display
+                Text("Cancel")
             }
         },
     )
