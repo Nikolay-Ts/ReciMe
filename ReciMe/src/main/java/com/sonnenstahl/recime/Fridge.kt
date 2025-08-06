@@ -142,6 +142,11 @@ fun Fridge(navController: NavController) {
             return@BackHandler
         }
 
+        if (displayDialog) {
+            displayDialog = false
+            return@BackHandler
+        }
+
         navController.popBackStack()
     }
 

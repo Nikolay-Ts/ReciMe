@@ -1,5 +1,6 @@
 package com.sonnenstahl.recime
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -43,6 +44,7 @@ fun IngredientPopupDialog(
     ingredient: Ingredient,
     onDismiss: () -> Unit,
 ) {
+
     AlertDialog(
         onDismissRequest = onDismiss,
         confirmButton = {},
