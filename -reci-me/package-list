@@ -67,6 +67,7 @@ $dokka.location:com.sonnenstahl.recime.utils.data/SearchType/entries/#/PointingT
 $dokka.location:com.sonnenstahl.recime.utils.data/SearchType/valueOf/#kotlin.String/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-search-type/value-of.html
 $dokka.location:com.sonnenstahl.recime.utils.data/SearchType/values/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-search-type/values.html
 $dokka.location:com.sonnenstahl.recime.utils////PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/index.html
+$dokka.location:com.sonnenstahl.recime.utils//vibrateAndShowToast/#android.content.Context#kotlin.String#kotlin.Long/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/vibrate-and-show-toast.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.AddIngredients///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-add-ingredients/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.CouldNotLoad///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-could-not-load/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.Fridge///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-fridge/index.html
@@ -133,7 +134,7 @@ $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateSuggestedMeals/#k
 $dokka.location:com.sonnenstahl.recime////PointingToDeclaration/-reci-me/com.sonnenstahl.recime/index.html
 $dokka.location:com.sonnenstahl.recime//AddIngredients/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-add-ingredients.html
 $dokka.location:com.sonnenstahl.recime//CouldNotLoad/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-could-not-load.html
-$dokka.location:com.sonnenstahl.recime//DeleteAllDialog/#androidx.compose.runtime.snapshots.SnapshotStateList[com.sonnenstahl.recime.utils.data.Ingredient]#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-delete-all-dialog.html
+$dokka.location:com.sonnenstahl.recime//DeleteAllDialog/#android.content.Context#androidx.compose.runtime.snapshots.SnapshotStateList[com.sonnenstahl.recime.utils.data.Ingredient]#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-delete-all-dialog.html
 $dokka.location:com.sonnenstahl.recime//Fridge/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-fridge.html
 $dokka.location:com.sonnenstahl.recime//Home/#androidx.navigation.NavHostController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-home.html
 $dokka.location:com.sonnenstahl.recime//IngredientCamera/#androidx.navigation.NavController#kotlin.Function0[kotlin.Unit]#kotlin.Function1[android.net.Uri,kotlin.Unit]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-ingredient-camera.html
