@@ -44,6 +44,7 @@ import com.sonnenstahl.recime.utils.MealFileManager
 import com.sonnenstahl.recime.utils.TempStorage
 import com.sonnenstahl.recime.utils.data.Meal
 import com.sonnenstahl.recime.utils.data.NO_INTERNET_CONNECTION
+import com.sonnenstahl.recime.utils.data.SURPRISE_NO_INTERNET
 import com.sonnenstahl.recime.utils.data.SearchType
 import com.sonnenstahl.recime.utils.isConnectedToInternet
 import com.sonnenstahl.recime.utils.vibrateAndShowToast
@@ -56,11 +57,17 @@ fun Home(navigation: NavHostController) {
     var mealImageBitmap by remember { mutableStateOf<Bitmap?>(null) }
     var isConnectedToInternet by remember { mutableStateOf(isConnectedToInternet(context)) }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(Unit, isConnectedToInternet) {
+        if (! isConnectedToInternet) {
+            return@LaunchedEffect
+        }
+
         TempStorage.clearSuggestedMeals()
         val loadedMeals = MealFileManager.loadData(context)
         meal = loadedMeals.firstOrNull()
-        if (meal == null && isConnectedToInternet) {
+        mealImageBitmap = MealFileManager.loadMealBitmap(context)
+
+        if (meal == null) {
             val randomMeal = Client.getRandomMeal()
             meal = randomMeal
             if (randomMeal != null) {
@@ -68,7 +75,14 @@ fun Home(navigation: NavHostController) {
             }
         }
         meal?.let {
-            mealImageBitmap = Client.getImage(it.strMealThumb ?: "", ImageSize.LARGE)
+            when (mealImageBitmap) {
+                null -> {
+                    mealImageBitmap = Client.getImage(it.strMealThumb ?: "", ImageSize.LARGE)
+                    MealFileManager.saveMealBitmap(context, mealImageBitmap)
+                }
+                else -> {}
+            }
+
         }
     }
 
@@ -142,7 +156,7 @@ fun Home(navigation: NavHostController) {
                 modifier = Modifier.fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(8.dp),
             ) {
-                if (!isConnectedToInternet) {
+                if (!isConnectedToInternet && mealImageBitmap == null) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center,
@@ -216,6 +230,15 @@ fun Home(navigation: NavHostController) {
 
                         Button(
                             onClick = {
+                                if (!isConnectedToInternet) {
+                                    vibrateAndShowToast(
+                                        context,
+                                        SURPRISE_NO_INTERNET,
+                                        500L,
+                                    )
+                                    return@Button
+                                }
+
                                 TempStorage.updateChosenMeal(meal)
                                 TempStorage.updateChosenMealImage(mealImageBitmap)
                                 val url = "${AppRoutes.Recipe.route}/${meal!!.strMeal}"

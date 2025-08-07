@@ -1,11 +1,14 @@
 package com.sonnenstahl.recime.utils
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import com.sonnenstahl.recime.utils.data.Meal
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileNotFoundException
+import java.io.FileOutputStream
 
 /**
  * used to save and load the daily image to prevent loading screen when entering the app
@@ -19,6 +22,7 @@ object MealFileManager : FileManager<Meal> {
             ignoreUnknownKeys = true
             encodeDefaults = true
         }
+    private const val IMAGE_FILE_NAME = "daily_meal.png"
 
     override fun saveData(
         context: Context,
@@ -52,6 +56,7 @@ object MealFileManager : FileManager<Meal> {
                 val file = File(context.filesDir, FILENAME)
                 if (file.exists()) {
                     val deleted = file.delete()
+                    deleteMealBitmap(context)
                     if (deleted) {
                         println("$FILENAME deleted successfully.")
                     } else {
@@ -65,4 +70,32 @@ object MealFileManager : FileManager<Meal> {
                 e.printStackTrace()
             }
         }
+
+    fun loadMealBitmap(context: Context): Bitmap? {
+        val file = File(context.cacheDir, IMAGE_FILE_NAME)
+        return if (file.exists()) {
+            BitmapFactory.decodeFile(file.absolutePath)
+        } else {
+            null
+        }
+    }
+
+
+    fun saveMealBitmap(context: Context, bitmap: Bitmap?) {
+        bitmap ?: return
+
+        val directory = File(context.cacheDir, IMAGE_FILE_NAME)
+        if (!directory.exists()) directory.mkdirs()
+
+        val file = File(directory, IMAGE_FILE_NAME)
+        FileOutputStream(file).use { out ->
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+            out.flush()
+        }
+    }
+
+    private fun deleteMealBitmap(context: Context): Boolean {
+        val file = File(context.cacheDir, IMAGE_FILE_NAME)
+        return file.delete()
+    }
 }
