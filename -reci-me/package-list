@@ -15,6 +15,7 @@ $dokka.location:com.sonnenstahl.recime.utils.data//EXCLUDED_NAMES/#/PointingToDe
 $dokka.location:com.sonnenstahl.recime.utils.data//INGREDIENTS_NAME_SET/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-i-n-g-r-e-d-i-e-n-t-s_-n-a-m-e_-s-e-t.html
 $dokka.location:com.sonnenstahl.recime.utils.data//MEAL_TYPE_OPTION/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-m-e-a-l_-t-y-p-e_-o-p-t-i-o-n.html
 $dokka.location:com.sonnenstahl.recime.utils.data//MEAT_OPTION_NAMES/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-m-e-a-t_-o-p-t-i-o-n_-n-a-m-e-s.html
+$dokka.location:com.sonnenstahl.recime.utils.data//NO_INTERNET_CONNECTION/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-n-o_-i-n-t-e-r-n-e-t_-c-o-n-n-e-c-t-i-o-n.html
 $dokka.location:com.sonnenstahl.recime.utils.data//VEGGIES/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-v-e-g-g-i-e-s.html
 $dokka.location:com.sonnenstahl.recime.utils.data//disableAllButVegan/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.MealOption]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/disable-all-but-vegan.html
 $dokka.location:com.sonnenstahl.recime.utils.data//disableMeat/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.MealOption]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/disable-meat.html
@@ -67,6 +68,7 @@ $dokka.location:com.sonnenstahl.recime.utils.data/SearchType/entries/#/PointingT
 $dokka.location:com.sonnenstahl.recime.utils.data/SearchType/valueOf/#kotlin.String/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-search-type/value-of.html
 $dokka.location:com.sonnenstahl.recime.utils.data/SearchType/values/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-search-type/values.html
 $dokka.location:com.sonnenstahl.recime.utils////PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/index.html
+$dokka.location:com.sonnenstahl.recime.utils//isConnectedToInternet/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/is-connected-to-internet.html
 $dokka.location:com.sonnenstahl.recime.utils//vibrateAndShowToast/#android.content.Context#kotlin.String#kotlin.Long/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/vibrate-and-show-toast.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.AddIngredients///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-add-ingredients/index.html
 $dokka.location:com.sonnenstahl.recime.utils/AppRoutes.CouldNotLoad///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-app-routes/-could-not-load/index.html
