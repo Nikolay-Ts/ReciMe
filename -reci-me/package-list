@@ -16,6 +16,7 @@ $dokka.location:com.sonnenstahl.recime.utils.data//INGREDIENTS_NAME_SET/#/Pointi
 $dokka.location:com.sonnenstahl.recime.utils.data//MEAL_TYPE_OPTION/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-m-e-a-l_-t-y-p-e_-o-p-t-i-o-n.html
 $dokka.location:com.sonnenstahl.recime.utils.data//MEAT_OPTION_NAMES/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-m-e-a-t_-o-p-t-i-o-n_-n-a-m-e-s.html
 $dokka.location:com.sonnenstahl.recime.utils.data//NO_INTERNET_CONNECTION/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-n-o_-i-n-t-e-r-n-e-t_-c-o-n-n-e-c-t-i-o-n.html
+$dokka.location:com.sonnenstahl.recime.utils.data//SURPRISE_NO_INTERNET/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-s-u-r-p-r-i-s-e_-n-o_-i-n-t-e-r-n-e-t.html
 $dokka.location:com.sonnenstahl.recime.utils.data//VEGGIES/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-v-e-g-g-i-e-s.html
 $dokka.location:com.sonnenstahl.recime.utils.data//disableAllButVegan/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.MealOption]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/disable-all-but-vegan.html
 $dokka.location:com.sonnenstahl.recime.utils.data//disableMeat/#kotlin.collections.List[com.sonnenstahl.recime.utils.data.MealOption]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/disable-meat.html
@@ -116,7 +117,9 @@ $dokka.location:com.sonnenstahl.recime.utils/MealFileManager///PointingToDeclara
 $dokka.location:com.sonnenstahl.recime.utils/MealFileManager/FILENAME/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/-f-i-l-e-n-a-m-e.html
 $dokka.location:com.sonnenstahl.recime.utils/MealFileManager/deleteData/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/delete-data.html
 $dokka.location:com.sonnenstahl.recime.utils/MealFileManager/loadData/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/load-data.html
+$dokka.location:com.sonnenstahl.recime.utils/MealFileManager/loadMealBitmap/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/load-meal-bitmap.html
 $dokka.location:com.sonnenstahl.recime.utils/MealFileManager/saveData/#android.content.Context#kotlin.collections.List[com.sonnenstahl.recime.utils.data.Meal]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/save-data.html
+$dokka.location:com.sonnenstahl.recime.utils/MealFileManager/saveMealBitmap/#android.content.Context#android.graphics.Bitmap?/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/save-meal-bitmap.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/index.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/chosenMeal/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/chosen-meal.html
 $dokka.location:com.sonnenstahl.recime.utils/TempStorage/chosenMealImg/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-temp-storage/chosen-meal-img.html
