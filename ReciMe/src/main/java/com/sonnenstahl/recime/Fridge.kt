@@ -41,7 +41,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.rounded.Call
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -62,17 +61,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
 import com.sonnenstahl.recime.utils.AppRoutes
 import com.sonnenstahl.recime.utils.IngredientFileManager
 import com.sonnenstahl.recime.utils.TempStorage
 import com.sonnenstahl.recime.utils.data.Ingredient
+import com.sonnenstahl.recime.utils.data.NO_INTERNET_CONNECTION
 import com.sonnenstahl.recime.utils.data.SearchType
+import com.sonnenstahl.recime.utils.isConnectedToInternet
 import com.sonnenstahl.recime.utils.vibrateAndShowToast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -89,6 +88,7 @@ class NoRippleInteractionSource : MutableInteractionSource {
 fun Fridge(navController: NavController) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
+    var isConnectedToInternet by remember { mutableStateOf(isConnectedToInternet(context)) }
     val ingredients = remember { mutableStateListOf<Ingredient>() }
     var isSelectingMany by remember { mutableStateOf(false) }
     val searchOffset = remember { Animatable(0f) }
@@ -102,14 +102,15 @@ fun Fridge(navController: NavController) {
 
     val cameraPermission = Manifest.permission.CAMERA
 
-    val permissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        if (isGranted) { }
-        else {
-            Toast.makeText(context, "Camera permission denied", Toast.LENGTH_SHORT).show()
+    val permissionLauncher =
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.RequestPermission(),
+        ) { isGranted ->
+            if (isGranted) {
+            } else {
+                Toast.makeText(context, "Camera permission denied", Toast.LENGTH_SHORT).show()
+            }
         }
-    }
 
     LaunchedEffect(navController.currentBackStackEntry) {
         TempStorage.clearSuggestedMeals()
@@ -128,8 +129,15 @@ fun Fridge(navController: NavController) {
         }
     }
 
+    LaunchedEffect(Unit) {
+        while (true) {
+            isConnectedToInternet = isConnectedToInternet(context)
+            delay(1000L)
+        }
+    }
+
     if (cameraView) {
-        IngredientCamera(navController, onDismiss =  { cameraView = false }) { uri ->
+        IngredientCamera(navController, onDismiss = { cameraView = false }) { uri ->
             Log.d("Camera", "Image captured at: $uri")
         }
         return
@@ -170,8 +178,6 @@ fun Fridge(navController: NavController) {
                     },
                 ),
     ) {
-
-
         if (displayDialog) {
             IngredientPopupDialog(
                 navController = navController,
@@ -377,6 +383,7 @@ fun Fridge(navController: NavController) {
                 label = "deleteOffset",
             )
 
+            // search ingredients with picture
             SmallFloatingActionButton(
                 onClick = {
                     permissionLauncher.launch(cameraPermission)
@@ -393,17 +400,19 @@ fun Fridge(navController: NavController) {
                         }.padding(end = 16.dp, bottom = 16.dp)
                         .size(48.dp),
             ) {
-                val bitmap = remember {
-                    val inputStream = context.assets.open("camera-white.png")
-                    BitmapFactory.decodeStream(inputStream)
-                }
+                val bitmap =
+                    remember {
+                        val inputStream = context.assets.open("camera-white.png")
+                        BitmapFactory.decodeStream(inputStream)
+                    }
                 Image(
                     bitmap = bitmap.asImageBitmap(),
                     contentDescription = "Take Picture",
-                    modifier = Modifier.size(32.dp)
+                    modifier = Modifier.size(32.dp),
                 )
             }
 
+            // delete all button
             SmallFloatingActionButton(
                 onClick = {
                     if (ingredients.all { it.isSelected.value == false }) {
@@ -421,8 +430,6 @@ fun Fridge(navController: NavController) {
                     }
                     isSelectingMany = false
                     ingredients.forEach { it.isSelected.value = false }
-
-
                 },
                 modifier =
                     Modifier
@@ -438,9 +445,22 @@ fun Fridge(navController: NavController) {
                 Icon(Icons.Filled.Delete, contentDescription = "Delete Selected")
             }
 
+            // search for recipes
             SmallFloatingActionButton(
                 onClick = {
-                    val selected = ingredients.filter { it.isSelected.value }.map { it.name.trim().replace(" ", "_") }
+                    if (!isConnectedToInternet) {
+                        vibrateAndShowToast(
+                            context,
+                            NO_INTERNET_CONNECTION,
+                            500L,
+                        )
+                        return@SmallFloatingActionButton
+                    }
+
+                    val selected =
+                        ingredients
+                            .filter { it.isSelected.value }
+                            .map { it.name.trim().replace(" ", "_") }
                     TempStorage.updateIngredients(selected)
                     val searchType = if (selected.isNotEmpty()) SearchType.INGREDIENTS else SearchType.NONE
                     val url = "${AppRoutes.Recipes.route}/$searchType/"
@@ -489,7 +509,6 @@ fun Fridge(navController: NavController) {
                     tint = MaterialTheme.colorScheme.onPrimary,
                 )
             }
-
         }
     }
 }

@@ -1,12 +1,9 @@
 package com.sonnenstahl.recime.utils
 
-import android.Manifest
 import android.content.Context
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.os.Build
 import android.widget.Toast
-import androidx.annotation.RequiresPermission
 import androidx.core.content.ContextCompat.getSystemService
 
 /**
@@ -19,7 +16,7 @@ import androidx.core.content.ContextCompat.getSystemService
 fun vibrateAndShowToast(
     context: Context,
     message: String,
-    durationMilli: Long
+    durationMilli: Long,
 ) {
     val vibrator = context.getSystemService(Vibrator::class.java)
     vibrator.vibrate(VibrationEffect.createOneShot(durationMilli, VibrationEffect.DEFAULT_AMPLITUDE))

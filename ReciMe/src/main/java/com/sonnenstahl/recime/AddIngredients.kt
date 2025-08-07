@@ -54,28 +54,30 @@ fun AddIngredients(navController: NavController) {
         allIngredients.addAll(loadedList)
     }
 
-    val filteredIngredients = remember(newIngredientName, allIngredients) {
-        if (newIngredientName.isBlank()) {
-            allIngredients
-        } else {
-            allIngredients.filter {
-                it.name.contains(newIngredientName, ignoreCase = true)
+    val filteredIngredients =
+        remember(newIngredientName, allIngredients) {
+            if (newIngredientName.isBlank()) {
+                allIngredients
+            } else {
+                allIngredients.filter {
+                    it.name.contains(newIngredientName, ignoreCase = true)
+                }
             }
         }
-    }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 25.dp)
-            .padding(16.dp),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(top = 25.dp)
+                .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
+        verticalArrangement = Arrangement.Top,
     ) {
         Text(
             text = "Add New Ingredient",
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier.padding(bottom = 16.dp),
         )
 
         OutlinedTextField(
@@ -83,9 +85,10 @@ fun AddIngredients(navController: NavController) {
             onValueChange = { newIngredientName = it },
             label = { Text("Ingredient Name (Type to Filter)") }, // Updated label
             singleLine = true,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
         )
 
         Button(
@@ -108,9 +111,10 @@ fun AddIngredients(navController: NavController) {
                     Toast.makeText(context, "Ingredient name cannot be empty.", Toast.LENGTH_SHORT).show()
                 }
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
         ) {
             Text("Add Ingredient")
         }
@@ -118,9 +122,10 @@ fun AddIngredients(navController: NavController) {
         Text(
             text = "Existing Ingredients:",
             style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier
-                .align(Alignment.Start)
-                .padding(bottom = 8.dp)
+            modifier =
+                Modifier
+                    .align(Alignment.Start)
+                    .padding(bottom = 8.dp),
         )
 
         LazyVerticalGrid(
@@ -128,43 +133,50 @@ fun AddIngredients(navController: NavController) {
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.fillMaxSize(),
-            contentPadding = androidx.compose.foundation.layout.PaddingValues(8.dp)
+            contentPadding =
+                androidx.compose.foundation.layout
+                    .PaddingValues(8.dp),
         ) {
             items(
                 items = filteredIngredients,
-                key = { ingredient: Ingredient -> ingredient.id }
+                key = { ingredient: Ingredient -> ingredient.id },
             ) { ingredient ->
-                Box(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(150.dp)
+                Box(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(150.dp),
                 ) {
                     Card(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(4.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceVariant
-                        ),
-                        elevation = CardDefaults.cardElevation(4.dp)
+                        modifier =
+                            Modifier
+                                .fillMaxSize()
+                                .padding(4.dp),
+                        colors =
+                            CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                            ),
+                        elevation = CardDefaults.cardElevation(4.dp),
                     ) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(8.dp)
+                            modifier =
+                                Modifier
+                                    .fillMaxSize()
+                                    .padding(8.dp),
                         ) {
                             AsyncImage(
                                 model = ingredient.filePath,
                                 contentDescription = ingredient.name,
-                                modifier = Modifier.height(80.dp)
+                                modifier = Modifier.height(80.dp),
                             )
                             Text(
                                 text = ingredient.name,
                                 style = MaterialTheme.typography.bodySmall,
                                 softWrap = true,
                                 maxLines = 2,
-                                overflow = TextOverflow.Ellipsis
+                                overflow = TextOverflow.Ellipsis,
                             )
                         }
                     }

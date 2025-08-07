@@ -34,7 +34,7 @@ import java.util.*
 fun IngredientCamera(
     navController: NavController,
     onDismiss: () -> Unit,
-    onImageCaptured: (Uri) -> Unit
+    onImageCaptured: (Uri) -> Unit,
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -43,13 +43,14 @@ fun IngredientCamera(
     var previewView: PreviewView? by remember { mutableStateOf(null) }
     var flashVisible by remember { mutableStateOf(false) }
 
-    val galleryLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.PickVisualMedia()
-    ) { uri: Uri? ->
-        uri?.let {
-            onImageCaptured(it)
+    val galleryLauncher =
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.PickVisualMedia(),
+        ) { uri: Uri? ->
+            uri?.let {
+                onImageCaptured(it)
+            }
         }
-    }
 
     BackHandler { onDismiss() }
 
@@ -59,7 +60,6 @@ fun IngredientCamera(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-
         AndroidView(
             factory = { ctx ->
                 val view = PreviewView(ctx).also { previewView = it }
@@ -68,9 +68,10 @@ fun IngredientCamera(
                 cameraProviderFuture.addListener({
                     val cameraProvider = cameraProviderFuture.get()
 
-                    val preview = Preview.Builder().build().also {
-                        it.surfaceProvider = view.surfaceProvider
-                    }
+                    val preview =
+                        Preview.Builder().build().also {
+                            it.surfaceProvider = view.surfaceProvider
+                        }
 
                     val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
@@ -80,7 +81,7 @@ fun IngredientCamera(
                             lifecycleOwner,
                             cameraSelector,
                             preview,
-                            imageCapture
+                            imageCapture,
                         )
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -89,69 +90,75 @@ fun IngredientCamera(
 
                 view
             },
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         )
 
         if (flashVisible) {
             Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black.copy(alpha = 0.7f))
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(Color.Black.copy(alpha = 0.7f)),
             )
         }
 
         AsyncImage(
-            model = ImageRequest.Builder(context)
-                .data("file:///android_asset/camera.png")
-                .build(),
+            model =
+                ImageRequest
+                    .Builder(context)
+                    .data("file:///android_asset/camera.png")
+                    .build(),
             contentDescription = "Take Picture",
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(24.dp)
-                .size(64.dp)
-                .clickable(
-                    indication = null,
-                    interactionSource = remember { MutableInteractionSource() }
-                ) {
-                    flashVisible = true
-                    takePhoto(context, imageCapture) { uri ->
-                        onImageCaptured(uri)
-                    }
-                }
+            modifier =
+                Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(24.dp)
+                    .size(64.dp)
+                    .clickable(
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() },
+                    ) {
+                        flashVisible = true
+                        takePhoto(context, imageCapture) { uri ->
+                            onImageCaptured(uri)
+                        }
+                    },
         )
 
         AsyncImage(
-            model = ImageRequest.Builder(context)
-                .data("file:///android_asset/gallery.png")
-                .build(),
+            model =
+                ImageRequest
+                    .Builder(context)
+                    .data("file:///android_asset/gallery.png")
+                    .build(),
             contentDescription = "Gallery",
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .padding(24.dp)
-                .size(64.dp)
-                .clickable(
-                    indication = null,
-                    interactionSource = remember { MutableInteractionSource() }
-                ) {
-                    galleryLauncher.launch(
-                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                    )
-                }
+            modifier =
+                Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(24.dp)
+                    .size(64.dp)
+                    .clickable(
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() },
+                    ) {
+                        galleryLauncher.launch(
+                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly),
+                        )
+                    },
         )
-
-
     }
 }
 
 private fun takePhoto(
     context: Context,
     imageCapture: ImageCapture,
-    onImageCaptured: (Uri) -> Unit
+    onImageCaptured: (Uri) -> Unit,
 ) {
-    val photoFile = File(
-        context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-        "IMG_${SimpleDateFormat("yyyyMMdd_HHmmss", Locale.GERMANY).format(Date())}.jpg"
-    )
+    val photoFile =
+        File(
+            context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+            "IMG_${SimpleDateFormat("yyyyMMdd_HHmmss", Locale.GERMANY).format(Date())}.jpg",
+        )
 
     val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
@@ -167,6 +174,6 @@ private fun takePhoto(
             override fun onError(exception: ImageCaptureException) {
                 exception.printStackTrace()
             }
-        }
+        },
     )
 }

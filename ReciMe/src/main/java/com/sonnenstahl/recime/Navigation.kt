@@ -47,6 +47,5 @@ fun Navigation() {
         composable(AppRoutes.CouldNotLoad.route) {
             CouldNotLoad(navController = navController)
         }
-
     }
 }

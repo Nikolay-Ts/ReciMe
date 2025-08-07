@@ -1,7 +1,6 @@
 package com.sonnenstahl.recime.utils
 
 import coil3.Bitmap
-import coil3.Uri
 import com.sonnenstahl.recime.utils.data.Meal
 import com.sonnenstahl.recime.utils.data.MealOption
 import kotlinx.coroutines.flow.MutableStateFlow

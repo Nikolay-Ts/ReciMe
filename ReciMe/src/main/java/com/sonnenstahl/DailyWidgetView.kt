@@ -17,7 +17,7 @@ fun DailyWidgetView() {
                 .fillMaxSize()
                 .background(Color.Red),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text("Hello World")
     }

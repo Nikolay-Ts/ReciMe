@@ -10,7 +10,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.unit.dp
-import androidx.glance.LocalContext
 import com.sonnenstahl.recime.utils.IngredientFileManager
 import com.sonnenstahl.recime.utils.data.Ingredient
 

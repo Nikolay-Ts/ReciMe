@@ -1,6 +1,7 @@
 package com.sonnenstahl.recime
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -42,19 +43,24 @@ import com.sonnenstahl.recime.utils.ImageSize
 import com.sonnenstahl.recime.utils.MealFileManager
 import com.sonnenstahl.recime.utils.TempStorage
 import com.sonnenstahl.recime.utils.data.Meal
+import com.sonnenstahl.recime.utils.data.NO_INTERNET_CONNECTION
 import com.sonnenstahl.recime.utils.data.SearchType
+import com.sonnenstahl.recime.utils.isConnectedToInternet
+import com.sonnenstahl.recime.utils.vibrateAndShowToast
+import kotlinx.coroutines.delay
 
 @Composable
 fun Home(navigation: NavHostController) {
     val context = LocalContext.current
     var meal by remember { mutableStateOf<Meal?>(null) }
     var mealImageBitmap by remember { mutableStateOf<Bitmap?>(null) }
+    var isConnectedToInternet by remember { mutableStateOf(isConnectedToInternet(context)) }
 
     LaunchedEffect(Unit) {
         TempStorage.clearSuggestedMeals()
         val loadedMeals = MealFileManager.loadData(context)
         meal = loadedMeals.firstOrNull()
-        if (meal == null) {
+        if (meal == null && isConnectedToInternet) {
             val randomMeal = Client.getRandomMeal()
             meal = randomMeal
             if (randomMeal != null) {
@@ -63,6 +69,13 @@ fun Home(navigation: NavHostController) {
         }
         meal?.let {
             mealImageBitmap = Client.getImage(it.strMealThumb ?: "", ImageSize.LARGE)
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            isConnectedToInternet = isConnectedToInternet(context)
+            delay(1000L)
         }
     }
 
@@ -93,7 +106,18 @@ fun Home(navigation: NavHostController) {
             }
 
             Button(
-                onClick = { navigation.navigate(AppRoutes.RecipeFinder.route) },
+                onClick = {
+                    if (!isConnectedToInternet) {
+                        vibrateAndShowToast(
+                            context,
+                            NO_INTERNET_CONNECTION,
+                            500L,
+                        )
+                        return@Button
+                    }
+
+                    navigation.navigate(AppRoutes.RecipeFinder.route)
+                },
                 shape = RoundedCornerShape(20.dp),
             ) {
                 Icon(
@@ -104,6 +128,7 @@ fun Home(navigation: NavHostController) {
             }
         }
 
+        // meal of the day
         Column(
             modifier =
                 Modifier
@@ -117,6 +142,47 @@ fun Home(navigation: NavHostController) {
                 modifier = Modifier.fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(8.dp),
             ) {
+                if (!isConnectedToInternet) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier
+                            .padding(24.dp)
+                            .fillMaxWidth()
+                            .height(200.dp),
+                    ) {
+                        val bitmap =
+                            remember {
+                                val inputStream = context.assets.open("no-wifi.png")
+                                BitmapFactory.decodeStream(inputStream)
+                            }
+
+                        Image(
+                            bitmap = bitmap.asImageBitmap(),
+                            contentDescription = "Take Picture",
+                            modifier = Modifier.size(60.dp),
+                        )
+
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        Text(
+                            text = "No Internet Connection",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.error
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Text(
+                            text = "Please check your Wi-Fi or mobile data and try again.",
+                            style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+
+                    return@Card
+                }
+
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier =
@@ -176,6 +242,15 @@ fun Home(navigation: NavHostController) {
 
         Button(
             onClick = {
+                if (!isConnectedToInternet) {
+                    vibrateAndShowToast(
+                        context,
+                        NO_INTERNET_CONNECTION,
+                        500L,
+                    )
+                    return@Button
+                }
+
                 val url = "${AppRoutes.Recipes.route}/${SearchType.NONE}/"
                 navigation.navigate(url)
             },

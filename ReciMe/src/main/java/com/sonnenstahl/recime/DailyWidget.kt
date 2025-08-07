@@ -25,14 +25,14 @@ class DailyWidget : GlanceAppWidget() {
         private val TWO_BY_THREE = DpSize(140.dp, 210.dp)
     }
 
-    override val sizeMode = SizeMode.Responsive(
-        setOf(TWO_BY_THREE)
-    )
-
+    override val sizeMode =
+        SizeMode.Responsive(
+            setOf(TWO_BY_THREE),
+        )
 
     override suspend fun provideGlance(
         context: Context,
-        id: GlanceId
+        id: GlanceId,
     ) {
         provideContent {
             DailyWidgetView()
