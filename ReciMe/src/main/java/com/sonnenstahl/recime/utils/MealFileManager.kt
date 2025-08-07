@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
+import androidx.glance.ImageProvider
 import com.sonnenstahl.recime.utils.data.Meal
 import kotlinx.serialization.json.Json
 import java.io.File
@@ -22,7 +23,7 @@ object MealFileManager : FileManager<Meal> {
             ignoreUnknownKeys = true
             encodeDefaults = true
         }
-    private const val IMAGE_FILE_NAME = "daily_meal.png"
+     const val IMAGE_FILE_NAME = "daily_meal.png"
 
     override fun saveData(
         context: Context,
@@ -79,7 +80,6 @@ object MealFileManager : FileManager<Meal> {
             null
         }
     }
-
 
     fun saveMealBitmap(context: Context, bitmap: Bitmap?) {
         bitmap ?: return

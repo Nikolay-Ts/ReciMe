@@ -8,7 +8,6 @@ import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.SizeMode
 import androidx.glance.appwidget.provideContent
-import com.sonnenstahl.DailyWidgetView
 
 /**
  * receiver used to load the widget in the manifest
