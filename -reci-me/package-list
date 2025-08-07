@@ -115,6 +115,7 @@ $dokka.location:com.sonnenstahl.recime.utils/IngredientFileManager/loadData/#and
 $dokka.location:com.sonnenstahl.recime.utils/IngredientFileManager/saveData/#android.content.Context#kotlin.collections.List[com.sonnenstahl.recime.utils.data.Ingredient]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-ingredient-file-manager/save-data.html
 $dokka.location:com.sonnenstahl.recime.utils/MealFileManager///PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/index.html
 $dokka.location:com.sonnenstahl.recime.utils/MealFileManager/FILENAME/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/-f-i-l-e-n-a-m-e.html
+$dokka.location:com.sonnenstahl.recime.utils/MealFileManager/IMAGE_FILE_NAME/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/-i-m-a-g-e_-f-i-l-e_-n-a-m-e.html
 $dokka.location:com.sonnenstahl.recime.utils/MealFileManager/deleteData/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/delete-data.html
 $dokka.location:com.sonnenstahl.recime.utils/MealFileManager/loadData/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/load-data.html
 $dokka.location:com.sonnenstahl.recime.utils/MealFileManager/loadMealBitmap/#android.content.Context/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils/-meal-file-manager/load-meal-bitmap.html
@@ -139,6 +140,7 @@ $dokka.location:com.sonnenstahl.recime.utils/TempStorage/updateSuggestedMeals/#k
 $dokka.location:com.sonnenstahl.recime////PointingToDeclaration/-reci-me/com.sonnenstahl.recime/index.html
 $dokka.location:com.sonnenstahl.recime//AddIngredients/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-add-ingredients.html
 $dokka.location:com.sonnenstahl.recime//CouldNotLoad/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-could-not-load.html
+$dokka.location:com.sonnenstahl.recime//DailyWidgetView/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-daily-widget-view.html
 $dokka.location:com.sonnenstahl.recime//DeleteAllDialog/#android.content.Context#androidx.compose.runtime.snapshots.SnapshotStateList[com.sonnenstahl.recime.utils.data.Ingredient]#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-delete-all-dialog.html
 $dokka.location:com.sonnenstahl.recime//Fridge/#androidx.navigation.NavController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-fridge.html
 $dokka.location:com.sonnenstahl.recime//Home/#androidx.navigation.NavHostController/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-home.html
@@ -169,9 +171,6 @@ $dokka.location:com.sonnenstahl.recime/NoRippleInteractionSource/tryEmit/#androi
 $dokka.location:com.sonnenstahl.recime/ReciMe///PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-reci-me/index.html
 $dokka.location:com.sonnenstahl.recime/ReciMe/ReciMe/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-reci-me/-reci-me.html
 $dokka.location:com.sonnenstahl.recime/ReciMe/onCreate/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime/-reci-me/on-create.html
-$dokka.location:com.sonnenstahl////PointingToDeclaration/-reci-me/com.sonnenstahl/index.html
-$dokka.location:com.sonnenstahl//DailyWidgetView/#/PointingToDeclaration/-reci-me/com.sonnenstahl/-daily-widget-view.html
-com.sonnenstahl
 com.sonnenstahl.recime
 com.sonnenstahl.recime.ui.theme
 com.sonnenstahl.recime.utils
