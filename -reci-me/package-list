@@ -3,12 +3,13 @@ $dokka.linkExtension:html
 $dokka.location:com.sonnenstahl.recime.ui.theme////PointingToDeclaration/-reci-me/com.sonnenstahl.recime.ui.theme/index.html
 $dokka.location:com.sonnenstahl.recime.ui.theme//Pink40/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.ui.theme/-pink40.html
 $dokka.location:com.sonnenstahl.recime.ui.theme//Pink80/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.ui.theme/-pink80.html
+$dokka.location:com.sonnenstahl.recime.ui.theme//PrimaryTeal/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.ui.theme/-primary-teal.html
 $dokka.location:com.sonnenstahl.recime.ui.theme//Purple40/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.ui.theme/-purple40.html
 $dokka.location:com.sonnenstahl.recime.ui.theme//Purple80/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.ui.theme/-purple80.html
 $dokka.location:com.sonnenstahl.recime.ui.theme//PurpleGrey40/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.ui.theme/-purple-grey40.html
 $dokka.location:com.sonnenstahl.recime.ui.theme//PurpleGrey80/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.ui.theme/-purple-grey80.html
 $dokka.location:com.sonnenstahl.recime.ui.theme//ReciMeTheme/#kotlin.Boolean#kotlin.Boolean#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.ui.theme/-reci-me-theme.html
-$dokka.location:com.sonnenstahl.recime.ui.theme//RecipesBackground/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.ui.theme/-recipes-background.html
+$dokka.location:com.sonnenstahl.recime.ui.theme//SecondaryTeal/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.ui.theme/-secondary-teal.html
 $dokka.location:com.sonnenstahl.recime.ui.theme//Typography/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.ui.theme/-typography.html
 $dokka.location:com.sonnenstahl.recime.utils.data////PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/index.html
 $dokka.location:com.sonnenstahl.recime.utils.data//EXCLUDED_NAMES/#/PointingToDeclaration/-reci-me/com.sonnenstahl.recime.utils.data/-e-x-c-l-u-d-e-d_-n-a-m-e-s.html
