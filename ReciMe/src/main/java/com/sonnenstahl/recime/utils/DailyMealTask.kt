@@ -5,6 +5,9 @@ import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 
+/**
+ * class that schedules the task
+ */
 class DailyMealTask(
     private val context: Context,
     params: WorkerParameters,

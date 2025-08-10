@@ -21,6 +21,9 @@ import io.ktor.http.takeFrom
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
+/**
+ * a singleton object to handle all of the http requests to the API
+ */
 object Client {
     private const val SPOON = BuildConfig.SPOON
     private val client =
@@ -38,6 +41,14 @@ object Client {
 
     private val imageClient = HttpClient(OkHttp)
 
+    /**
+     * a function to fetch the image form the API
+     *
+     * @param mealName the name of the meal that is stored in the api
+     * @param imageSize how large you want the image. Good for lowering bandwithd
+     *
+     * @return the image bitmap or null if it was unsuccessful
+     */
     suspend fun getImage(
         mealName: String,
         imageSize: ImageSize = ImageSize.SMALL,
@@ -71,6 +82,14 @@ object Client {
         }
     }
 
+    /**
+     * obtain the image data given the meal name. This does not return the image bitmap and
+     * must be done with using [getImage]
+     *
+     * @param mealName name of the meal
+     *
+     * @return the [Meal] or null if it was unsuccessful
+     */
     suspend fun getMealByName(mealName: String): Meal? =
         try {
             val url =
@@ -96,6 +115,11 @@ object Client {
             null
         }
 
+    /**
+     * gets a random meal
+     *
+     * @return a [Meal] or null if it was unsuccessful
+     */
     suspend fun getRandomMeal(): Meal? =
         try {
             val url =
@@ -121,6 +145,11 @@ object Client {
             null
         }
 
+    /**
+     * similar to [getRandomMeals] but for several meals
+     *
+     * @param mutableMeals a list that it will append the results. The [Meal]s can be null
+     */
     suspend fun getRandomMeals(mutableMeals: SnapshotStateList<Meal?>) {
         try {
             val url =
@@ -150,6 +179,13 @@ object Client {
         }
     }
 
+    /**
+     * given a category (e.g beef, vegan, ...) it will fetch the meals from that category
+     * and append them to the list
+     *
+     * @param mutableMeals list to append the [Meal]s
+     * @param category
+     */
     suspend fun getMealByCategory(
         mutableMeals: SnapshotStateList<Meal?>,
         category: String,
@@ -183,6 +219,12 @@ object Client {
         }
     }
 
+    /**
+     * gets a list of [Meal]s that have the ingredient that the user chose
+     *
+     * @param mutableMeals to append the [Meal]s to
+     * @param ingredient the name of the ingredient
+     */
     suspend fun getMealByIngredient(
         mutableMeals: SnapshotStateList<Meal?>,
         ingredient: String,
@@ -213,5 +255,12 @@ object Client {
         }
     }
 
+    /**
+     * returns the ingredients seen on the image captured/uplaoded by the user
+     *
+     * @param imageUri captured/uploaded image
+     *
+     * @return guessed ingredients
+     */
     suspend fun getIngredientsFromImage(imageUri: Uri): List<String> = TODO("Not implemented yet!")
 }

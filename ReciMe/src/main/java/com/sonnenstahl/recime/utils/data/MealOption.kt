@@ -20,6 +20,12 @@ val MEAT_OPTION_NAMES: Array<String> =
         "Miscellaneous",
     )
 
+/**
+ * data class to describe the type of restrictions that user may want to impose
+ *
+ * @property name of the category/restriction
+ * @property isChosen if the user decides to include the meal option
+ */
 data class MealOption(
     val name: String,
     var isChosen: MutableState<Boolean> = mutableStateOf(false),
