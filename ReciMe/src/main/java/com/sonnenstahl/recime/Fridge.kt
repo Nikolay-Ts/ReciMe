@@ -51,6 +51,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -97,7 +98,7 @@ fun Fridge(navController: NavController) {
     var cameraView by remember { mutableStateOf(false) }
     var displayDialog by remember { mutableStateOf(false) }
     var ingredientDialog by remember { mutableStateOf<Ingredient>(Ingredient(name = "")) }
-
+    var lastClickTime by remember { mutableLongStateOf(0L) }
     var deleteAllDialog by remember { mutableStateOf(false) }
 
     val cameraPermission = Manifest.permission.CAMERA
@@ -144,17 +145,11 @@ fun Fridge(navController: NavController) {
     }
 
     BackHandler {
-        if (isSelectingMany) {
-            isSelectingMany = false
-            return@BackHandler
+        when {
+            displayDialog -> displayDialog = false
+            isSelectingMany -> isSelectingMany = false
+            else -> navController.popBackStack()
         }
-
-        if (displayDialog) {
-            displayDialog = false
-            return@BackHandler
-        }
-
-        navController.popBackStack()
     }
 
     Box(
@@ -163,7 +158,7 @@ fun Fridge(navController: NavController) {
                 .fillMaxSize()
                 .padding(top = 16.dp)
                 .padding(horizontal = 16.dp)
-                .clickable(
+                .combinedClickable(
                     enabled = isSelectingMany,
                     indication = null,
                     interactionSource = remember { NoRippleInteractionSource() },
@@ -175,6 +170,30 @@ fun Fridge(navController: NavController) {
                                 IngredientFileManager.saveData(context, ingredients.toList())
                             }
                         }
+                    },
+                    onDoubleClick = {
+                        if (isSelectingMany) {
+                            isSelectingMany = false
+                            ingredients.forEach { it.isSelected.value = false }
+                            coroutineScope.launch {
+                                IngredientFileManager.saveData(context, ingredients.toList())
+                            }
+                            return@combinedClickable
+                        }
+
+                        isSelectingMany = true
+                    },
+                    onLongClick = {
+                        if (isSelectingMany) {
+                            isSelectingMany = false
+                            ingredients.forEach { it.isSelected.value = false }
+                            coroutineScope.launch {
+                                IngredientFileManager.saveData(context, ingredients.toList())
+                            }
+                            return@combinedClickable
+                        }
+
+                        isSelectingMany = true
                     },
                 ),
     ) {
@@ -266,20 +285,42 @@ fun Fridge(navController: NavController) {
                                     .graphicsLayer(rotationZ = if (isSelectingMany) rotationAngle else 0f)
                                     .combinedClickable(
                                         onClick = {
+                                            val now = System.currentTimeMillis()
+                                            if (now - lastClickTime < 300) {
+                                                // Treat as double click, skip normal click
+                                                return@combinedClickable
+                                            }
+                                            lastClickTime = now
+
                                             if (isSelectingMany) {
                                                 ingredient.isSelected.value = !ingredient.isSelected.value
                                             }
-                                        },
-                                        onLongClick = {
-                                            isSelectingMany = !isSelectingMany
-                                            ingredient.isSelected.value = !ingredient.isSelected.value
+                                            if (ingredients.all { !it.isSelected.value }) {
+                                                isSelectingMany = false
+                                            }
                                         },
                                         onDoubleClick = {
+                                            lastClickTime = System.currentTimeMillis()
                                             displayDialog = true
                                             ingredientDialog = ingredient
                                         },
+                                        onLongClick = {
+                                            if (isSelectingMany) {
+                                                ingredients.forEach { it.isSelected.value = false }
+                                                isSelectingMany = false
+                                                return@combinedClickable
+                                            }
+
+                                            isSelectingMany = true
+                                            ingredient.isSelected.value = !ingredient.isSelected.value
+                                        }
                                     ),
-                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
+                            colors = CardDefaults.cardColors(
+                                containerColor = when (ingredient.isSelected.value) {
+                                    true -> MaterialTheme.colorScheme.secondary
+                                    false -> MaterialTheme.colorScheme.primary
+                                }
+                            ),
                             elevation = CardDefaults.cardElevation(pressedElevation = 10.dp),
                         ) {
                             Column(
@@ -310,11 +351,11 @@ fun Fridge(navController: NavController) {
                                         .offset(x = (-4).dp, y = (-4).dp)
                                         .size(24.dp)
                                         .background(
-                                            color = if (ingredient.isSelected.value) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surfaceVariant,
+                                            color = if (ingredient.isSelected.value) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.tertiary,
                                             shape = CircleShape,
                                         ).border(
                                             width = 2.dp,
-                                            color = if (ingredient.isSelected.value) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                            color = if (ingredient.isSelected.value) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.tertiary,
                                             shape = CircleShape,
                                         ),
                             )
@@ -399,6 +440,7 @@ fun Fridge(navController: NavController) {
                             alpha = fabAlpha
                         }.padding(end = 16.dp, bottom = 16.dp)
                         .size(48.dp),
+                containerColor = MaterialTheme.colorScheme.primary,
             ) {
                 val bitmap =
                     remember {
@@ -441,6 +483,7 @@ fun Fridge(navController: NavController) {
                             alpha = fabAlpha
                         }.padding(end = 16.dp, bottom = 16.dp)
                         .size(48.dp),
+                containerColor = MaterialTheme.colorScheme.primary,
             ) {
                 Icon(Icons.Filled.Delete, contentDescription = "Delete Selected")
             }
@@ -478,6 +521,7 @@ fun Fridge(navController: NavController) {
                             alpha = fabAlpha
                         }.padding(end = 16.dp, bottom = 16.dp)
                         .size(48.dp),
+                containerColor = MaterialTheme.colorScheme.primary,
             ) {
                 Icon(Icons.Filled.Search, contentDescription = "Search for Recipes")
             }

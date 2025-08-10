@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.sonnenstahl.recime.ui.theme.RecipesBackground
+import com.sonnenstahl.recime.ui.theme.PrimaryTeal
 import com.sonnenstahl.recime.utils.data.Meal
 
 /**
@@ -82,7 +82,7 @@ fun RecipesList(
                             .height(90.dp)
                             .padding(vertical = 10.dp)
                             .clip(RoundedCornerShape(12.dp))
-                            .background(RecipesBackground)
+                            .background(PrimaryTeal)
                             .clickable { onClick(meal) },
                     contentAlignment = Alignment.Center,
                 ) {
