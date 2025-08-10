@@ -1,6 +1,9 @@
 package com.sonnenstahl.recime
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -12,12 +15,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -51,6 +56,7 @@ import com.sonnenstahl.recime.utils.data.Meal
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import androidx.core.net.toUri
 
 /**
  * This view is to show the [Meal] that is chosen by the user. The view fetches the [Meal] from
@@ -160,6 +166,7 @@ fun Recipe(
             Button(
                 onClick = { isRecipeDisplayed = !isRecipeDisplayed },
                 modifier = Modifier.padding(top = 16.dp),
+                shape = RoundedCornerShape(12.dp),
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text("Ingredients")
@@ -216,49 +223,83 @@ fun Recipe(
             }
         }
 
-        Row(
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 50.dp),
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            val buttonModifier = Modifier.padding(horizontal = 10.dp)
 
-            OutlinedButton(
-                modifier = buttonModifier,
-                onClick = {
-                    TempStorage.updateIngredients(emptyList())
-                    navController.navigate(AppRoutes.Home.route)
-                },
-            ) { Text("Back Home") }
 
-            Button(
-                modifier = buttonModifier,
-                onClick = {
-                    coroutine.launch {
-                        val existingFridgeIngredients = IngredientFileManager.loadData(context).toMutableList()
-                        val currentMealIngredientNames = meal.value?.ingredients.orEmpty()
-                        val newIngredientsToAdd = mutableListOf<Ingredient>()
-                        currentMealIngredientNames.forEach { newIngredientName ->
-                            if (existingFridgeIngredients.none { it.name.equals(newIngredientName, ignoreCase = true) }) {
-                                newIngredientsToAdd.add(
-                                    Ingredient(name = newIngredientName, isSelected = mutableStateOf(false)),
-                                )
-                            } else {
-                                Log.d("Recipe", "Skipping '$newIngredientName' as it's already in fridge.")
-                            }
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 50.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    // Centered YouTube button (only if a link exists)
+                    if (!meal.value?.strYoutube.isNullOrBlank()) {
+                        Button(
+                            onClick = {
+                                val url = meal.value!!.strYoutube!!
+                                val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+                                    setPackage("com.google.android.youtube")
+                                }
+                                val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                try {
+                                    context.startActivity(appIntent)
+                                } catch (_: ActivityNotFoundException) {
+                                    context.startActivity(webIntent)
+                                }
+                            },
+                            modifier = Modifier
+                                .align(Alignment.CenterHorizontally)
+                                .padding(horizontal = 16.dp, vertical = 8.dp),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Icon(Icons.Filled.PlayArrow, contentDescription = "YouTube")
+                            Spacer(Modifier.width(8.dp))
+                            Text("Watch on YouTube")
                         }
-
-                        existingFridgeIngredients.addAll(newIngredientsToAdd)
-                        IngredientFileManager.saveData(context, existingFridgeIngredients)
-                        TempStorage.updateChosenMeal(null)
-                        TempStorage.updateIngredients(emptyList())
-
-                        navController.navigate(AppRoutes.Fridge.route)
                     }
-                },
-            ) { Text("Add to Fridge") }
-        }
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        val buttonModifier = Modifier.padding(horizontal = 10.dp)
+
+                        OutlinedButton(
+                            modifier = buttonModifier,
+                            onClick = {
+                                TempStorage.updateIngredients(emptyList())
+                                navController.navigate(AppRoutes.Home.route)
+                            },
+                            shape = RoundedCornerShape(12.dp),
+                        ) { Text("Back Home") }
+
+                        Button(
+                            modifier = buttonModifier,
+                            onClick = {
+                                coroutine.launch {
+                                    val existingFridgeIngredients = IngredientFileManager.loadData(context).toMutableList()
+                                    val currentMealIngredientNames = meal.value?.ingredients.orEmpty()
+                                    val newIngredientsToAdd = mutableListOf<Ingredient>()
+                                    currentMealIngredientNames.forEach { newIngredientName ->
+                                        if (existingFridgeIngredients.none { it.name.equals(newIngredientName, ignoreCase = true) }) {
+                                            newIngredientsToAdd.add(
+                                                Ingredient(name = newIngredientName, isSelected = mutableStateOf(false)),
+                                            )
+                                        } else {
+                                            Log.d("Recipe", "Skipping '$newIngredientName' as it's already in fridge.")
+                                        }
+                                    }
+
+                                    existingFridgeIngredients.addAll(newIngredientsToAdd)
+                                    IngredientFileManager.saveData(context, existingFridgeIngredients)
+                                    TempStorage.updateChosenMeal(null)
+                                    TempStorage.updateIngredients(emptyList())
+
+                                    navController.navigate(AppRoutes.Fridge.route)
+                                }
+                            },
+                            shape = RoundedCornerShape(12.dp),
+                        ) { Text("Add to Fridge") }
+                    }
+                }
     }
 }

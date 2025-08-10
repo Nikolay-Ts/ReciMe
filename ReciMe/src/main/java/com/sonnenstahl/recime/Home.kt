@@ -288,7 +288,7 @@ fun Home(navigation: NavHostController) {
                 Modifier
                     .align(Alignment.BottomCenter)
                     .padding(bottom = 36.dp),
-            shape = RoundedCornerShape(24.dp),
+            shape = RoundedCornerShape(12.dp),
         ) {
             Text("Surprise Me")
         }
