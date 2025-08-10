@@ -30,9 +30,15 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * The view that allows the user to take an image or upload one from their device that is sent
+ * to the backend and then returns a list of the ingredients
+ *
+ * @param onDismiss function when loosing focus
+ * @param onImageCaptured function to send the data to the backend
+ */
 @Composable
 fun IngredientCamera(
-    navController: NavController,
     onDismiss: () -> Unit,
     onImageCaptured: (Uri) -> Unit,
 ) {

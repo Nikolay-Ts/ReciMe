@@ -85,6 +85,13 @@ class NoRippleInteractionSource : MutableInteractionSource {
     override fun tryEmit(interaction: Interaction): Boolean = true
 }
 
+/**
+ * the view that shows all of the ingredients that the user has or has added either from
+ * [AddIngredients] or from the [Recipe] views. The user can also navigate to the
+ * [IngredientCamera] view to take/load an image
+ *
+ * @param navController to navigate to the other views
+ */
 @Composable
 fun Fridge(navController: NavController) {
     val context = LocalContext.current
@@ -138,7 +145,7 @@ fun Fridge(navController: NavController) {
     }
 
     if (cameraView) {
-        IngredientCamera(navController, onDismiss = { cameraView = false }) { uri ->
+        IngredientCamera(onDismiss = { cameraView = false }) { uri ->
             Log.d("Camera", "Image captured at: $uri")
         }
         return

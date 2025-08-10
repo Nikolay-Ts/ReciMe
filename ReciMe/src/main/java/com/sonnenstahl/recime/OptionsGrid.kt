@@ -32,6 +32,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sonnenstahl.recime.utils.data.MealOption
 
+/**
+ * a grid to display the options that the user has. Loads the data lazily
+ *
+ * @param options such as meats or meal time
+ * @param columns the amount of columns the person wants to display. The rows can be infinite
+ * @onclick onClick usually to mark the currently selected option as on
+ */
 @Composable
 fun OptionsGrid(
     options: List<MealOption>,

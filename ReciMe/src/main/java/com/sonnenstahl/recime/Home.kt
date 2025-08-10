@@ -50,6 +50,13 @@ import com.sonnenstahl.recime.utils.isConnectedToInternet
 import com.sonnenstahl.recime.utils.vibrateAndShowToast
 import kotlinx.coroutines.delay
 
+/**
+ * The default view that the user sees when entering the app. The view has a daily [Meal],
+ * alongside the option to either go to the [Fridge] or [RecipeFinder]. Another option is to
+ * chose random meals which sends the user to the [Recipes]
+ *
+ * @param navigation the NavHostController to navigate between views
+ */
 @Composable
 fun Home(navigation: NavHostController) {
     val context = LocalContext.current

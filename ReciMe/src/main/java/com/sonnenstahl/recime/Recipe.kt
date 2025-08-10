@@ -52,10 +52,18 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+/**
+ * This view is to show the [Meal] that is chosen by the user. The view fetches the [Meal] from
+ * the backend but if it was seen again without going home it will load it from the [TempStorage]
+ * to prevent unnecessary fetch requests
+ *
+ * @param navController to navigate between views
+ * @param mealName name of the chosen [Meal]
+ */
 @Composable
 fun Recipe(
     navController: NavController,
-    name: String?,
+    mealName: String?,
 ) {
     val context = LocalContext.current
     val coroutine = rememberCoroutineScope()
@@ -86,10 +94,10 @@ fun Recipe(
                 ingredients.addAll(tempMeal.ingredients ?: emptyList())
                 Log.d("INGREDIENTS", "Fetched: ${tempMeal.ingredients}")
             }
-        } else if (name == null) {
+        } else if (mealName == null) {
             meal.value = Client.getRandomMeal()
         } else {
-            meal.value = Client.getMealByName(name)
+            meal.value = Client.getMealByName(mealName)
         }
 
         ingredients.addAll(meal.value?.ingredients ?: emptyList())

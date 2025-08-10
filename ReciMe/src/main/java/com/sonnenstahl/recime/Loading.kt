@@ -30,6 +30,11 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 
+/**
+ * A subview used to display a little animation while the data is being fetched from the backend
+ *
+ * @param modifier to change the height, width, etc for each view
+ */
 @Composable
 fun Loading(modifier: Modifier = Modifier.fillMaxSize()) {
     val infiniteTransition = rememberInfiniteTransition(label = "rotation_animation")

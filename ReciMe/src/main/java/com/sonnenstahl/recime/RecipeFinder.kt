@@ -35,6 +35,15 @@ import com.sonnenstahl.recime.utils.data.disableVegan
 import com.sonnenstahl.recime.utils.data.initMealTypeOptions
 import com.sonnenstahl.recime.utils.data.initMeatOptions
 
+/**
+ * This view allws the use to choose by name a dish they had seen before or think exists. Also this
+ * view allows the user to add restrictions or preferences such as vegan, seafood only, along side
+ * if they a main dish, breakfast...
+ *
+ * if the user choses nothing and continues to [Recipes] the [Meal]s are chosen at random
+ *
+ * @param navController to navigate between views
+ */
 @Composable
 fun RecipeFinder(navController: NavController) {
     var mealName by remember { mutableStateOf("") }

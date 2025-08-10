@@ -7,6 +7,9 @@ import androidx.navigation.compose.rememberNavController
 import com.sonnenstahl.recime.utils.AppRoutes
 import com.sonnenstahl.recime.utils.data.SearchType
 
+/**
+ * the navigation graph which connects the URL to the composable function
+ */
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
@@ -17,7 +20,7 @@ fun Navigation() {
 
         composable("${AppRoutes.Recipe.route}/{name}") { backStackEntry ->
             val name = backStackEntry.arguments?.getString("name")
-            Recipe(navController = navController, name = name)
+            Recipe(navController = navController, mealName = name)
         }
 
         composable(AppRoutes.RecipeFinder.route) {

@@ -16,6 +16,7 @@ import com.sonnenstahl.recime.utils.data.Ingredient
 /**
  * small popup when the delete option in [Fridge] is selected without selecting any dishes
  *
+ * @param context
  * @param ingredients the whole list that will be deleted
  * @param onDismiss to do when exiting the screen and deleting all the ingredients
  */
